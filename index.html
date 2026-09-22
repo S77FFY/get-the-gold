@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=1,user-scalable=no">
 <meta name="app-repo" content="get-the-gold">
-<meta name="app-version" content="1.0.12">
+<meta name="app-version" content="1.0.13">
 <meta name="theme-color" content="#2a1d10">
 <title>Get the Gold</title>
 <style>
@@ -305,6 +305,59 @@ h2{color:var(--txt)}
 .ovth{align-items:flex-end}.ovth span{display:flex;flex-direction:column;align-items:center;gap:1px}.ovth .op{display:block;font-style:normal}
 .bubble.tap{animation:tapme 1s ease-in-out infinite;cursor:pointer}
 @keyframes tapme{50%{box-shadow:2px 3px 0 #000,0 0 0 4px rgba(217,161,43,.55)}}
+
+/* ===== v1.0.13 fixed chrome: header + footer stay put, only the middle scrolls ===== */
+html,body{height:100%;overflow:hidden}
+#app{height:100vh;height:100dvh;min-height:0;overflow:hidden}
+#bar{position:relative;flex:0 0 auto}
+#top{flex:0 0 auto;padding:10px 15px 0;background:linear-gradient(#221d18,#221d18ee);z-index:4;box-shadow:0 6px 8px -6px #000}
+#top .hud{margin-bottom:8px}
+#screen{flex:1 1 auto;min-height:0;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding-bottom:16px}
+#foot{flex:0 0 auto;padding:8px 15px calc(env(safe-area-inset-bottom) + 10px);background:#1a1613;border-top:2px solid #000;box-shadow:0 -6px 10px -4px #000a;z-index:5}
+#foot>.btn:first-child,#foot>.tray:first-child{margin-top:0}
+#foot .btn{margin-top:8px}#foot .row2 .btn{margin-top:8px}
+#foot .tray{padding:9px 7px 7px}
+#ver{bottom:calc(env(safe-area-inset-bottom) + 2px)}
+#bar .snd{padding:4px 6px}
+.chip.hot{background:linear-gradient(#7a2a1a,#4e170d);color:#fff;animation:pulse .6s infinite}
+.lost{display:none;align-items:center;justify-content:center;gap:5px;font-size:13px;font-weight:800;color:#e07a5a;letter-spacing:.04em;margin:2px 0 4px}
+.lost.on{display:flex}.lost svg{width:16px;height:16px}.lost b{font-size:16px;color:#ff9a78}
+/* tablets in portrait: a little roomier */
+@media (min-width:700px){#app{max-width:700px}}
+/* ===== wide / landscape (iPad and up) ===== */
+#app.wide{max-width:1500px}
+#app.wide #screen{padding:14px 22px 18px}
+#app.wide:not(.full) #screen>*{max-width:760px;margin-left:auto;margin-right:auto}
+#app.wide #foot{display:flex;justify-content:center;gap:12px}
+#app.wide #foot>*{width:100%;max-width:520px}
+#app.wide #foot>.btn+.btn{max-width:260px;margin-top:0}
+#app.wide #foot>.btn{margin-top:0}
+#screen.wgrid{display:grid;grid-template-columns:minmax(0,1fr) 268px;gap:18px;align-items:start}
+.wmain{min-width:0;display:flex;flex-direction:column;align-items:center}
+.wmain>.hud{align-self:stretch}.wmain>.plantrow,.wmain>.prog{align-self:stretch}
+.wmain .stage{width:auto;display:inline-block}
+.wmain .stage canvas{width:auto}
+.wside{position:sticky;top:0;display:flex;flex-direction:column;gap:10px;min-height:calc(100dvh - 120px)}
+.wside .crewline{margin:0}
+.wside .bubble{font-size:14px;min-height:64px}
+.wside .tray{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:14px 12px 12px}
+.wside .tile{min-height:78px}
+.wside .wbtns{margin-top:auto}
+.wside .wbtns .btn{margin-top:8px}
+.wside .row2{flex-wrap:nowrap}
+#app.wide .prog{margin-top:28px}
+/* map: two chapters side by side */
+#app.wide #screen.mapg{display:grid;grid-template-columns:1fr 1fr;gap:4px 18px;align-content:start}
+#app.wide #screen.mapg>*{max-width:none;margin-left:0;margin-right:0}
+#app.wide #screen.mapg>.maphead{grid-column:1/-1;max-width:760px;justify-self:center;width:100%}
+/* claim card: photo left, goals right */
+#app.wide #screen.introg .deed{display:grid;grid-template-columns:auto 1fr;column-gap:22px;align-items:center;max-width:900px;text-align:center}
+#app.wide #screen.introg{}
+#app.wide #screen.introg>*{max-width:900px}
+#app.wide .introg .deed .dch,#app.wide .introg .deed .dname,#app.wide .introg .deed .dloc{grid-column:1/-1}
+#app.wide .introg .deed .photo{grid-column:1;grid-row:4/span 3;justify-self:center}
+#app.wide .introg .deed .dgl,#app.wide .introg .deed .dgoals,#app.wide .introg .deed .dmeta{grid-column:2}
+#app.wide .introg .dg{max-width:150px}
 </style>
 </head>
 <body>
@@ -312,14 +365,17 @@ h2{color:var(--txt)}
   <header id="bar">
     <button class="back" id="back" style="display:none"><svg viewBox="0 0 24 24" width="20" height="20"><path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/></svg></button>
     <h1>GET THE GOLD</h1>
+    <button class="back snd" id="snd" aria-label="Sound"></button>
     <span class="bank" id="bank"></span>
   </header>
+  <div id="top"></div>
   <main id="screen"></main>
+  <footer id="foot"></footer>
 </div>
-<div id="ver">v1.0.12</div>
+<div id="ver">v1.0.13</div>
 <script>
 "use strict";
-const VERSION="1.0.12";
+const VERSION="1.0.13";
 /*__ENGINE_START__*/
 const COLS=10,YMAX=11,YMIN=-3,TREE_H=3;
 const GR={0:0,1:0.9,2:1.8,3:3.0};
@@ -1281,21 +1337,74 @@ const scr=document.getElementById("screen"),bankEl=document.getElementById("bank
 function fmt(n){return (Math.round(n*10)/10).toFixed(1);}
 function syncBar(showBack){bankEl.innerHTML=ICON.nugget+"<b>"+fmt(bankOz())+"</b>";backEl.style.display=showBack?"":"none";}
 backEl.onclick=()=>screenMap();
-function h(html){
+const topEl=document.getElementById("top"),footEl=document.getElementById("foot"),appEl=document.getElementById("app");
+function WIDE(){return innerWidth>=900&&innerWidth>innerHeight;}
+let CUR=null; // {re: re-render fn} for layout changes
+function h(html,o){o=o||{};
   if(window.__raf){cancelAnimationFrame(window.__raf);window.__raf=null;}
   if(window.__int){clearInterval(window.__int);window.__int=null;}
   document.querySelectorAll(".float").forEach(e=>e.remove());
-  scr.innerHTML=html;window.scrollTo(0,0);}
-function $(s){return scr.querySelector(s);}
-function fit(cv,w,ht){const d=Math.min(devicePixelRatio||1,2.5);cv.style.height=ht+"px";
+  CUR={re:o.re||null,w:innerWidth,h:innerHeight,wide:WIDE()};
+  appEl.classList.toggle("wide",CUR.wide);appEl.classList.toggle("full",!!o.full);
+  topEl.innerHTML=o.top||"";topEl.style.display=o.top?"":"none";
+  footEl.innerHTML=o.foot||"";footEl.style.display=o.foot?"":"none";
+  scr.className=o.cls||"";scr.innerHTML=html;scr.scrollTop=0;window.scrollTo(0,0);}
+let rsz=null;addEventListener("resize",()=>{clearTimeout(rsz);rsz=setTimeout(()=>{
+  if(!CUR||!CUR.re)return;if(WIDE()!==CUR.wide||Math.abs(innerWidth-CUR.w)>40||(CUR.wide&&Math.abs(innerHeight-CUR.h)>60))CUR.re();},250);});
+function $$(s){return appEl.querySelectorAll(s);}
+function $(s){return scr.querySelector(s)||footEl.querySelector(s)||topEl.querySelector(s);}
+function fit(cv,w,ht){const d=Math.min(devicePixelRatio||1,2.5);cv.style.height=ht+"px";if(cv.closest(".wmain"))cv.style.width=w+"px";
   cv.width=Math.round(w*d);cv.height=Math.round(ht*d);const g=cv.getContext("2d");g.setTransform(d,0,0,d,0,0);return g;}
 function rnd32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);
   t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
 function loop(fn){const step=()=>{fn();window.__raf=requestAnimationFrame(step);};window.__raf=requestAnimationFrame(step);}
-function W0(){return Math.min(490,scr.clientWidth-30);}
+function CW(){const cs=getComputedStyle(scr);return scr.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight);}
+function W0(){return Math.min(innerWidth>=700?660:490,CW());}
+// big stage for wide build/run layouts: fill the left column but keep it on screen
+function WS(){const cs=getComputedStyle(scr),hh=scr.clientHeight-parseFloat(cs.paddingTop)-parseFloat(cs.paddingBottom);
+  return Math.max(320,Math.floor(Math.min(CW()-SIDE-18,(hh-(topEl.offsetHeight?0:58)-66)/0.7)));}
+const SIDE=268;
 function clone(o){return JSON.parse(JSON.stringify(o));}
 function starRow(n,cls){let s="";for(let i=0;i<3;i++)s+=`<span class="${cls||"sm"} ${i<n?"on":""}">${ICON.star}</span>`;return s;}
 function addMiner(sel,w,hh,mood){const cv=minerCanvas(crewOf().look,w,hh,mood);const el=$(sel);if(el)el.appendChild(cv);return cv;}
+
+
+/* =============== SOUND (Web Audio, synthesised) =============== */
+const SND=(()=>{let ac=null,noise=null;
+  function ctx(){if(!ac){const A=window.AudioContext||window.webkitAudioContext;if(!A)return null;ac=new A();
+      const n=ac.createBuffer(1,ac.sampleRate*0.6,ac.sampleRate),d=n.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1;noise=n;}
+    if(ac.state==="suspended")ac.resume();return ac;}
+  const on=()=>S.snd!==false;
+  function env(a,t,peak,att,dec){const gn=a.createGain();gn.gain.setValueAtTime(0.0001,t);gn.gain.exponentialRampToValueAtTime(peak,t+att);
+    gn.gain.exponentialRampToValueAtTime(0.0001,t+att+dec);gn.connect(a.destination);return gn;}
+  function tone(a,type,f,t,peak,att,dec,f2){const o=a.createOscillator();o.type=type;o.frequency.setValueAtTime(f,t);
+    if(f2)o.frequency.exponentialRampToValueAtTime(f2,t+att+dec);o.connect(env(a,t,peak,att,dec));o.start(t);o.stop(t+att+dec+0.05);}
+  function hiss(a,t,peak,dec,freq,Q,type){const s=a.createBufferSource();s.buffer=noise;const f=a.createBiquadFilter();f.type=type||"bandpass";
+    f.frequency.value=freq;f.Q.value=Q||1;s.connect(f);f.connect(env(a,t,peak,0.004,dec));s.start(t);s.stop(t+dec+0.05);}
+  // metal-on-metal clank + two-tone klaxon
+  function alarm(urgent){if(!on())return;const a=ctx();if(!a)return;const t=a.currentTime+0.01;
+    if(!urgent){hiss(a,t,0.5,0.22,1900,2.5);[311,587,1244,2093].forEach((f,i)=>tone(a,"triangle",f,t,0.22/(i+1),0.003,0.7-i*0.12));
+      tone(a,"sine",90,t,0.4,0.005,0.25,45);}
+    const st=urgent?t:t+0.22;
+    for(let i=0;i<(urgent?4:3);i++){const f=i%2?470:620,t1=st+i*0.19;
+      const o=a.createOscillator(),lp=a.createBiquadFilter();o.type="square";o.frequency.value=f;lp.type="lowpass";lp.frequency.value=1800;
+      o.connect(lp);const gn=a.createGain();gn.gain.setValueAtTime(0.0001,t1);gn.gain.exponentialRampToValueAtTime(0.13,t1+0.015);
+      gn.gain.setValueAtTime(0.13,t1+0.15);gn.gain.exponentialRampToValueAtTime(0.0001,t1+0.18);lp.connect(gn);gn.connect(a.destination);o.start(t1);o.stop(t1+0.2);}}
+  function wrench(){if(!on())return;const a=ctx();if(!a)return;const t=a.currentTime+0.01;
+    for(let i=0;i<5;i++)hiss(a,t+i*0.09,0.35,0.035,3200,4,"bandpass");}
+  function fixed(){if(!on())return;const a=ctx();if(!a)return;const t=a.currentTime+0.01;
+    const o=a.createOscillator(),lp=a.createBiquadFilter();o.type="sawtooth";o.frequency.setValueAtTime(55,t);o.frequency.exponentialRampToValueAtTime(120,t+0.45);
+    o.frequency.exponentialRampToValueAtTime(85,t+0.8);lp.type="lowpass";lp.frequency.value=600;o.connect(lp);lp.connect(env(a,t,0.22,0.08,0.75));o.start(t);o.stop(t+0.9);
+    tone(a,"triangle",1318,t+0.05,0.08,0.005,0.35);}
+  function unlock(){const a=ctx();if(!a)return;const b=a.createBuffer(1,1,22050),s=a.createBufferSource();s.buffer=b;s.connect(a.destination);s.start(0);}
+  return{alarm,wrench,fixed,unlock,stop(){}};})();
+["pointerdown","touchend","click"].forEach(ev=>document.addEventListener(ev,()=>{if(S.snd!==false)SND.unlock();},{once:true,capture:true}));
+const sndEl=document.getElementById("snd");
+function syncSnd(){sndEl.innerHTML=`<svg viewBox="0 0 24 24" width="20" height="20"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/>${S.snd===false?
+  '<path d="M16 9l5 6M21 9l-5 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>':
+  '<path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>'}</svg>`;
+  sndEl.setAttribute("aria-label",S.snd===false?"Sound off":"Sound on");}
+sndEl.onclick=()=>{S.snd=S.snd===false;save();syncSnd();if(S.snd!==false){SND.unlock();SND.fixed();}};
 
 /* =============== TITLE =============== */
 function screenTitle(){
@@ -1304,10 +1413,9 @@ function screenTitle(){
   h(`<div class="title">
       <div class="logo"><span class="l1">GET THE</span><span class="l2">GOLD!</span></div>
       <div class="stage"><canvas id="tc"></canvas></div>
-      <button class="btn go huge pulse" id="go">${ICON.play}<span>PLAY</span></button>
-      ${has?'<button class="btn ghost" id="wipe">New game</button>':""}
-     </div>`);
-  const cv=$("#tc"),W=W0(),H=Math.round(W*0.78),g=fit(cv,W,H),L=crewOf().look,t0=performance.now();
+     </div>`,{re:screenTitle,foot:`<button class="btn go huge pulse" id="go">${ICON.play}<span>PLAY</span></button>
+      ${has?'<button class="btn ghost" id="wipe">New game</button>':""}`});
+  const cv=$("#tc"),W=Math.floor(Math.min(W0(),Math.max(260,(scr.clientHeight-(WIDE()?150:190))/0.78))),H=Math.round(W*0.78),g=fit(cv,W,H),L=crewOf().look,t0=performance.now();
   const nug=[];const r=rnd32(5);for(let i=0;i<14;i++)nug.push([W*0.5+(r()-0.5)*W*0.7,H-26-r()*14,4+r()*6]);
   loop(()=>{const t=(performance.now()-t0)/1000;
     const sk=g.createLinearGradient(0,0,0,H);sk.addColorStop(0,"#5f727c");sk.addColorStop(1,"#c2b294");g.fillStyle=sk;g.fillRect(0,0,W,H);
@@ -1336,9 +1444,8 @@ function screenCrew(){
   h(`<div class="h1">PICK YOUR CREW</div>
      <div class="crews">${CREWS.map((c,i)=>{const o=crewOpen(c);return `<button class="crew ${o?"":"locked"}" data-i="${i}"><div class="pt"></div>
        <b>${o?c.name.replace("The ",""):"???"}</b>${o?"":`<span class="need">${ICON.star}${c.unlock}</span>`}</button>`;}).join("")}</div>
-     <div class="card detail" id="cd"></div>
-     <button class="btn go big" id="ok">LET'S GO!</button>`);
-  const cards=scr.querySelectorAll(".crew");
+     <div class="card detail" id="cd"></div>`,{re:screenCrew,foot:`<button class="btn go big" id="ok">LET'S GO!</button>`});
+  const cards=$$(".crew");
   cards.forEach((b,i)=>{b.querySelector(".pt").appendChild(minerCanvas(CREWS[i].look,78,88,"grin",!crewOpen(CREWS[i])));b.onclick=()=>{pick=i;show();};});
   let big=null;
   function show(){cards.forEach((b,i)=>b.classList.toggle("sel",i===pick));const c=CREWS[pick],o=crewOpen(c);
@@ -1389,15 +1496,15 @@ function screenMap(){
           return `<button class="pin ${st?"done":o2?"open":"lock"}" data-i="${i}" style="left:${c.mx}%;top:${c.my}%">
             ${o2?`<b>${c.name}</b><span class="ps">${starRow(st,"xs")}</span>`:ICON.lock}</button>`;}).join("")}
         </div></div>`;}).join("")}
-     ${Object.keys(S.stars).length?`<button class="btn ghost" id="pros">${ICON.pan}<span>Go prospecting</span></button>`:""}`);
+     `,{re:screenMap,cls:"mapg",foot:Object.keys(S.stars).length?`<button class="btn ghost" id="pros">${ICON.pan}<span>Go prospecting</span></button>`:""});
   addMiner("#mnw",64,74,"grin");
-  scr.querySelectorAll(".strip canvas").forEach(cv=>{const W=W0(),g=fit(cv,W,120);drawRegion(g,W,120,cv.dataset.r,+cv.dataset.s);});
-  scr.querySelectorAll(".pin").forEach(b=>b.onclick=()=>{const i=+b.dataset.i;if(!claimOpen(i))return;S.claim=i;save();screenIntro();});
+  $$(".strip canvas").forEach(cv=>{const W=Math.floor(cv.parentElement.clientWidth-4),g=fit(cv,W,120);drawRegion(g,W,120,cv.dataset.r,+cv.dataset.s);});
+  $$(".pin").forEach(b=>b.onclick=()=>{const i=+b.dataset.i;if(!claimOpen(i))return;S.claim=i;save();screenIntro();});
   $("#crew").onclick=()=>screenCrew();
   if($("#pros"))$("#pros").onclick=()=>{const kinds=["pan","det","opal","dive"];
     startMini(kinds[Math.floor(Math.random()*4)],oz=>{S.mini+=oz*(crewOf().P.miniMul||1);save();screenMap();});};
   const firstOpen=CLAIMS.findIndex((c,i)=>claimOpen(i)&&!S.stars[c.id]);
-  if(firstOpen>2){const el=scr.querySelector(`.pin[data-i="${firstOpen}"]`);if(el)el.scrollIntoView({block:"center"});}
+  if(firstOpen>2){const el=scr.querySelector(`.pin[data-i="${firstOpen}"]`);if(el)el.closest(".region").scrollIntoView({block:"center"});}
 }
 
 /* =============== INTRO =============== */
@@ -1417,11 +1524,11 @@ function screenIntro(){
          <span class="dgs">${ICON.star.repeat(i+1)}</span><b>${v}<small> oz</small></b><em>${names[i]}</em></div>`).join("")}</div>
        ${S.best[C.id]?`<div class="dmeta">Your best: <b>${fmt(S.best[C.id])} oz</b></div>`:""}
      </div>
-     <div class="crewline"><div id="mnw"></div><div class="bubble">${C.tip}</div></div>
-     <div class="playbar"><button class="btn go huge pulse" id="b">${ICON.play}<span>PLAY</span></button></div>`);
+     <div class="crewline"><div id="mnw"></div><div class="bubble">${C.tip}</div></div>`,
+     {re:screenIntro,cls:"introg",foot:`<button class="btn go huge pulse" id="b">${ICON.play}<span>PLAY</span></button>`});
   addMiner("#mnw",56,70,"grin");
-  scr.querySelectorAll(".dpile").forEach(el=>el.appendChild(goldPileCanvas(+el.dataset.l,76,44)));
-  const cv=$("#pv"),W=Math.round(W0()*0.7),G=geo(W),g=fit(cv,W,G.H);
+  $$(".dpile").forEach(el=>el.appendChild(goldPileCanvas(+el.dataset.l,76,44)));
+  const cv=$("#pv"),W=Math.round(WIDE()?Math.min(430,(scr.clientHeight-90)/0.7*0.9):W0()*0.7),G=geo(W),g=fit(cv,W,G.H);
   g.drawImage(terrain(C,G),0,0,W,G.H);
   C.trees.forEach(c=>drawTrees(g,G,C,c,PAL[C.region],null,0));
   $("#b").onclick=()=>screenBuild();
@@ -1436,20 +1543,22 @@ function screenBuild(){
   if(B.ptype==="shk"&&!kit.shaker)B.ptype="trm";
   syncBar(true);
   const tiles=kitTiles(C,U).map(x=>x[0]);
-  h(`<div class="hud">
+  const hud=`<div class="hud">
        <span class="chip tgt"><span class="tp"></span><small>target</small><b>${C.s[0]}</b><small>oz</small></span>
        <span class="chip">${ICON.sun}<b id="hd"></b><small>days</small></span>
        <span class="chip">${starRow(S.stars[C.id]||0,"xs")}</span>
-     </div>
-     <div class="stage" id="stage"><canvas id="gd"></canvas></div>
-     <div class="plantrow" id="pr"></div>
-     <div class="crewline"><div id="mnw"></div><div class="bubble" id="bb"></div></div>
-     <div class="tray" id="tray">${tiles.map(k=>`<div class="tile" data-k="${k}"><span class="badge"></span></div>`).join("")}</div>
-     <div class="row2"><button class="btn round" id="wipe">${ICON.reset}</button>
-       <button class="btn go big" id="run">${ICON.play}<span>RUN SEASON</span></button></div>`);
-  const trayEl=$("#tray"),cv=$("#gd"),W=W0(),G=geo(W),g=fit(cv,W,G.H),mn=addMiner("#mnw",60,76,"grin");
-  scr.querySelectorAll("#tray .tile").forEach(t=>t.appendChild(iconCanvas(t.dataset.k,C,46,36)));
-  scr.querySelector(".tgt .tp").appendChild(goldPileCanvas(1,30,22));
+     </div>`,
+    tray=`<div class="tray" id="tray">${tiles.map(k=>`<div class="tile" data-k="${k}"><span class="badge"></span></div>`).join("")}</div>`,
+    btns=`<div class="row2"><button class="btn round" id="wipe">${ICON.reset}</button>
+       <button class="btn go big" id="run">${ICON.play}<span>RUN SEASON</span></button></div>`,
+    crew=`<div class="crewline"><div id="mnw"></div><div class="bubble" id="bb"></div></div>`,wide=WIDE();
+  if(wide)h(`<div class="wmain">${hud}<div class="stage" id="stage"><canvas id="gd"></canvas></div><div class="plantrow" id="pr"></div></div>
+     <div class="wside">${crew}${tray}<div class="wbtns">${btns}</div></div>`,{re:screenBuild,full:1,cls:"wgrid"});
+  else h(`<div class="stage" id="stage"><canvas id="gd"></canvas></div>
+     <div class="plantrow" id="pr"></div>${crew}`,{re:screenBuild,top:hud,foot:tray+btns});
+  const trayEl=$("#tray"),cv=$("#gd"),W=wide?WS():W0(),G=geo(W),g=fit(cv,W,G.H),mn=addMiner("#mnw",60,76,"grin");
+  $$("#tray .tile").forEach(t=>t.appendChild(iconCanvas(t.dataset.k,C,wide?64:46,wide?48:36)));
+  $(".tgt .tp").appendChild(goldPileCanvas(1,30,22));
   const floatEl=document.createElement("div");floatEl.className="float";document.body.appendChild(floatEl);
   let drag=null,tmsg=null,R=evaluate(C,B,U),T=0;const t0=performance.now(),puffs=[];
 
@@ -1464,7 +1573,7 @@ function screenBuild(){
     const bb=$("#bb");if(!bb)return;
     bb.textContent=tmsg?tmsg.txt:hint();bb.classList.toggle("bad",!!tmsg&&tmsg.mood==="worry");
     $("#hd").textContent=R.days;
-    scr.querySelectorAll("#tray .tile").forEach(t=>{const k=t.dataset.k,b=t.querySelector(".badge");let txt,done=placed(k),full=false;
+    $$("#tray .tile").forEach(t=>{const k=t.dataset.k,b=t.querySelector(".badge");let txt,done=placed(k),full=false;
       if(k==="wat"&&kit.wat==="pond"){txt=B.wat.length+"/"+kit.ponds;full=B.wat.length>=kit.ponds;}
       else if(k==="truck"){txt=B.trucks+"/"+kit.trucks;full=B.trucks>=kit.trucks;}
       else if(k==="belt"){txt=done?(R.bs.ok?"✓":"!"):kit.belt+"m";full=done;}
@@ -1551,7 +1660,7 @@ function screenBuild(){
     save();updateUI();
   }
   // tray
-  scr.querySelectorAll("#tray .tile").forEach(t=>{
+  $$("#tray .tile").forEach(t=>{
     t.addEventListener("pointerdown",e=>{e.preventDefault();const k=t.dataset.k;t.setPointerCapture(e.pointerId);
       let src="tray",idx=-1;
       if(k==="dig"&&B.cut)src="scene";
@@ -1609,107 +1718,125 @@ function screenBuild(){
 /* =============== RUN =============== */
 function screenRun(){
   const C=CLAIMS[S.claim],U=curU(),B=buildFor(C),R=evaluate(C,B,U);syncBar(false);
-  const MAX=C.s[2]*1.08;
-  h(`<div class="hud">
-       <span class="chip">${ICON.sun}<b id="dc">0</b><small>/ ${R.days}</small></span>
+  const MAX=C.s[2]*1.08,wide=WIDE();
+  const hud=`<div class="hud">
+       <span class="chip" id="dchip">${ICON.sun}<b id="dc">0</b><small>/ ${R.days}</small></span>
        <span class="chip grow gold">${ICON.nugget}<b id="oz">0.0</b><small>oz</small></span>
-     </div>
-     <div class="stage"><canvas id="gd"></canvas></div>
-     <div class="prog"><i id="bf"></i>${C.s.map((v,i)=>`<span class="tk pk" data-l="${i+1}" style="left:${v/MAX*100}%"></span>`).join("")}</div>
-     <div class="crewline"><div id="mnw"></div><div class="bubble" id="bb">Fire it up!</div></div>
-     <button class="btn ghost" id="skip">${ICON.skip}<span>Skip</span></button>`);
-  const cv=$("#gd"),W=W0(),G=geo(W),g=fit(cv,W,G.H),mn=addMiner("#mnw",60,76,"grin");
-  scr.querySelectorAll(".pk").forEach(el=>el.appendChild(goldPileCanvas(+el.dataset.l,[22,28,34][+el.dataset.l-1],[16,20,24][+el.dataset.l-1])));
+     </div>`,
+    prog=`<div class="prog"><i id="bf"></i>${C.s.map((v,i)=>`<span class="tk pk" data-l="${i+1}" style="left:${v/MAX*100}%"></span>`).join("")}</div>`,
+    crew=`<div class="crewline"><div id="mnw"></div><div class="bubble" id="bb">Fire it up!</div></div>`,
+    lost=`<div class="lost" id="lost"></div>`,
+    skip=`<button class="btn ghost" id="skip">${ICON.skip}<span>Skip</span></button>`;
+  if(wide)h(`<div class="wmain">${hud}<div class="stage"><canvas id="gd"></canvas></div>${prog}</div>
+     <div class="wside">${crew}${lost}<div class="wbtns">${skip}</div></div>`,{full:1,cls:"wgrid"});
+  else h(`<div class="stage"><canvas id="gd"></canvas></div>${prog}${crew}${lost}`,{top:hud,foot:skip});
+  const cv=$("#gd"),W=wide?WS():W0(),G=geo(W),g=fit(cv,W,G.H),mn=addMiner("#mnw",60,76,"grin");
+  $$(".pk").forEach(el=>el.appendChild(goldPileCanvas(+el.dataset.l,[22,28,34][+el.dataset.l-1],[16,20,24][+el.dataset.l-1])));
   const key=JSON.stringify(B)+C.id;let hs=7;for(let i=0;i<key.length;i++)hs=(hs*31+key.charCodeAt(i))|0;
   const rn=rnd32(hs),fail=R.problems.length?R.problems[0]:(R.thru<=0?"Nothing's getting through the plant!":null);
-  // daily yards with cosmetic events, then scaled so the season totals exactly R.est
-  const days=[];let done=0,ranDay=0,siltDay=0;
+  // per-day plan (same seed = same season). A perfect crew banks exactly R.est.
+  const days=[];let ideal=0;
   for(let d=1;d<=R.days;d++){let f=1,ev=null;const r=rn();
-    if(r<C.brk){const who=["dig","trm","wat"][Math.floor(rn()*3)];f=U.shop?0.65:0;
-      ev={k:"brk",who,txt:{dig:C.kit.dig==="dredge"?"Dredge broke down!":"Digger's broke down!",trm:"Plant's down for repairs!",wat:"Pump's lost its prime!"}[who]+(U.shop?" Quick fix.":"")};}
-    else if(r<C.brk+0.05){f=0.5;ev={k:"rain",txt:"Rain day. Pit's flooding!"};}
-    else if(r>0.988){f=1.3;ev={k:"streak",txt:"Rich streak! Look at that!"};}
-    const room=Math.min(R.cs.P,R.siltCap)-done,y=Math.max(0,Math.min(R.thru*f,room));done+=y;
-    if(!ranDay&&R.ranOut&&done>=R.cs.P-1e-6)ranDay=d;if(!siltDay&&R.silted&&done>=R.siltCap-1e-6)siltDay=d;
-    days.push({y,ev,done});}
-  const totY=done||1,perY=fail?0:R.est/totY;
-  let acc=0;days.forEach(d=>{acc+=d.y*perY;d.oz=acc;});
+    if(r<C.brk){const who=["dig","trm","wat"][Math.floor(rn()*3)];f=U.shop?0.65:0;ev={k:"brk",who};}
+    else if(r<C.brk+0.05){f=0.5;ev={k:"rain"};}
+    else if(r>0.988){f=1.3;ev={k:"streak"};}
+    const y=Math.max(0,Math.min(R.thru*f,Math.min(R.cs.P,R.siltCap)-ideal));ideal+=y;days.push({f,ev});}
+  const perY=fail||!ideal?0:R.est/ideal;
+  // live season state: breakdowns left unfixed stop the plant while the days keep ticking
+  let done=0,oz=0,ranDay=0,siltDay=0,lostDays=0,lostOz=0;
+  function produce(i,down){const d=days[i],room=Math.min(R.cs.P,R.siltCap)-done;
+    const full=Math.max(0,Math.min(R.thru*d.f,room));const y=down?0:full;
+    if(down&&full>0){lostDays++;}done+=y;oz+=y*perY;
+    if(!ranDay&&R.ranOut&&done>=R.cs.P-1e-6)ranDay=i+1;if(!siltDay&&R.silted&&done>=R.siltCap-1e-6)siltDay=i+1;return y;}
   const cut=cutCols(B),far=B.plant!==null&&B.cut?(Math.abs(B.cut[0]-B.plant)>Math.abs(B.cut[1]-B.plant)?B.cut[0]:B.cut[1]):(B.cut?B.cut[0]:0);
   const order=B.cut?(far===B.cut[0]?cut:cut.slice().reverse()):[];
-  const dayMs=Math.max(140,11000/Math.max(1,R.days));
+  const dayMs=Math.max(170,15000/Math.max(1,R.days)),GRACE=2.2,FIXT=0.7;
   const NM={dig:C.kit.dig==="dredge"?"dredge":"digger",trm:B.ptype==="shk"?"shaker":"trommel",wat:C.kit.wat==="pump"?"pump":"pond pump"};
-  let shown=0,finished=false,mood="grin",pops=[],passed=0,simT=0,last=performance.now(),realT=0,paused=null,fixes=0,lastFix=-99;
-  const bb=$("#bb");
+  let shown=0,finished=false,mood="grin",pops=[],passed=0,simT=0,last=performance.now(),realT=0,paused=null,brk=null,fixes=0,lastFix=-99,lastY=0;
+  const bb=$("#bb"),lostEl=$("#lost");
   // --- steady message queue: each line stays up long enough to read ---
   let cur=null;const q=[];
   function show(m){cur=Object.assign({at:realT},m);bb.textContent=m.txt;bb.classList.toggle("bad",!!m.bad);bb.classList.toggle("tap",!!m.tap);if(m.mood)mood=m.mood;}
   function post(m,urgent){if(urgent){q.length=0;show(m);}else q.push(m);}
   function minDur(m){return 2.4+m.txt.length*0.045;}
-  function pump(){if(paused)return;if(q.length&&(!cur||realT-cur.at>=minDur(cur)))show(q.shift());
+  function pump(){if(paused||brk)return;if(q.length&&(!cur||realT-cur.at>=minDur(cur)))show(q.shift());
     else if(cur&&!q.length&&realT-cur.at>minDur(cur)+2&&mood!=="grin"&&!cur.sticky){mood="grin";bb.classList.remove("bad");}}
-  function finish(){if(finished)return;finished=true;setTimeout(()=>screenResult(fail?0:R.est,R,fail,ranDay,siltDay),400);}
-  function pause(kind,m,extra){paused=Object.assign({kind,t0:realT},extra||{});post(Object.assign({bad:true,tap:true,mood:"worry",sticky:true},m),true);}
+  function finish(){if(finished)return;finished=true;brk=null;SND.stop();
+    setTimeout(()=>screenResult(fail?0:oz,R,fail,ranDay,siltDay,lostDays),400);}
+  function pause(kind,m){paused={kind,t0:realT};brk=null;post(Object.assign({bad:true,tap:true,mood:"worry",sticky:true},m),true);}
   function machineX(who,frac){if(who==="trm")return B.plant+0.5;if(who==="wat")return B.wat[0]+0.5;
     return order.length?order[0]+(order[order.length-1]-order[0])*frac+0.5:0.5;}
+  function cap(w){return w[0].toUpperCase()+w.slice(1);}
+  function breakDown(who,frac){const x=machineX(who,frac);lastFix=shown;
+    brk={who,x,t0:realT,fixing:0,warned:false};SND.alarm();
+    post({txt:cap(NM[who])+" broke down! Tap it — quick!",bad:true,tap:true,mood:"worry",sticky:true},true);
+    pops.push({k:"brk",x,y:surf(C,Math.max(0,Math.min(COLS-1,Math.floor(x))))+3,t0:realT,hold:1});}
   function tapAt(wx){
-    if(!paused)return;
-    if(paused.kind==="brk"){if(paused.fixing)return;
-      if(wx!==null&&Math.abs(wx-paused.x)>1.6){show({txt:"Tap the "+NM[paused.who]+"!",bad:true,tap:true,mood:"worry",sticky:true});return;}
-      paused.fixing=realT;show({txt:"Spanners out\u2026",mood:"grin"});return;}
-    if(paused.kind==="end"){paused=null;finish();return;}
+    if(brk){if(brk.fixing)return;
+      if(wx!==null&&Math.abs(wx-brk.x)>1.6){show({txt:"Not there — tap the "+NM[brk.who]+"!",bad:true,tap:true,mood:"worry",sticky:true});return;}
+      brk.fixing=realT;SND.wrench();show({txt:"Spanners out…",mood:"grin",bad:false});return;}
+    if(paused&&paused.kind==="end"){paused=null;finish();}
   }
   cv.addEventListener("pointerdown",e=>{const r=cv.getBoundingClientRect();tapAt((e.clientX-r.left)/r.width*COLS);});
   bb.addEventListener("click",()=>tapAt(null));
-  $("#skip").onclick=()=>{shown=days.length;paused=null;finish();};
+  $("#skip").onclick=()=>{if(finished)return;brk=null;paused=null;
+    while(shown<days.length){produce(shown,false);shown++;if((ranDay&&shown>=ranDay)||(siltDay&&shown>=siltDay))break;}finish();};
   if(fail)pause("end",{txt:fail+" Tap to see what went wrong."});
   else post({txt:"Fire it up!",mood:"grin",hold:1},true);
   loop(()=>{
     const now=performance.now(),dt=Math.min(0.1,(now-last)/1000);last=now;realT+=dt;
-    if(paused&&paused.kind==="brk"&&paused.fixing&&realT-paused.fixing>1.1){paused=null;fixes++;post({txt:"Fixed! Back to it.",mood:"wow",hold:1},true);}
-    const hold=q.length>0||(cur&&cur.hold&&realT-cur.at<1.8);
+    if(brk&&brk.fixing&&realT-brk.fixing>FIXT){const quick=realT-brk.t0<=GRACE+FIXT;brk=null;fixes++;SND.fixed();
+      post({txt:quick?"Fixed! Quick work.":"Fixed! That cost us.",mood:quick?"wow":"worry",hold:1},true);}
+    const down=!!brk&&realT-brk.t0>GRACE;  // crew can limp along for a moment, then the plant stops
+    if(brk&&down&&!brk.warned){brk.warned=true;SND.alarm(true);
+      if(!brk.fixing)show({txt:"We're losing gold! Tap the "+NM[brk.who]+"!",bad:true,tap:true,mood:"worry",sticky:true});}
+    const hold=!brk&&(q.length>0||(cur&&cur.hold&&realT-cur.at<1.8));
     if(!paused&&!fail&&!hold)simT+=dt;
     const dn=Math.min(days.length,Math.floor(simT*1000/dayMs));
-    while(!paused&&!(q.length>0||(cur&&cur.hold&&realT-cur.at<1.8))&&shown<dn){const d=days[shown];shown++;
-      const idle=(ranDay&&shown>ranDay)||(siltDay&&shown>siltDay);
+    while(!paused&&!finished&&shown<dn&&!(!brk&&(q.length>0||(cur&&cur.hold&&realT-cur.at<1.8)))){const i=shown,d=days[i];
+      const isDown=!!brk&&realT-brk.t0>GRACE;lastY=produce(i,isDown);shown++;
       if(ranDay&&shown===ranDay){pause("end",{txt:"Cut's dug out on day "+ranDay+"! Tap to wrap up the season."});break;}
       if(siltDay&&shown===siltDay){pause("end",{txt:"Ponds are full of silt on day "+siltDay+"! Tap to wrap up."});break;}
-      const st=C.s.filter(v=>d.oz>=v).length;
+      const st=C.s.filter(v=>oz>=v-1e-6).length;
       if(st>passed){passed=st;post({txt:["","That's the target! One star!","Two stars! Keep going!","THREE STARS! Motherlode!"][st],mood:"wow",hold:1});}
-      if(d.ev&&!idle){const frac=R.cs.P?Math.min(1,d.done/R.cs.P):0;
-        if(d.ev.k==="brk"&&fixes<3&&shown-lastFix>=Math.max(6,R.days*0.2)){lastFix=shown;const x=machineX(d.ev.who,frac);
-          pause("brk",{txt:(NM[d.ev.who][0].toUpperCase()+NM[d.ev.who].slice(1))+" broke down! Tap it to fix."},{who:d.ev.who,x});
-          pops.push({k:"brk",x,y:surf(C,Math.max(0,Math.min(COLS-1,Math.floor(x))))+3,t0:realT,hold:1});break;}
-        else if(d.ev.k==="brk")post({txt:"Another breakdown \u2014 the crew sorted it.",bad:true,mood:"worry",hold:1});
+      if(d.ev&&!brk){const frac=R.cs.P?Math.min(1,done/R.cs.P):0;
+        if(d.ev.k==="brk"&&fixes<3&&shown-lastFix>=Math.max(6,R.days*0.2)){breakDown(d.ev.who,frac);break;}
+        else if(d.ev.k==="brk")post({txt:"Another breakdown — the crew sorted it.",bad:true,mood:"worry",hold:1});
         else if(d.ev.k==="rain")post({txt:"Rain day. Pit's flooding!",bad:true,mood:"worry",hold:1});
         else post({txt:"Rich streak! Look at that!",mood:"wow"});}
-      else if(!idle&&shown%9===0&&!q.length)post({txt:["Keep her running!","Gold's coming in!","That's the stuff!"][shown%3],mood:"grin"});}
+      else if(!brk&&shown%9===0&&!q.length)post({txt:["Keep her running!","Gold's coming in!","That's the stuff!"][shown%3],mood:"grin"});}
     pump();
-    pops=pops.filter(p=>p.hold?(paused&&paused.kind==="brk"):realT-p.t0<1.1);
-    const curD=days[Math.max(0,shown-1)]||{y:0,oz:0,done:0,ev:null},oz=fail?0:curD.oz;
-    const dc=$("#dc");if(!dc)return;dc.textContent=shown;$("#oz").textContent=fmt(oz);
-    $("#bf").style.width=Math.min(100,oz/MAX*100)+"%";
-    const frac=R.cs.P?Math.min(1,curD.done/R.cs.P):0,running=!fail&&!paused&&curD.y>0;
+    pops=pops.filter(p=>p.hold?!!brk:realT-p.t0<1.1);
+    const dc=$("#dc");if(!dc)return;dc.textContent=shown;$("#oz").textContent=fmt(fail?0:oz);
+    $("#dchip").classList.toggle("hot",down);
+    lostEl.innerHTML=lostDays?`${ICON.sun}<b>${lostDays}</b> day${lostDays>1?"s":""} lost to breakdowns`:"";lostEl.classList.toggle("on",!!lostDays);
+    $("#bf").style.width=Math.min(100,(fail?0:oz)/MAX*100)+"%";
+    const frac=R.cs.P?Math.min(1,done/R.cs.P):0,running=!fail&&!paused&&!down&&lastY>0;
     const dug={};order.forEach((c,i)=>{dug[c]=Math.max(0,Math.min(1,frac*order.length-i))*0.9;});
     const digX=order.length?order[0]+(order[order.length-1]-order[0])*frac:undefined;
-    const ev=curD.ev,t=realT;
+    const ev=days[Math.max(0,shown-1)]?days[Math.max(0,shown-1)].ev:null,t=realT;
     drawScene(g,G,C,B,U,{mode:"run",R,t,running,prog:frac,dug,digX:B.cut?digX:undefined,
       dozX:B.cut&&order.length?Math.max(Math.min(order[0],order[order.length-1]),Math.min(Math.max(order[0],order[order.length-1]),digX+(order[order.length-1]>order[0]?1:-1))):undefined,
-      rain:!paused&&ev&&ev.k==="rain",pops,broken:paused&&paused.kind==="brk"?paused.who:null,
-      silt:C.silt?Math.min(1,curD.done/Math.max(1,R.siltCap)):0,pile:0.3+0.4*Math.abs(Math.sin(t*0.7)),
+      rain:!paused&&!brk&&ev&&ev.k==="rain",pops,broken:brk?brk.who:null,
+      silt:C.silt?Math.min(1,done/Math.max(1,R.siltCap)):0,pile:0.3+0.4*Math.abs(Math.sin(t*0.7)),
       belt:(gg,a,b)=>{if(!running)return;const L=Math.hypot((b.c-a.c)*G.cw,(b.y-a.y)*G.u),gap=14;
         for(let qq=(t*40)%gap;qq<L;qq+=gap){const f=qq/L,x=G.X(a.c+0.5+(b.c-a.c)*f),y=G.Y(a.y+(b.y-a.y)*f)-5;
           gg.fillStyle=(Math.floor(qq/gap)%6===0)?"#ffd84a":"#6b4a2c";gg.strokeStyle="#2a1d10";gg.lineWidth=1;gg.beginPath();gg.arc(x,y,3,0,7);gg.fill();gg.stroke();}}});
-    if(paused&&paused.kind==="brk"){const x=G.X(paused.x),yy=G.Y(surf(C,Math.max(0,Math.min(COLS-1,Math.floor(paused.x))))+1.2),pr=0.5+0.5*Math.sin(t*6);
-      g.strokeStyle="rgba(217,161,43,"+(0.5+0.5*pr)+")";g.lineWidth=3;g.setLineDash([6,4]);g.beginPath();g.arc(x,yy,G.cw*(0.8+0.15*pr),0,7);g.stroke();g.setLineDash([]);
-      if(paused.fixing){g.save();g.translate(x,yy-G.cw*0.2);g.rotate((realT-paused.fixing)*9);g.strokeStyle="#cfc6b4";g.lineWidth=4;g.lineCap="round";
+    if(brk){const x=G.X(brk.x),yy=G.Y(surf(C,Math.max(0,Math.min(COLS-1,Math.floor(brk.x))))+1.2),pr=0.5+0.5*Math.sin(t*(down?10:6)),R0=G.cw*(0.8+0.15*pr);
+      // grace countdown: amber ring drains, then it goes red
+      const left=Math.max(0,1-(realT-brk.t0)/GRACE);
+      g.lineWidth=3;g.setLineDash([6,4]);g.strokeStyle=down?"rgba(208,69,46,"+(0.55+0.45*pr)+")":"rgba(217,161,43,.35)";
+      g.beginPath();g.arc(x,yy,R0,0,7);g.stroke();g.setLineDash([]);
+      if(!down){g.strokeStyle="#d9a12b";g.lineWidth=5;g.beginPath();g.arc(x,yy,R0,-Math.PI/2,-Math.PI/2+left*Math.PI*2);g.stroke();}
+      if(brk.fixing){g.save();g.translate(x,yy-G.cw*0.2);g.rotate((realT-brk.fixing)*9);g.strokeStyle="#cfc6b4";g.lineWidth=4;g.lineCap="round";
         g.beginPath();g.moveTo(-8,8);g.lineTo(6,-6);g.stroke();g.beginPath();g.arc(7,-7,5,0.8,5.5);g.stroke();g.restore();}}
     mn.draw(mood,t);
-    if(!paused&&shown>=days.length&&!fail)finish();
+    if(!paused&&!finished&&shown>=days.length&&!fail)finish();
   });
 }
 
 /* =============== RESULT =============== */
-function screenResult(oz,R,fail,ranDay,siltDay){
+function screenResult(oz,R,fail,ranDay,siltDay,lostDays){
   const C=CLAIMS[S.claim],B=buildFor(C),U=curU(),kit=R.kit;
   const before=bankOz(),starsBefore=totalStars(),st=starsFor(C,oz),won=st>0,prevBest=S.best[C.id]||0;
   if(won&&oz>prevBest)S.best[C.id]=oz;
@@ -1730,7 +1857,8 @@ function screenResult(oz,R,fail,ranDay,siltDay){
   if(!fail){if(B.slu.tilt>C.ideal)tip+=" Sluice is too steep — fines washing out.";
     else if(B.slu.tilt<C.ideal)tip+=" Sluice is too flat — it's clogging.";
     else if(R.boxes<kit.slu)tip+=" Room for more sluice boxes!";
-    if(st===3)tip="Now THAT'S a plant!";}
+    if(st===3)tip="Now THAT'S a plant!";
+    if(lostDays)tip+=" Breakdowns cost you "+lostDays+" day"+(lostDays>1?"s":"")+" — fix them faster!";}
   const next=CLAIMS[S.claim+1];
   const mx=Math.max(R.dig,R.haul===Infinity?0:Math.min(R.haul,250),R.cap,R.water,1);
   const haulIcon=R.haulKind==="trucks"?"truck":R.haulKind==="belt"?"belt":null;
@@ -1750,10 +1878,6 @@ function screenResult(oz,R,fail,ranDay,siltDay){
      </div>
      ${newU.map(u=>`<div class="card unlock"><span class="tag">UNLOCKED!</span><b>${u.n}</b><div>${u.d}</div></div>`).join("")}
      ${newCrew.map(c=>`<div class="card unlock crewun"><span class="tag">NEW CREW!</span><div class="cu" data-c="${c.id}"></div><b>${c.name}</b><div>${c.boss} \u2014 ${c.pd}</div></div>`).join("")}
-     <div class="row2">
-       <button class="btn round" id="re">${ICON.reset}</button>
-       ${won?`<button class="btn go big" id="nx">${ICON.play}<span>${next?"NEXT":"MAP"}</span></button>`:`<button class="btn go big" id="re2">${ICON.reset}<span>TRY AGAIN</span></button>`}
-     </div>
      ${won?`<button class="btn ghost" id="tweak">${ICON.play}<span>Tweak this build</span></button><button class="btn ghost" id="mini">${ICON.pan}<span>Go prospecting</span></button>`:""}
      <button class="btn ghost" id="map">${ICON.map}<span>Map</span></button>
      <div class="ov" id="ov"><canvas id="fx"></canvas>
@@ -1769,12 +1893,15 @@ function screenResult(oz,R,fail,ranDay,siltDay){
            <button class="obtn" id="orep" aria-label="Report"><svg viewBox="0 0 24 24" width="26" height="26"><path d="M5 5h14M5 10h14M5 15h9M5 20h6" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg></button>
            ${won?`<button class="obtn go" id="onext" aria-label="Next">${ICON.play}</button>`:`<button class="obtn go" id="onext2" aria-label="Rebuild">${ICON.play}</button>`}
          </div>
-       </div></div>`);
-  scr.querySelectorAll(".gi[data-k]").forEach(el=>el.appendChild(iconCanvas(el.dataset.k,C,40,30)));
-  scr.querySelectorAll(".cu").forEach(el=>{const c=CREWS.find(x=>x.id===el.dataset.c);el.appendChild(minerCanvas(c.look,80,96,"wow"));});
+       </div></div>`,{cls:"resg",foot:`<div class="row2">
+       <button class="btn round" id="re">${ICON.reset}</button>
+       ${won?`<button class="btn go big" id="nx">${ICON.play}<span>${next?"NEXT":"MAP"}</span></button>`:`<button class="btn go big" id="re2">${ICON.reset}<span>TRY AGAIN</span></button>`}
+     </div>`});
+  $$(".gi[data-k]").forEach(el=>el.appendChild(iconCanvas(el.dataset.k,C,40,30)));
+  $$(".cu").forEach(el=>{const c=CREWS.find(x=>x.id===el.dataset.c);el.appendChild(minerCanvas(c.look,80,96,"wow"));});
   const mn=addMiner("#mnw",60,76,won?"grin":"worry"),t0=performance.now();
   const om=minerCanvas(crewOf().look,70,86,"grin");$("#ovmn").appendChild(om);
-  scr.querySelectorAll(".op").forEach(el=>el.appendChild(goldPileCanvas(+el.dataset.l,30,20)));
+  $$(".op").forEach(el=>el.appendChild(goldPileCanvas(+el.dataset.l,30,20)));
   // ---- star reveal ----
   const ov=$("#ov"),ovp=$("#ovp"),fx=$("#fx"),d=Math.min(devicePixelRatio||1,2.5);
   fx.width=innerWidth*d;fx.height=innerHeight*d;fx.style.width=innerWidth+"px";fx.style.height=innerHeight+"px";
@@ -1852,7 +1979,7 @@ function startMini(kind,done,fromMap){
 function miniPan(finish){
   h(miniHead("pan","<span>Gravel <b id='sg'>0</b></span><span>Gold <b id='sa'>0</b></span><span>Time <b id='sk'>70</b></span>")
     +`<canvas id="cv"></canvas><button class="btn go" id="fin">Tip it out</button>`);
-  const cv=$("#cv"),W=scr.clientWidth-24,g=fit(cv,W,W*0.78),H=W*0.78;
+  const cv=$("#cv"),W=Math.min(560,CW()+6),g=fit(cv,W,W*0.78),H=W*0.78;
   const cx=W/2,cy=H/2,rr=Math.min(cx,cy)-10;
   const P=[];
   for(let i=0;i<78;i++)P.push({a:Math.random()*6.283,d:Math.random()*0.45,g:0,j:Math.random()});
@@ -1921,7 +2048,7 @@ function miniDet(finish){
     +`<canvas id="cv"></canvas>
       <div class="row"><button class="btn alt" id="fin">Pack up</button>
       <button class="btn go" id="dig">Dig here</button></div>`);
-  const cv=$("#cv"),W=scr.clientWidth-24,H=Math.min(340,W*0.95),g=fit(cv,W,H);
+  const cv=$("#cv"),W=Math.min(560,CW()+6),H=Math.min(340,W*0.95),g=fit(cv,W,H);
   const T=[];
   const mk=(gold,v)=>T.push({x:30+Math.random()*(W-60),y:30+Math.random()*(H-60),gold,v,dug:false});
   mk(1,2.4);mk(1,1.1);mk(1,0.6);mk(1,0.35);
@@ -1980,7 +2107,7 @@ function miniOpal(finish){
   h(miniHead("opal","<span>Stone <b id='sn'>1</b>/3</span><span>Phase <b id='sp'>crack</b></span><span>Value <b id='sv'>0.0</b></span>")
     +`<canvas id="cv"></canvas><button class="btn go" id="act">Crack it</button>
       <button class="btn alt" id="fin">Sell up</button>`);
-  const cv=$("#cv"),W=scr.clientWidth-24,H=Math.min(300,W*0.85),g=fit(cv,W,H);
+  const cv=$("#cv"),W=Math.min(560,CW()+6),H=Math.min(300,W*0.85),g=fit(cv,W,H);
   let idx=0,val=0,phase="crack",mark=0,dir=1,zone=0.2+Math.random()*0.6,q1=0,
       depth=0,band=0.35+Math.random()*0.4,sanding=false,flash=0,over=false,base=1.4+Math.random()*2;
   const ZW=0.10,BW=0.13;
@@ -2059,7 +2186,7 @@ function miniOpal(finish){
 function miniDive(finish){
   h(miniHead("dive","<span>Air <b id='sa'>100</b></span><span>Bag <b id='sb'>0.0</b></span><span>Boulders <b id='sr'>0</b></span>")
     +`<canvas id="cv"></canvas><button class="btn go" id="up">Surface with the bag</button>`);
-  const cv=$("#cv"),W=scr.clientWidth-24,H=Math.min(330,W*0.95),g=fit(cv,W,H);
+  const cv=$("#cv"),W=Math.min(560,CW()+6),H=Math.min(330,W*0.95),g=fit(cv,W,H);
   const bed=H-42,B=[],G=[];
   for(let i=0;i<4;i++)B.push({x:W*(0.16+i*0.23),y:bed-16-Math.random()*8,r:20+Math.random()*9,p:0,gone:false});
   let nx=W/2,ny=H/2,down=false,air=100,bag=0,over=false,t=0,removed=0;
@@ -2127,7 +2254,7 @@ function miniDive(finish){
 }
 
 
-load();syncBar(false);screenTitle();
+load();syncBar(false);syncSnd();screenTitle();
 </script>
 </body>
 </html>
