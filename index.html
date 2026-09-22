@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=1,user-scalable=no">
 <meta name="app-repo" content="get-the-gold">
-<meta name="app-version" content="1.0.13">
+<meta name="app-version" content="1.0.15">
 <meta name="theme-color" content="#2a1d10">
 <title>Get the Gold</title>
 <style>
@@ -23,7 +23,7 @@ body{font-family:ui-rounded,"SF Pro Rounded","Nunito","Arial Rounded MT Bold","T
 #screen{flex:1;padding:12px 15px calc(env(safe-area-inset-bottom) + 26px)}
 #ver{position:fixed;right:6px;bottom:4px;font:10px ui-monospace,monospace;color:#9a8058;opacity:.8;z-index:50;pointer-events:none}
 canvas{display:block;touch-action:none}
-.stage canvas,.strip canvas,.title canvas{width:100%}
+.strip canvas{width:100%}
 p{font-size:15px;line-height:1.45;margin:6px 0}
 h2{font-size:24px;font-weight:900;margin:0 0 4px}
 h3{font-size:14px;font-weight:900;margin:14px 0 6px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink2)}
@@ -137,7 +137,7 @@ h3{font-size:14px;font-weight:900;margin:14px 0 6px;letter-spacing:.08em;text-tr
 .mini-hd{display:flex;justify-content:space-between;align-items:baseline;font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--ink2);margin:8px 2px 6px}
 .mini-hd b{font-size:17px;color:var(--ink)}
 .big{font-size:44px;font-weight:900}
-#screen>canvas{width:100%;border:3px solid var(--ink);border-radius:18px}
+#screen>canvas{margin:0 auto;border:3px solid var(--ink);border-radius:18px}
 .plantrow{display:flex;align-items:center;gap:10px;margin-top:9px;background:#fff;border:3px solid var(--ink);border-radius:16px;padding:5px 10px;box-shadow:0 3px 0 var(--ink)}
 .plantrow .grp{display:flex;align-items:center;gap:5px}
 .plantrow button{width:34px;height:34px;border-radius:10px;border:2px solid var(--ink);background:linear-gradient(#fffaf0,#f1dba8);font:900 18px/1 inherit;font-family:inherit;color:var(--ink);box-shadow:0 2px 0 var(--ink)}
@@ -306,7 +306,7 @@ h2{color:var(--txt)}
 .bubble.tap{animation:tapme 1s ease-in-out infinite;cursor:pointer}
 @keyframes tapme{50%{box-shadow:2px 3px 0 #000,0 0 0 4px rgba(217,161,43,.55)}}
 
-/* ===== v1.0.13 fixed chrome: header + footer stay put, only the middle scrolls ===== */
+/* ===== v1.0.15 fixed chrome: header + footer stay put, only the middle scrolls ===== */
 html,body{height:100%;overflow:hidden}
 #app{height:100vh;height:100dvh;min-height:0;overflow:hidden}
 #bar{position:relative;flex:0 0 auto}
@@ -335,8 +335,6 @@ html,body{height:100%;overflow:hidden}
 #screen.wgrid{display:grid;grid-template-columns:minmax(0,1fr) 268px;gap:18px;align-items:start}
 .wmain{min-width:0;display:flex;flex-direction:column;align-items:center}
 .wmain>.hud{align-self:stretch}.wmain>.plantrow,.wmain>.prog{align-self:stretch}
-.wmain .stage{width:auto;display:inline-block}
-.wmain .stage canvas{width:auto}
 .wside{position:sticky;top:0;display:flex;flex-direction:column;gap:10px;min-height:calc(100dvh - 120px)}
 .wside .crewline{margin:0}
 .wside .bubble{font-size:14px;min-height:64px}
@@ -358,6 +356,9 @@ html,body{height:100%;overflow:hidden}
 #app.wide .introg .deed .photo{grid-column:1;grid-row:4/span 3;justify-self:center}
 #app.wide .introg .deed .dgl,#app.wide .introg .deed .dgoals,#app.wide .introg .deed .dmeta{grid-column:2}
 #app.wide .introg .dg{max-width:150px}
+.stage{width:fit-content;max-width:100%;margin-left:auto;margin-right:auto;background:#141110!important;line-height:0}
+.stage canvas{display:block}
+.crews{grid-template-columns:repeat(4,minmax(0,1fr))}.crew{min-width:0;overflow:hidden}.crew .pt canvas{max-width:100%;height:auto!important}
 </style>
 </head>
 <body>
@@ -372,10 +373,10 @@ html,body{height:100%;overflow:hidden}
   <main id="screen"></main>
   <footer id="foot"></footer>
 </div>
-<div id="ver">v1.0.13</div>
+<div id="ver">v1.0.15</div>
 <script>
 "use strict";
-const VERSION="1.0.13";
+const VERSION="1.0.15";
 /*__ENGINE_START__*/
 const COLS=10,YMAX=11,YMIN=-3,TREE_H=3;
 const GR={0:0,1:0.9,2:1.8,3:3.0};
@@ -1006,12 +1007,15 @@ function drawScene(g,G,C,B,U,o){
     if(felled.indexOf(c)>=0){g.fillStyle="#8a6a3e";g.strokeStyle="#2a1d10";g.lineWidth=1.5;
       [0.3,0.68].forEach(f=>{rrect(g,X(c+f)-4,Y(C.h[c]+0.28),8,0.28*u+1,2);g.fill();g.stroke();});}
     else drawTrees(g,G,C,c,P,null,t);});
-  // honest water reach line
+  // honest water reach line: only between the water and the plant (how high the pump can push water)
   if(o.mode==="build"&&B.wat.length){
+    const w=B.wat[0]+0.5,p=B.plant!==null?B.plant+0.5:null;
+    let a,b;if(p===null){a=Math.max(0,w-1.5);b=Math.min(COLS,w+1.5);}else{a=Math.max(0,Math.min(w,p)-0.4);b=Math.min(COLS,Math.max(w,p)+0.4);}
     g.strokeStyle="#2f8fc0cc";g.lineWidth=2;g.setLineDash([4,4]);g.beginPath();
-    for(let c=0;c<COLS;c++){const r=reachAt(C,B,U,c+0.5);c?g.lineTo(X(c+0.5),Y(r)):g.moveTo(X(0),Y(reachAt(C,B,U,0)));}
-    g.lineTo(X(COLS),Y(reachAt(C,B,U,COLS)));g.stroke();g.setLineDash([]);
-    const w=B.wat[0];drawDrop(g,X(w+0.5),Y(reachAt(C,B,U,w+0.5))-8,6);}
+    for(let x=a;x<=b+1e-6;x+=0.1){const X0=X(x),Y0=Y(reachAt(C,B,U,x));x===a?g.moveTo(X0,Y0):g.lineTo(X0,Y0);}
+    g.stroke();g.setLineDash([]);
+    const lx=p===null?w:p,ly=Y(reachAt(C,B,U,lx));g.font="700 10px system-ui,sans-serif";g.textAlign="center";
+    g.fillStyle="#2f8fc0";g.fillText("water reach",X(lx),ly-7);g.textAlign="left";}
   if(o.ghostCols){o.ghostCols.forEach(c=>{g.fillStyle=o.ghostOk?"rgba(80,200,90,.22)":"rgba(220,60,40,.25)";g.fillRect(X(c),0,cw,H);});}
   // ponds / pumps
   B.wat.forEach((c,i)=>{if(C.kit.wat==="pond")drawPond(g,G,c,C.h[c],o.silt!==undefined?o.silt:0,i===0);});
@@ -1353,16 +1357,16 @@ let rsz=null;addEventListener("resize",()=>{clearTimeout(rsz);rsz=setTimeout(()=
   if(!CUR||!CUR.re)return;if(WIDE()!==CUR.wide||Math.abs(innerWidth-CUR.w)>40||(CUR.wide&&Math.abs(innerHeight-CUR.h)>60))CUR.re();},250);});
 function $$(s){return appEl.querySelectorAll(s);}
 function $(s){return scr.querySelector(s)||footEl.querySelector(s)||topEl.querySelector(s);}
-function fit(cv,w,ht){const d=Math.min(devicePixelRatio||1,2.5);cv.style.height=ht+"px";if(cv.closest(".wmain"))cv.style.width=w+"px";
+function fit(cv,w,ht){const d=Math.min(devicePixelRatio||1,2.5);cv.style.height=ht+"px";cv.style.width=w+"px";
   cv.width=Math.round(w*d);cv.height=Math.round(ht*d);const g=cv.getContext("2d");g.setTransform(d,0,0,d,0,0);return g;}
 function rnd32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);
   t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
 function loop(fn){const step=()=>{fn();window.__raf=requestAnimationFrame(step);};window.__raf=requestAnimationFrame(step);}
 function CW(){const cs=getComputedStyle(scr);return scr.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight);}
-function W0(){return Math.min(innerWidth>=700?660:490,CW());}
+function W0(){return Math.floor(Math.min(innerWidth>=700?660:490,CW()-4));}
 // big stage for wide build/run layouts: fill the left column but keep it on screen
 function WS(){const cs=getComputedStyle(scr),hh=scr.clientHeight-parseFloat(cs.paddingTop)-parseFloat(cs.paddingBottom);
-  return Math.max(320,Math.floor(Math.min(CW()-SIDE-18,(hh-(topEl.offsetHeight?0:58)-66)/0.7)));}
+  return Math.max(320,Math.floor(Math.min(CW()-SIDE-22,(hh-(topEl.offsetHeight?0:58)-66)/0.7)));}
 const SIDE=268;
 function clone(o){return JSON.parse(JSON.stringify(o));}
 function starRow(n,cls){let s="";for(let i=0;i<3;i++)s+=`<span class="${cls||"sm"} ${i<n?"on":""}">${ICON.star}</span>`;return s;}
@@ -1498,7 +1502,7 @@ function screenMap(){
         </div></div>`;}).join("")}
      `,{re:screenMap,cls:"mapg",foot:Object.keys(S.stars).length?`<button class="btn ghost" id="pros">${ICON.pan}<span>Go prospecting</span></button>`:""});
   addMiner("#mnw",64,74,"grin");
-  $$(".strip canvas").forEach(cv=>{const W=Math.floor(cv.parentElement.clientWidth-4),g=fit(cv,W,120);drawRegion(g,W,120,cv.dataset.r,+cv.dataset.s);});
+  $$(".strip canvas").forEach(cv=>{const W=Math.floor(cv.parentElement.clientWidth),g=fit(cv,W,120);drawRegion(g,W,120,cv.dataset.r,+cv.dataset.s);});
   $$(".pin").forEach(b=>b.onclick=()=>{const i=+b.dataset.i;if(!claimOpen(i))return;S.claim=i;save();screenIntro();});
   $("#crew").onclick=()=>screenCrew();
   if($("#pros"))$("#pros").onclick=()=>{const kinds=["pan","det","opal","dive"];
@@ -1979,7 +1983,7 @@ function startMini(kind,done,fromMap){
 function miniPan(finish){
   h(miniHead("pan","<span>Gravel <b id='sg'>0</b></span><span>Gold <b id='sa'>0</b></span><span>Time <b id='sk'>70</b></span>")
     +`<canvas id="cv"></canvas><button class="btn go" id="fin">Tip it out</button>`);
-  const cv=$("#cv"),W=Math.min(560,CW()+6),g=fit(cv,W,W*0.78),H=W*0.78;
+  const cv=$("#cv"),W=Math.min(560,CW()),g=fit(cv,W,W*0.78),H=W*0.78;
   const cx=W/2,cy=H/2,rr=Math.min(cx,cy)-10;
   const P=[];
   for(let i=0;i<78;i++)P.push({a:Math.random()*6.283,d:Math.random()*0.45,g:0,j:Math.random()});
@@ -2048,7 +2052,7 @@ function miniDet(finish){
     +`<canvas id="cv"></canvas>
       <div class="row"><button class="btn alt" id="fin">Pack up</button>
       <button class="btn go" id="dig">Dig here</button></div>`);
-  const cv=$("#cv"),W=Math.min(560,CW()+6),H=Math.min(340,W*0.95),g=fit(cv,W,H);
+  const cv=$("#cv"),W=Math.min(560,CW()),H=Math.min(340,W*0.95),g=fit(cv,W,H);
   const T=[];
   const mk=(gold,v)=>T.push({x:30+Math.random()*(W-60),y:30+Math.random()*(H-60),gold,v,dug:false});
   mk(1,2.4);mk(1,1.1);mk(1,0.6);mk(1,0.35);
@@ -2107,7 +2111,7 @@ function miniOpal(finish){
   h(miniHead("opal","<span>Stone <b id='sn'>1</b>/3</span><span>Phase <b id='sp'>crack</b></span><span>Value <b id='sv'>0.0</b></span>")
     +`<canvas id="cv"></canvas><button class="btn go" id="act">Crack it</button>
       <button class="btn alt" id="fin">Sell up</button>`);
-  const cv=$("#cv"),W=Math.min(560,CW()+6),H=Math.min(300,W*0.85),g=fit(cv,W,H);
+  const cv=$("#cv"),W=Math.min(560,CW()),H=Math.min(300,W*0.85),g=fit(cv,W,H);
   let idx=0,val=0,phase="crack",mark=0,dir=1,zone=0.2+Math.random()*0.6,q1=0,
       depth=0,band=0.35+Math.random()*0.4,sanding=false,flash=0,over=false,base=1.4+Math.random()*2;
   const ZW=0.10,BW=0.13;
@@ -2186,7 +2190,7 @@ function miniOpal(finish){
 function miniDive(finish){
   h(miniHead("dive","<span>Air <b id='sa'>100</b></span><span>Bag <b id='sb'>0.0</b></span><span>Boulders <b id='sr'>0</b></span>")
     +`<canvas id="cv"></canvas><button class="btn go" id="up">Surface with the bag</button>`);
-  const cv=$("#cv"),W=Math.min(560,CW()+6),H=Math.min(330,W*0.95),g=fit(cv,W,H);
+  const cv=$("#cv"),W=Math.min(560,CW()),H=Math.min(330,W*0.95),g=fit(cv,W,H);
   const bed=H-42,B=[],G=[];
   for(let i=0;i<4;i++)B.push({x:W*(0.16+i*0.23),y:bed-16-Math.random()*8,r:20+Math.random()*9,p:0,gone:false});
   let nx=W/2,ny=H/2,down=false,air=100,bag=0,over=false,t=0,removed=0;
