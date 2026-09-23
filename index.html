@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=1,user-scalable=no">
 <meta name="app-repo" content="get-the-gold">
-<meta name="app-version" content="1.0.16">
+<meta name="app-version" content="1.0.17">
 <meta name="theme-color" content="#2a1d10">
 <title>Get the Gold</title>
 <style>
@@ -306,7 +306,7 @@ h2{color:var(--txt)}
 .bubble.tap{animation:tapme 1s ease-in-out infinite;cursor:pointer}
 @keyframes tapme{50%{box-shadow:2px 3px 0 #000,0 0 0 4px rgba(217,161,43,.55)}}
 
-/* ===== v1.0.16 fixed chrome: header + footer stay put, only the middle scrolls ===== */
+/* ===== v1.0.17 fixed chrome: header + footer stay put, only the middle scrolls ===== */
 html,body{height:100%;overflow:hidden}
 #app{height:100vh;height:100dvh;min-height:0;overflow:hidden}
 #bar{position:relative;flex:0 0 auto}
@@ -359,7 +359,7 @@ html,body{height:100%;overflow:hidden}
 .stage{width:fit-content;max-width:100%;margin-left:auto;margin-right:auto;background:#141110!important;line-height:0}
 .stage canvas{display:block}
 .crews{grid-template-columns:repeat(4,minmax(0,1fr))}.crew{min-width:0;overflow:hidden}.crew .pt canvas{max-width:100%;height:auto!important}
-/* v1.0.16 name labels */
+/* v1.0.17 name labels */
 .tile{flex-direction:column;gap:2px;padding:4px 2px 3px}
 .tile canvas{order:1}.tile .tl{order:2;font:800 10px/1 system-ui,-apple-system,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#1a140e;white-space:nowrap}
 .wside .tile .tl{font-size:12px}
@@ -379,10 +379,10 @@ html,body{height:100%;overflow:hidden}
   <main id="screen"></main>
   <footer id="foot"></footer>
 </div>
-<div id="ver">v1.0.16</div>
+<div id="ver">v1.0.17</div>
 <script>
 "use strict";
-const VERSION="1.0.16";
+const VERSION="1.0.17";
 /*__ENGINE_START__*/
 const COLS=10,YMAX=11,YMIN=-3,TREE_H=3;
 const GR={0:0,1:0.9,2:1.8,3:3.0};
@@ -990,7 +990,7 @@ function drawScene(g,G,C,B,U,o){
     for(let i=0;i<70;i++){const x=((i*53+t*400)%(W+40))-20,y=((i*97+t*900)%H);g.beginPath();g.moveTo(x,y);g.lineTo(x-4,y+10);g.stroke();}}
   // pits dug so far (run)
   if(o.dug)cut.forEach(c=>{const d=o.dug[c]||0;if(d<=0)return;const s=surf(C,c),dep=(C.ob[c]*(isW(C,c)?0:1)+C.p[c])*d;
-    g.fillStyle="#2b2317b0";g.beginPath();g.moveTo(X(c+0.02),Y(s));g.lineTo(X(c+0.98),Y(s));
+    g.fillStyle="#211a12ee";g.beginPath();g.moveTo(X(c+0.02),Y(s));g.lineTo(X(c+0.98),Y(s));
     g.lineTo(X(c+0.85),Y(s-dep));g.lineTo(X(c+0.15),Y(s-dep));g.closePath();g.fill();});
   // cut highlight
   if(cut.length&&o.mode!=="run"){const pulse=0.55+0.45*Math.sin(t*4);
@@ -1076,12 +1076,16 @@ function drawScene(g,G,C,B,U,o){
   // digger
   if(dx!==null){const bc=Math.max(0,Math.min(COLS-1,dcol));const dir=B.plant!==null&&B.plant>dx?-1:1;
     if(dred)drawDredge(g,G,dx,C.L,C.h[bc],dir,t,o.mode==="run"&&o.running,o.broken==="dig");
-    else drawExc(g,G,dx,C.h[bc],dir,t,o.mode==="run"&&o.running,o.broken==="dig");}
+    else{ // the digger drops into the cut and works along the pay, not on top of the muck
+      const f=o.dug?Math.min(1,(o.dug[bc]||0)/0.9*1.7):0,dep=((isW(C,bc)?0:C.ob[bc])+C.p[bc])*f;
+      const gx=Math.max(0,Math.min(COLS-1,dx)),dd=gx<1.3?1:gx>COLS-2.3?-1:dir; // swing the arm inboard at the edges
+      drawExc(g,G,gx,surf(C,bc)-dep,dd,t,o.mode==="run"&&o.running,o.broken==="dig");}}
   // pumps drawn last so the intake sits on top
   B.wat.forEach(c=>{if(C.kit.wat==="pump")drawPump(g,G,c,C.h[c],isW(C,c-1)?-1:1,C.L,o.broken==="wat");});
   // name tags under each machine so it's clear what's what
   if(o.labels!==false&&(o.mode==="build"||o.mode==="run")){const L=[],gy=c=>Y(C.h[Math.max(0,Math.min(COLS-1,Math.floor(c)))]);
-    if(dx!==null)L.push({x:dx+0.5,y:dred?Y(C.L):gy(dx+0.5),t:dred?"DREDGE":"DIGGER"});
+    if(dx!==null){const bc=Math.max(0,Math.min(COLS-1,Math.round(dx))),f=o.dug?Math.min(1,(o.dug[bc]||0)/0.9*1.7):0;
+      L.push({x:dx+0.5,y:dred?Y(C.L):Y(surf(C,bc)-((isW(C,bc)?0:C.ob[bc])+C.p[bc])*f),t:dred?"DREDGE":"DIGGER"});}
     if(B.plant!==null){L.push({x:B.plant+0.5,y:gy(B.plant+0.5),t:B.ptype==="shk"?"SHAKER":"TROMMEL"});
       const n=Math.min(B.slu.n,R&&R.kit?R.kit.slu:B.slu.n);L.push({x:B.plant+0.85+n*0.21,y:gy(B.plant+0.85+n*0.21),t:"SLUICE"});}
     B.wat.forEach(c=>L.push({x:c+0.5,y:gy(c+0.5)+(C.kit.wat==="pond"?0.8*u:0),t:C.kit.wat==="pond"?"POND":"PUMP"}));
@@ -1147,19 +1151,30 @@ function drawDozer(g,G,x,base,t,on){
   g.strokeStyle="#2a1d10";g.lineWidth=2.5;g.beginPath();g.moveTo(X(x+0.7),Y(base+0.55));g.lineTo(X(x+0.86),Y(base+0.5));g.stroke();
 }
 function drawTruck(g,G,x,base,dir,full){
-  const X=G.X,Y=G.Y,cw=G.cw,u=G.u,s=0.62;
+  const X=G.X,Y=G.Y,cw=G.cw,u=G.u,s=0.95;
   g.save();g.translate(X(x),Y(base));g.scale(dir,1);
-  const w=cw*s,h=u*s;
-  g.fillStyle="#2a1d10";[-0.3,0.25].forEach(f=>{g.beginPath();g.arc(f*w,-h*0.18,h*0.2,0,7);g.fill();});
-  g.fillStyle="#c4912a";rrect(g,-0.5*w,-h*0.95,w*0.62,h*0.62,3);g.fill();g.strokeStyle="#2a1d10";g.lineWidth=1.5;g.stroke();
-  if(full){g.fillStyle="#8a6a44";g.beginPath();g.ellipse(-0.19*w,-h*0.95,w*0.28,h*0.22,0,Math.PI,0);g.fill();}
-  g.fillStyle="#e8e2d0";rrect(g,0.14*w,-h*0.9,w*0.32,h*0.56,3);g.fill();g.stroke();
-  g.fillStyle="#9fb4b8";rrect(g,0.24*w,-h*0.82,w*0.16,h*0.22,2);g.fill();
+  const w=cw*s,h=u*s,sw=Math.max(1,cw/36);
+  // wheels
+  g.fillStyle="#22201c";[-0.34,0.03,0.3].forEach(f=>{g.beginPath();g.arc(f*w,-h*0.2,h*0.26,0,7);g.fill();});
+  g.fillStyle="#8a7a60";[-0.34,0.03,0.3].forEach(f=>{g.beginPath();g.arc(f*w,-h*0.2,h*0.1,0,7);g.fill();});
+  // chassis
+  g.fillStyle="#4a4238";rrect(g,-0.52*w,-h*0.42,w*1.02,h*0.2,2);g.fill();
+  // tipper body
+  g.fillStyle="#c4912a";g.beginPath();g.moveTo(-0.54*w,-h*0.42);g.lineTo(-0.5*w,-h*1.15);
+  g.lineTo(0.16*w,-h*1.05);g.lineTo(0.14*w,-h*0.42);g.closePath();g.fill();
+  g.strokeStyle="#2a1d10";g.lineWidth=1.8*sw;g.stroke();
+  if(full){g.fillStyle="#8a6a44";g.beginPath();g.ellipse(-0.19*w,-h*1.12,w*0.3,h*0.26,0,Math.PI,0);g.fill();
+    g.strokeStyle="#2a1d10";g.lineWidth=1.4*sw;g.stroke();
+    g.fillStyle="#ffd84a";[[-0.3,-1.2],[-0.12,-1.26],[0.02,-1.17]].forEach(([fx,fy])=>{g.beginPath();g.arc(fx*w,fy*h,1.6*sw,0,7);g.fill();});}
+  // cab
+  g.fillStyle="#e2b348";rrect(g,0.16*w,-h*1.12,w*0.34,h*0.72,3);g.fill();g.strokeStyle="#2a1d10";g.lineWidth=1.8*sw;g.stroke();
+  g.fillStyle="#9fb4b8";rrect(g,0.26*w,-h*1.03,w*0.2,h*0.3,2);g.fill();g.strokeStyle="#2a1d10";g.lineWidth=1.3*sw;g.stroke();
+  g.fillStyle="#2a1d10";rrect(g,0.46*w,-h*0.56,w*0.08,h*0.16,1);g.fill();
   g.restore();
 }
 function drawPart(g,G,C,kind,c,t,B){
   if(!inB(c))return;const s=C.h[c];
-  if(kind==="dig"){if(C.kit.dig==="dredge")drawDredge(g,G,c,C.L,C.h[c],-1,t,false,false);else drawExc(g,G,c,s,-1,t,false,false);}
+  if(kind==="dig"){if(C.kit.dig==="dredge")drawDredge(g,G,c,C.L,C.h[c],-1,t,false,false);else drawExc(g,G,c,s,c<1.3?1:-1,t,false,false);}
   else if(kind==="trm")drawTrommel(g,G,c,s,1,t,false,false);
   else if(kind==="shk")drawShaker(g,G,c,s,t,false,false);
   else if(kind==="wat"){if(C.kit.wat==="pond")drawPond(g,G,c,s,0,false);else drawPump(g,G,c,s,isW(C,c-1)?-1:1,C.L,false);}
@@ -1232,21 +1247,74 @@ function drawTrommel(g,G,c,base,dir,t,on,broken){
   if(on){g.fillStyle="#9fb4b8";for(let i=0;i<5;i++){g.fillRect(X(c+0.25+i*0.12),Y(base+2.18)+((t*60+i*7)%10),1.6,3);}}
 }
 function drawExc(g,G,c,base,dir,t,on,broken){
-  const X=G.X,Y=G.Y,cw=G.cw,u=G.u,a=on?Math.sin(t*3.2):Math.sin(t*1.2)*0.12;
-  g.lineJoin="round";g.lineCap="round";
-  const p0=[c+0.5+dir*0.22,base+0.9],p1=[c+0.5+dir*0.9,base+2.0+a*0.35],p2=[c+0.5+dir*1.2,base+0.35-a*0.7];
-  const arm=()=>{g.beginPath();g.moveTo(X(p0[0]),Y(p0[1]));g.lineTo(X(p1[0]),Y(p1[1]));g.lineTo(X(p2[0]),Y(p2[1]));};
-  g.strokeStyle="#2a1d10";g.lineWidth=8;arm();g.stroke();g.strokeStyle="#c4912a";g.lineWidth=5;arm();g.stroke();
-  g.fillStyle="#555";g.beginPath();g.moveTo(X(p2[0]),Y(p2[1]));g.lineTo(X(p2[0]+dir*0.25),Y(p2[1]-0.1));
-  g.lineTo(X(p2[0]+dir*0.05),Y(p2[1]-0.5));g.closePath();g.fill();g.strokeStyle="#2a1d10";g.lineWidth=1.5;g.stroke();
-  g.fillStyle="#2a1d10";rrect(g,X(c+0.06),Y(base+0.36),cw*0.88,0.36*u,6);g.fill();
-  g.fillStyle="#8a7a60";for(let i=0;i<4;i++){g.beginPath();g.arc(X(c+0.18+i*0.21),Y(base+0.18),2.2,0,7);g.fill();}
-  g.fillStyle="#c4912a";rrect(g,X(c+0.13),Y(base+1.0),cw*0.74,0.64*u,4);g.fill();
-  g.strokeStyle=broken?"#e0452e":"#2a1d10";g.lineWidth=broken?3:1.8;g.stroke();
-  const cx=c+0.5-dir*0.2-0.17;
-  g.fillStyle="#c4912a";rrect(g,X(cx),Y(base+1.55),cw*0.34,0.56*u,3);g.fill();g.strokeStyle="#2a1d10";g.lineWidth=1.8;g.stroke();
-  g.fillStyle="#9fb4b8";rrect(g,X(cx+0.05),Y(base+1.47),cw*0.22,0.3*u,2);g.fill();
-  g.fillStyle="#2a1d10";rrect(g,X(c+0.36),Y(base+1.15),cw*0.28,0.18*u,2);g.fill();
+  const X=G.X,Y=G.Y,cw=G.cw,u=G.u,sw=Math.max(1,cw/36);
+  const cyc=on?Math.sin(t*2.2):Math.sin(t*0.9)*0.12,curl=on?Math.sin(t*2.2+1.1):0;
+  const P=(x,y)=>[X(x),Y(y)];
+  const lerp=(A,B,f)=>[A[0]+(B[0]-A[0])*f,A[1]+(B[1]-A[1])*f];
+  const per=(A,B,d)=>{const dx=B[0]-A[0],dy=B[1]-A[1],L=Math.hypot(dx,dy)||1;return[-dy/L*d,dx/L*d];};
+  const hx=c+0.5,ink="#2a1d10",yel="#c4912a",yel2="#e0aa3a",steel="#8d8577";
+  // --- pixel-space joints ---
+  const boomPivot=P(hx+dir*0.30,base+1.05);
+  const boomTip  =P(hx+dir*1.00,base+2.45+cyc*0.22);
+  const armEnd   =P(hx+dir*1.52,base+0.55-cyc*0.45);
+  function bolt(pt,r){g.fillStyle="#6c6459";g.beginPath();g.arc(pt[0],pt[1],r,0,7);g.fill();
+    g.strokeStyle=ink;g.lineWidth=1.6*sw;g.stroke();
+    g.fillStyle="#3b342c";g.beginPath();g.arc(pt[0],pt[1],r*0.42,0,7);g.fill();
+    g.strokeStyle="#cfc6b4";g.lineWidth=1*sw;g.beginPath();g.arc(pt[0],pt[1],r*0.42,2.2,4.4);g.stroke();}
+  function ram(A,B,th){ // hydraulic cylinder: barrel + polished rod
+    const mid=lerp(A,B,0.52);
+    g.lineCap="butt";g.strokeStyle=ink;g.lineWidth=(th+2.2)*sw;g.beginPath();g.moveTo(A[0],A[1]);g.lineTo(mid[0],mid[1]);g.stroke();
+    g.strokeStyle="#5f584d";g.lineWidth=th*sw;g.beginPath();g.moveTo(A[0],A[1]);g.lineTo(mid[0],mid[1]);g.stroke();
+    g.strokeStyle="#8d8577";g.lineWidth=th*0.3*sw;const q=lerp(A,mid,0.2),q2=lerp(A,mid,0.9);
+    g.beginPath();g.moveTo(q[0],q[1]);g.lineTo(q2[0],q2[1]);g.stroke();
+    g.strokeStyle=ink;g.lineWidth=(th*0.55+1.6)*sw;g.beginPath();g.moveTo(mid[0],mid[1]);g.lineTo(B[0],B[1]);g.stroke();
+    g.strokeStyle="#d8d2c4";g.lineWidth=th*0.45*sw;g.beginPath();g.moveTo(mid[0],mid[1]);g.lineTo(B[0],B[1]);g.stroke();
+    g.lineCap="round";}
+  function beam(A,B,th,col){g.lineCap="round";g.lineJoin="round";
+    g.strokeStyle=ink;g.lineWidth=(th+3)*sw;g.beginPath();g.moveTo(A[0],A[1]);g.lineTo(B[0],B[1]);g.stroke();
+    g.strokeStyle=col;g.lineWidth=th*sw;g.beginPath();g.moveTo(A[0],A[1]);g.lineTo(B[0],B[1]);g.stroke();
+    const hi=per(A,B,-th*0.28*sw),A2=[A[0]+hi[0],A[1]+hi[1]],B2=[B[0]+hi[0],B[1]+hi[1]];
+    g.strokeStyle="#e8c165";g.lineWidth=th*0.22*sw;g.beginPath();g.moveTo(A2[0],A2[1]);g.lineTo(B2[0],B2[1]);g.stroke();}
+  // ---------- tracks ----------
+  g.fillStyle=ink;rrect(g,X(c+0.02),Y(base+0.46),cw*0.96,0.46*u,7);g.fill();
+  g.fillStyle="#4a4238";rrect(g,X(c+0.09),Y(base+0.38),cw*0.82,0.3*u,5);g.fill();
+  g.fillStyle="#8a7a60";for(let i=0;i<5;i++){g.beginPath();g.arc(X(c+0.16+i*0.17),Y(base+0.2),2.1*sw,0,7);g.fill();}
+  g.strokeStyle="#16110b";g.lineWidth=1.4*sw;
+  for(let i=0;i<9;i++){const x=X(c+0.06+i*0.105);g.beginPath();g.moveTo(x,Y(base+0.46));g.lineTo(x,Y(base+0.02));g.stroke();}
+  // ---------- house: counterweight, body, cab ----------
+  g.fillStyle="#6b6155";rrect(g,X(hx-dir*0.46),Y(base+1.28),cw*0.24*dir,0.62*u,4);g.fill();g.strokeStyle=ink;g.lineWidth=1.8*sw;g.stroke();
+  g.fillStyle=yel;rrect(g,X(c+0.12),Y(base+1.22),cw*0.76,0.62*u,5);g.fill();
+  g.strokeStyle=broken?"#e0452e":ink;g.lineWidth=(broken?3:1.9)*sw;g.stroke();
+  g.fillStyle="#00000022";rrect(g,X(c+0.16),Y(base+0.86),cw*0.68,0.12*u,3);g.fill();
+  const cx=hx-dir*0.30;
+  g.fillStyle=yel2;rrect(g,X(cx-(dir>0?0:0.3)),Y(base+1.95),cw*0.3,0.78*u,4);g.fill();g.strokeStyle=ink;g.lineWidth=1.9*sw;g.stroke();
+  g.fillStyle="#9fb4b8";rrect(g,X(cx+(dir>0?0.05:-0.25)),Y(base+1.84),cw*0.2,0.42*u,3);g.fill();g.strokeStyle=ink;g.lineWidth=1.4*sw;g.stroke();
+  g.fillStyle="#2a1d10";rrect(g,X(hx-dir*0.06),Y(base+1.5),cw*0.16*dir,0.2*u,2);g.fill(); // exhaust
+  // ---------- boom, arm, rams ----------
+  const boomCylA=P(hx-dir*0.10,base+1.05),boomCylB=lerp(boomPivot,boomTip,0.52);
+  const armCylA=lerp(boomPivot,boomTip,0.42),armCylB=lerp(boomTip,armEnd,0.24);
+  const bkCylA=lerp(boomTip,armEnd,0.18),bkCylB=lerp(boomTip,armEnd,0.9);
+  const off=per(boomPivot,boomTip,-7*sw);
+  beam(boomPivot,boomTip,9,yel);
+  ram(boomCylA,boomCylB,7);
+  beam(boomTip,armEnd,7.5,yel);
+  ram([armCylA[0]+off[0],armCylA[1]+off[1]],armCylB,6);
+  // ---------- bucket ----------
+  const ang=Math.atan2(armEnd[1]-boomTip[1],armEnd[0]-boomTip[0])+ (dir>0?1:-1)*(0.55+curl*0.45);
+  g.save();g.translate(armEnd[0],armEnd[1]);g.rotate(ang);g.scale(1,dir>0?1:-1);
+  const bw=cw*0.36,bh=cw*0.30;
+  g.beginPath();g.moveTo(0,-bh*0.15);g.lineTo(bw*0.9,-bh*0.05);
+  g.quadraticCurveTo(bw*1.05,bh*0.72,bw*0.42,bh*0.95);g.quadraticCurveTo(bw*0.05,bh*1.0,-bh*0.05,bh*0.3);
+  g.closePath();g.fillStyle="#6b6155";g.fill();g.strokeStyle=ink;g.lineWidth=2*sw;g.stroke();
+  g.fillStyle="#3e382f";for(let i=0;i<4;i++){const f=0.18+i*0.24,x=bw*(0.42+0.55*f),y=bh*(0.95-0.15*f*f);
+    g.beginPath();g.moveTo(x-bw*0.06,y-bh*0.04);g.lineTo(x+bw*0.06,y-bh*0.02);g.lineTo(x+bw*0.01,y+bh*0.24);g.closePath();g.fill();
+    g.strokeStyle=ink;g.lineWidth=1.2*sw;g.stroke();}
+  g.restore();
+  ram(bkCylA,bkCylB,5.5);
+  // ---------- pivot bolts ----------
+  bolt(boomPivot,5*sw);bolt(boomTip,4.4*sw);bolt(armEnd,4*sw);
+  if(broken){g.strokeStyle="#e0452e";g.lineWidth=2.6*sw;g.setLineDash([5,4]);
+    g.beginPath();g.arc(X(hx),Y(base+1.4),cw*0.5,0,7);g.stroke();g.setLineDash([]);}
 }
 function drawDredge(g,G,c,L,bed,dir,t,on,broken){
   const X=G.X,Y=G.Y,cw=G.cw,u=G.u,bob=Math.sin(t*2)*0.06;
@@ -1289,7 +1357,7 @@ function iconCanvas(kind,C,w,hh){
   const cv=document.createElement("canvas"),d=Math.min(devicePixelRatio||1,2.5);
   cv.width=w*d;cv.height=hh*d;cv.style.width=w+"px";cv.style.height=hh+"px";
   const g=cv.getContext("2d");g.setTransform(d,0,0,d,0,0);
-  const cw=(kind==="dig"||kind==="dozer"||kind==="shk")?w/2.9:w/1.7,u=cw*0.5,ox=w/2-0.5*cw,gy=hh-4;
+  const IC={dig:[2.25,0.05],dozer:[1.55,0.45],shk:[2.9,0.5]}[kind]||[1.7,0.5],cw=w/IC[0],u=cw*0.5,ox=w/2-IC[1]*cw,gy=hh-4;
   const G={cw,u,W:w,H:hh,X:x=>ox+x*cw,Y:y=>gy-y*u};
   const water=(kind==="dig"&&C.kit.dig==="dredge");
   if(water){g.fillStyle="#3ea0d8";g.fillRect(0,G.Y(0.9),w,hh);}else{g.fillStyle="#8a6a44";g.fillRect(0,gy,w,4);}
