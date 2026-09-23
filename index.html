@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=1,user-scalable=no">
 <meta name="app-repo" content="get-the-gold">
-<meta name="app-version" content="1.0.18">
+<meta name="app-version" content="1.0.19">
 <meta name="theme-color" content="#2a1d10">
 <title>Get the Gold</title>
 <style>
@@ -306,7 +306,7 @@ h2{color:var(--txt)}
 .bubble.tap{animation:tapme 1s ease-in-out infinite;cursor:pointer}
 @keyframes tapme{50%{box-shadow:2px 3px 0 #000,0 0 0 4px rgba(217,161,43,.55)}}
 
-/* ===== v1.0.18 fixed chrome: header + footer stay put, only the middle scrolls ===== */
+/* ===== v1.0.19 fixed chrome: header + footer stay put, only the middle scrolls ===== */
 html,body{height:100%;overflow:hidden}
 #app{height:100vh;height:100dvh;min-height:0;overflow:hidden}
 #bar{position:relative;flex:0 0 auto}
@@ -359,13 +359,13 @@ html,body{height:100%;overflow:hidden}
 .stage{width:fit-content;max-width:100%;margin-left:auto;margin-right:auto;background:#141110!important;line-height:0}
 .stage canvas{display:block}
 .crews{grid-template-columns:repeat(4,minmax(0,1fr))}.crew{min-width:0;overflow:hidden}.crew .pt canvas{max-width:100%;height:auto!important}
-/* v1.0.18 name labels */
+/* v1.0.19 name labels */
 .tile{flex-direction:column;gap:2px;padding:4px 2px 3px}
 .tile canvas{order:1}.tile .tl{order:2;font:800 10px/1 system-ui,-apple-system,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#1a140e;white-space:nowrap}
 .wside .tile .tl{font-size:12px}
 .plantrow .pi{display:flex;flex-direction:column;align-items:center;gap:1px}.plantrow .pl{order:2;font:800 9px/1 system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--txt2)}
 .gr .gi{flex-direction:column;align-items:center;flex-basis:52px}.gr .gi span{order:2;font:800 9px/1 system-ui,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:var(--txt2)}
-/* v1.0.18 yard + gear bar */
+/* v1.0.19 yard + gear bar */
 .shelf{display:flex;flex-direction:column;gap:8px}
 .gcard{display:flex;align-items:center;gap:10px;width:100%;text-align:left;font-family:inherit;color:var(--txt);
  background:linear-gradient(#35302a,#27231e);border:2px solid var(--ink);border-radius:6px;box-shadow:0 3px 0 #000;padding:7px 9px}
@@ -404,26 +404,31 @@ html,body{height:100%;overflow:hidden}
   <main id="screen"></main>
   <footer id="foot"></footer>
 </div>
-<div id="ver">v1.0.18</div>
+<div id="ver">v1.0.19</div>
 <script>
 "use strict";
-const VERSION="1.0.18";
+const VERSION="1.0.19";
 /*__ENGINE_START__*/
 const COLS=10,YMAX=11,YMIN=-3,TREE_H=3;
 const GR={0:0,1:0.9,2:1.8,3:3.0};
 const TILT_DEG=[4,7,10,13,16];
 const ANGLE_F=[1,0.8,0.58,0.4,0.28];
 const YPU=450;                // yards of material per unit of thickness per column
-const BELT_UP=1,BELT_DOWN=1.5,BELT_CAP=225,FELL_DAYS=4;
-const DIG_RATE=190,DOZER_RATE=175,DREDGE_RATE=200,TRUCK_LOAD=18;
+const BELT_UP=1,BELT_DOWN=1.5,BELT_CAP=265,FELL_DAYS=4;
+const DIG_RATE=190,DOZER_RATE=245,DREDGE_RATE=240,TRUCK_LOAD=22;
 
 /* ---------- YARD SHOP: what you can buy for each season ---------- */
 const GEAR={
  plant:[
-  {id:"trm70", n:"Hopper & screen", k:"trm", cost:0,   cap:72,  need:0.8, boxes:3, sd:0, d:"Bare bones. Sips water, chokes on volume."},
-  {id:"trm110",n:"Trommel 24",      k:"trm", cost:130, cap:112, need:1.0, boxes:3, sd:1, d:"The workhorse barrel."},
-  {id:"trm150",n:"Big trommel 36",  k:"trm", cost:250, cap:152, need:1.25,boxes:4, sd:3, ch:3, d:"Eats dirt. Wants water."},
-  {id:"shk200",n:"Shaker deck",     k:"shk", cost:380, cap:205, need:1.6, boxes:4, sd:4, ch:4, d:"Huge feed, huge thirst."}
+  {id:"rock", n:"Rocker box",        k:"rock",  col:"#8a6a3e",col2:"#6b5030", cost:0,   cap:48,  need:0.45,boxes:2, sd:0, d:"Timber and elbow grease. Sips water."},
+  {id:"port", n:"Portable washplant",k:"trm",   col:"#9aa3a8",col2:"#6f787d", cost:70,  cap:82,  need:0.8, boxes:3, sd:0, d:"Trailer-sized. Handy, not hungry."},
+  {id:"grey", n:"Grey Ghost",        k:"trm",   col:"#7d858a",col2:"#5b6266", cost:150, cap:118, need:1.0, boxes:3, sd:1, d:"Old trommel and sluice. The workhorse."},
+  {id:"derk", n:"Derocker Deck",     k:"derock",col:"#d8a01e",col2:"#a5750f", cost:200, cap:132, need:0.9, boxes:4, sd:2, ch:2, d:"Roller deck throws the rocks out. Thrifty."},
+  {id:"blue", n:"Blue Thunder",      k:"trm",   col:"#2f6d9e",col2:"#1d4c72", cost:230, cap:148, need:1.15,boxes:4, sd:2, ch:2, d:"Big barrel, steady feed."},
+  {id:"ogre", n:"Red Ogre",          k:"shk",   col:"#b8382a",col2:"#7d2318", cost:310, cap:178, need:1.4, boxes:4, sd:3, ch:3, d:"Hopper feeder onto a shaker. Loud and thirsty."},
+  {id:"emer", n:"Emerald Beast",     k:"trm",   col:"#3f7a42",col2:"#2a552c", cost:345, cap:196, need:1.3, boxes:5, sd:3, ch:4, d:"Long sluice run off a big drum."},
+  {id:"twin", n:"Twin Fury",         k:"dbl",   col:"#a4562c",col2:"#6f381b", cost:355, cap:218, need:1.25,boxes:5, sd:2, ch:4, d:"Two barrels side by side. Eats everything."},
+  {id:"hell", n:"Hellfire SD-600",   k:"shk",   col:"#7e1f1c",col2:"#4d100e", cost:450, cap:245, need:1.6,boxes:6, sd:4, ch:5, d:"Shaker deck straight onto a monster box."}
  ],
  slu:[
   {id:"s3",n:"3-box run",        cost:0,   rec:0.62, wat:1.0,  boxes:3, sd:0, d:"Standard riffles. Loses the fine stuff."},
@@ -432,12 +437,12 @@ const GEAR={
   {id:"sj",n:"Jig + long run",   cost:390, rec:0.94, wat:1.3,  boxes:6, sd:3, ch:4, d:"Catches nearly everything — drinks for it."}
  ],
  pump:[
-  {id:"p2",n:"2-inch pump",      cost:0,   flow:95,  lift:3,   sd:0,   d:"Small and low."},
-  {id:"p4",n:"4-inch pump",      cost:140, flow:150, lift:4.5, sd:1, d:"More water, lifts higher."},
-  {id:"p6",n:"6-inch + booster", cost:270, flow:215, lift:6.5, sd:2, ch:3, d:"Fills the biggest plant, climbs a bench."}
+  {id:"p2",n:"2-inch pump",      cost:0,   flow:110,  lift:3,   suck:2.5, sd:0,   d:"Small and low."},
+  {id:"p4",n:"4-inch pump",      cost:140, flow:195, lift:4.5, suck:4,   sd:1, d:"More water, lifts higher."},
+  {id:"p6",n:"6-inch + booster", cost:270, flow:300, lift:6.5, suck:6.5, sd:2, ch:3, d:"Fills the biggest plant, climbs a bench."}
  ]
 };
-const CH_BUDGET={1:280,2:380,3:520,4:700,5:820,6:980};
+const CH_BUDGET={1:320,2:430,3:600,4:800,5:950,6:1150};
 function gearList(kind,C,U){return GEAR[kind].filter(it=>!it.ch||C.ch>=it.ch);}
 function gearItem(kind,id){return GEAR[kind].find(i=>i.id===id)||GEAR[kind][0];}
 function budgetOf(C,U){U=U||{};return (C.bud||CH_BUDGET[C.ch]||300)+(U.bud1?80:0)+(U.bud2?120:0)+(U.budAdd||0);}
@@ -445,7 +450,7 @@ function gearOf(C,B,U){const g=B.gear||{};
   const pick=(kind)=>{const it=gearItem(kind,g[kind]);return (!it.ch||C.ch>=it.ch)?it:GEAR[kind][0];};
   return{plant:pick("plant"),slu:pick("slu"),pump:pick("pump")};}
 function gearCost(C,B){const G=gearOf(C,B);return G.plant.cost+G.slu.cost+G.pump.cost;}
-function newGear(){return{plant:"trm70",slu:"s3",pump:"p2"};}
+function newGear(){return{plant:"rock",slu:"s3",pump:"p2"};}
 
 
 const CHAPTERS=[
@@ -460,21 +465,21 @@ const CHAPTERS=[
 const CLAIMS=[
 /* ---------- 1 BREAK GROUND ---------- */
 {id:"porcupine",ch:1,name:"Porcupine Creek",region:"Alaska",country:"Yukon border, Alaska",mx:22,my:58,
- days:40,brk:0.07,ideal:3,s:[46,55.8,62.1],
+ days:40,brk:0.07,ideal:3,s:[48,58.6,65.4],
  tip:"Paint your cut over the gold, then drop the plant beside it — not on it!",
  kit:{dig:"exc",wat:"pump",belt:4,trucks:0,slu:3},
  wc:[0,1],L:2,
  h: [0,1,2,2,2,2,2,3,4,5], ob:[0,0,1,1,2,1,1,1,2,2],
  p: [0,0,0,2,3,3,0,0,0,0],  g: [0,0,0,2,3,3,0,0,0,0], trees:[8,9],rock:[]},
 {id:"moose",ch:1,name:"Moose Gulch",region:"Alaska",country:"Interior Alaska",mx:52,my:36,
- days:40,brk:0.09,ideal:3,s:[39,47.7,52],
+ days:40,brk:0.09,ideal:3,s:[39,47.8,55],
  tip:"Best dirt's under the spruce. Every stand you fell costs 4 days.",
  kit:{dig:"exc",wat:"pump",belt:4,trucks:0,slu:3},
  wc:[8,9],L:2,
  h: [5,5,4,4,3,3,3,3,1,1], ob:[2,2,1,3,1,2,1,2,0,0],
  p: [0,1,2,3,3,2,0,0,0,0],  g: [0,1,2,3,3,3,0,0,0,0], trees:[1,2,3,4,5],rock:[]},
 {id:"bonanza",ch:1,name:"Bonanza Bench",region:"Alaska",country:"Klondike, Yukon",mx:80,my:60,
- days:40,brk:0.09,ideal:3,s:[53,64.6,72.9],
+ days:40,brk:0.09,ideal:3,s:[56,67.7,75.4],
  tip:"Gold's up on the bench, water's way down here. Watch the blue line!",
  kit:{dig:"exc",wat:"pump",belt:5,trucks:0,slu:3},
  wc:[0],L:2,
@@ -482,21 +487,21 @@ const CLAIMS=[
  p: [0,0,0,0,1,2,3,3,0,0],  g: [0,0,0,0,2,3,3,3,0,0], trees:[3],rock:[]},
 /* ---------- 2 HAUL ROAD ---------- */
 {id:"coolgardie",ch:2,name:"Coolgardie",region:"Australia",country:"Western Australia",mx:20,my:44,
- days:38,brk:0.10,ideal:2,s:[47,57.1,66.1],
+ days:38,brk:0.10,ideal:2,s:[53,64.9,74],
  tip:"Water's at the dam, gold's way out east. Belt or trucks?",
  kit:{dig:"exc",wat:"pump",belt:3,trucks:2,slu:3},
  wc:[0],L:2,
  h: [1,2,2,2,2,3,3,3,3,3], ob:[0,1,1,1,1,3,1,2,1,2],
  p: [0,0,0,0,0,1,2,3,3,2],  g: [0,0,0,0,0,2,2,3,3,2], trees:[3],rock:[]},
 {id:"kalgoorlie",ch:2,name:"Kalgoorlie Flats",region:"Australia",country:"Western Australia",mx:50,my:62,
- days:38,brk:0.11,ideal:2,s:[37,44.4,52.1],
+ days:38,brk:0.11,ideal:2,s:[46,55.4,61.3],
  tip:"No belt's getting over that ironstone ridge. The haul road goes round.",
  kit:{dig:"exc",wat:"pond",belt:4,trucks:2,slu:3,ponds:1},
  wc:[],L:-9,
  h: [2,2,2,3,6,6,3,2,2,2], ob:[1,2,1,1,0,0,1,1,1,1],
  p: [2,3,3,2,0,0,0,0,0,0],  g: [2,2,3,2,0,0,0,0,0,0], trees:[8],rock:[4,5]},
 {id:"kanowna",ch:2,name:"Kanowna Lead",region:"Australia",country:"Western Australia",mx:80,my:40,
- days:38,brk:0.11,ideal:2,s:[53,64.8,71.6],
+ days:37,brk:0.11,ideal:2,s:[55,67.2,79],
  tip:"Easy gold close by, rich gold far off. You've only got one truck.",
  kit:{dig:"exc",wat:"pump",belt:3,trucks:1,slu:3},
  wc:[9],L:2,
@@ -504,21 +509,21 @@ const CLAIMS=[
  p: [3,3,2,0,0,2,2,1,0,0],  g: [3,3,3,0,0,1,1,1,0,0], trees:[3],rock:[]},
 /* ---------- 3 STRIP IT ---------- */
 {id:"klondike",ch:3,name:"Klondike Muck",region:"Alaska",country:"Klondike, Yukon",mx:24,my:60,
- days:50,brk:0.10,ideal:3,s:[80,97.4,108.1],
+ days:50,brk:0.10,ideal:3,s:[80,97.5,114.6],
  tip:"Four metres of frozen muck over the pay. Put the dozer on it!",
  kit:{dig:"exc",wat:"pump",belt:4,trucks:0,dozer:1,slu:3},
  wc:[0],L:1,
  h: [0,2,3,3,4,4,4,5,5,5], ob:[0,1,1,3,2,4,5,3,2,2],
  p: [0,0,0,2,3,3,3,2,1,0],  g: [0,0,0,2,3,3,3,2,1,0], trees:[8,9],rock:[]},
 {id:"sixtymile",ch:3,name:"Sixtymile",region:"Alaska",country:"Yukon border, Alaska",mx:55,my:34,
- days:48,brk:0.11,ideal:3,s:[35,42.8,49.9],
+ days:48,brk:0.11,ideal:3,s:[42,51.3,59.5],
  tip:"Timber AND muck. Pick a cut that's worth the felling.",
  kit:{dig:"exc",wat:"pump",belt:4,trucks:1,dozer:1,slu:3},
  wc:[9],L:2,
  h: [5,5,5,4,4,4,3,3,3,1], ob:[3,5,3,2,4,2,2,1,1,0],
  p: [2,3,3,3,2,2,1,0,0,0],  g: [3,3,3,2,2,2,1,0,0,0], trees:[0,1,2,3],rock:[]},
 {id:"fortymile",ch:3,name:"Fortymile",region:"Alaska",country:"Fortymile River, Alaska",mx:84,my:62,
- days:48,brk:0.11,ideal:3,s:[78,94.7,106.4],
+ days:48,brk:0.11,ideal:3,s:[86,104.8,123.2],
  tip:"Shallow lean dirt here, deep rich dirt there. Dozer and trucks.",
  kit:{dig:"exc",wat:"pump",belt:3,trucks:2,dozer:1,slu:3},
  wc:[0],L:2,
@@ -526,29 +531,29 @@ const CLAIMS=[
  p: [0,0,1,1,1,0,3,3,3,2],  g: [0,0,1,1,1,0,3,3,3,3], trees:[5],rock:[]},
 /* ---------- 4 BIG IRON ---------- */
 {id:"tarkwa",ch:4,name:"Tarkwa Flats",region:"West Africa",country:"Western Region, Ghana",mx:22,my:48,
- days:50,brk:0.11,ideal:2,s:[61,73.8,83.6],
- tip:"Lots of pay. A trommel can't keep up — try the shaker, but it's thirsty.",
- kit:{digRate:260,dig:"exc",wat:"pump",belt:4,trucks:1,dozer:1,shaker:1,slu:3},
+ days:50,brk:0.11,ideal:2,s:[70,85.4,100.5],
+ tip:"Lots of pay here. A small plant will never keep up with it.",
+ kit:{digRate:330,dig:"exc",wat:"pump",belt:4,trucks:1,dozer:1,shaker:1,slu:3},
  wc:[0],L:2,
  h: [1,2,2,2,2,3,3,3,3,3], ob:[0,1,1,1,3,1,2,1,3,1],
  p: [0,0,0,3,3,3,3,3,3,2],  g: [0,0,0,2,2,2,2,2,1,1], trees:[2,9],rock:[]},
 {id:"obuasi",ch:4,name:"Obuasi Hills",region:"West Africa",country:"Ashanti Region, Ghana",mx:52,my:60,
- days:50,brk:0.12,ideal:2,s:[70,85.3,97.8],
- tip:"The shaker needs water close by. The gold's up the hill.",
- kit:{digRate:260,dig:"exc",wat:"pump",belt:4,trucks:2,dozer:1,shaker:1,slu:4},
+ days:50,brk:0.12,ideal:2,s:[79,96.5,112.1],
+ tip:"Gold's up the hill and the water's down below. Mind the lift.",
+ kit:{digRate:330,dig:"exc",wat:"pump",belt:4,trucks:2,dozer:1,shaker:1,slu:4},
  wc:[0,1],L:2,
  h: [0,1,2,2,3,4,5,5,6,6], ob:[0,0,1,1,1,3,1,2,3,2],
  p: [0,0,0,0,1,2,3,3,3,2],  g: [0,0,0,0,1,2,2,3,3,2], trees:[3,8,9],rock:[]},
 {id:"ashanti",ch:4,name:"Ashanti River",region:"West Africa",country:"Ashanti Region, Ghana",mx:82,my:44,
- days:50,brk:0.12,ideal:2,s:[77,92.9,108.1],
+ days:50,brk:0.12,ideal:2,s:[82,99.8,117.3],
  tip:"Float the dredge over the river gravel. It pipes the slurry to your plant.",
- kit:{digRate:260,dig:"dredge",wat:"pump",belt:0,trucks:0,shaker:1,slu:3},
+ kit:{digRate:330,dig:"dredge",wat:"pump",belt:0,trucks:0,shaker:1,slu:3},
  wc:[3,4,5,6],L:3,
  h: [4,4,3,1,1,1,1,3,4,4], ob:[1,1,1,0,0,0,0,1,1,1],
  p: [0,0,0,3,3,3,3,0,0,0],  g: [0,0,0,2,3,3,2,0,0,0], trees:[0,1,8,9],rock:[]},
 /* ---------- 5 EVERY DROP ---------- */
 {id:"coober",ch:5,name:"Coober Pedy",region:"Australia",country:"South Australia",mx:24,my:40,
- days:45,brk:0.10,ideal:3,silt:2100,s:[67,81.9,93.1],
+ days:45,brk:0.10,ideal:3,silt:2100,s:[68,82.2,96.7],
  tip:"Ponds fill with silt. When they're full, the plant stops. Dig a second one!",
  kit:{dig:"exc",wat:"pond",belt:4,trucks:1,dozer:1,slu:3,ponds:2},
  wc:[],L:-9,
@@ -562,7 +567,7 @@ const CLAIMS=[
  h: [2,2,2,3,3,3,4,4,4,4], ob:[1,1,1,1,2,1,3,1,2,2],
  p: [0,0,0,1,1,2,3,3,3,2],  g: [0,0,0,1,1,2,3,3,3,2], trees:[1],rock:[]},
 {id:"oodnadatta",ch:5,name:"Oodnadatta Track",region:"Australia",country:"South Australia",mx:84,my:38,
- days:45,brk:0.11,ideal:2,silt:1750,s:[75,90.8,103.9],
+ days:45,brk:0.11,ideal:2,silt:1750,s:[88,106.3,124.9],
  tip:"Three ponds, two trucks, one long dusty track.",
  kit:{dig:"exc",wat:"pond",belt:3,trucks:2,dozer:1,slu:3,ponds:3},
  wc:[],L:-9,
@@ -570,23 +575,23 @@ const CLAIMS=[
  p: [0,0,0,0,1,1,2,3,3,3],  g: [0,0,0,0,1,1,2,3,3,3], trees:[0,5],rock:[]},
 /* ---------- 6 THE MOTHERLODE ---------- */
 {id:"nome",ch:6,name:"Nome Offshore",region:"Alaska",country:"Bering Sea, Alaska",mx:20,my:66,
- days:45,brk:0.15,ideal:1,s:[75,90.8,106.1],
- tip:"Richest sand is way offshore. Flour gold — keep that sluice flat!",
- kit:{digRate:260,dig:"dredge",wat:"pump",belt:0,trucks:0,shaker:1,slu:4},
+ days:49,brk:0.15,ideal:1,s:[84,102.1,120.1],
+ tip:"Richest sand is way offshore. Flour gold \u2014 you'll want a fine sluice.",
+ kit:{digRate:330,dig:"dredge",wat:"pump",belt:0,trucks:0,shaker:1,slu:4},
  wc:[0,1,2,3,4,5],L:2,
  h: [0,0,0,0,0,0,3,3,4,4], ob:[0,0,0,0,0,0,1,1,1,1],
  p: [2,3,3,2,2,1,0,0,0,0],  g: [2,3,3,2,2,1,0,0,0,0], trees:[],rock:[]},
 {id:"birim",ch:6,name:"Birim Valley",region:"West Africa",country:"Eastern Region, Ghana",mx:50,my:36,
- days:50,brk:0.13,ideal:2,s:[75,91.3,107.2],
+ days:50,brk:0.13,ideal:2,s:[87,105.6,123.5],
  tip:"Jungle, muck and a hill between the gold and the river.",
- kit:{digRate:260,dig:"exc",wat:"pump",belt:4,trucks:2,dozer:1,shaker:1,slu:4},
+ kit:{digRate:330,dig:"exc",wat:"pump",belt:4,trucks:2,dozer:1,shaker:1,slu:4},
  wc:[9],L:2,
  h: [4,4,4,5,5,4,3,3,2,1], ob:[2,4,2,3,2,1,1,1,1,0],
  p: [3,3,3,2,1,0,0,0,0,0],  g: [3,3,3,2,1,0,0,0,0,0], trees:[0,1,2,6,7],rock:[4]},
 {id:"motherlode",ch:6,name:"The Motherlode",region:"Alaska",country:"Klondike, Yukon",mx:82,my:58,
- days:50,brk:0.13,ideal:3,silt:3100,s:[68,83,97.6],
+ days:49,brk:0.13,ideal:3,silt:3100,s:[90,109.4,128.6],
  tip:"Everything you've learned. Timber, muck, distance, water. Go get it.",
- kit:{digRate:260,dig:"exc",wat:"pond",belt:4,trucks:2,dozer:1,shaker:1,slu:4,ponds:2},
+ kit:{digRate:330,dig:"exc",wat:"pond",belt:4,trucks:2,dozer:1,shaker:1,slu:4,ponds:2},
  wc:[],L:-9,
  h: [2,2,3,3,4,4,5,5,5,6], ob:[0,1,1,2,4,2,5,3,2,3],
  p: [0,0,0,1,2,3,3,3,3,2],  g: [0,0,0,1,2,3,3,3,3,3], trees:[2,3,6,7],rock:[]}
@@ -622,10 +627,11 @@ function whyPlant(C,B,c){
   if(B.wat.indexOf(c)>=0)return"The water's there!";
   return null;
 }
+function watDist(C,c){let d=99;C.wc.forEach(w=>{d=Math.min(d,Math.abs(w-c));});return d;}
 function whyWat(C,B,c,idx){
   if(!inB(c))return"Off the claim!";
   if(isW(C,c))return"Needs dry ground!";
-  if(C.kit.wat==="pump"&&!(isW(C,c-1)||isW(C,c+1)))return"Pump goes right by the water!";
+  if(C.kit.wat==="pump"&&watDist(C,c)>6)return"Too far to suck water from there!";
   if(C.kit.wat==="pond"&&onGold(C,c))return"Don't dig a pond on the gold!";
   if(C.rock.indexOf(c)>=0)return"Solid ironstone \u2014 can't dig a pond!";
   if(cutCols(B).indexOf(c)>=0)return"That's in your cut!";
@@ -675,9 +681,12 @@ function cutStats(C,B){
 function waterState(C,B,U){
   const o={flow:0,base:0,lim:0,head:0,reach:0,src:null,dry:false,need:1};
   if(!B.wat.length)return o;
-  const w=B.wat[0],pump=C.kit.wat==="pump",P=gearOf(C,B,U).pump;o.src=w;
-  o.base=Math.round(P.flow*(pump?1:0.8));o.lim=P.lift+(pump?0:-0.5);
-  o.dry=pump&&!(isW(C,w-1)||isW(C,w+1));
+  const w=B.wat[0],pump=C.kit.wat==="pump",P=gearOf(C,B,U).pump;o.src=w;o.pump=P;
+  o.dist=pump?watDist(C,w):0;                         // columns of suction line back to the creek
+  o.suck=pump?Math.max(0,C.h[w]-C.L):0;               // how high it has to pull the water
+  o.line=pump?Math.max(0.25,1-0.085*o.dist):1;        // friction down a long suction line
+  o.base=Math.round(P.flow*(pump?1:0.8)*o.line);o.lim=P.lift+(pump?0:-0.5);
+  o.dry=pump&&(o.dist>6||o.suck>P.suck+1e-9);
   if(B.plant===null)return o;
   o.reach=reachAt(C,B,U,B.plant);o.head=C.h[B.plant]+2;
   const over=o.head-o.reach;
@@ -737,7 +746,8 @@ function evaluate(C,B,U){
   if(!B.cut)R.problems.push(kit.dig==="dredge"?"Float the dredge over the gold!":"Drag the digger onto the gold!");
   else if(!cs.P)R.problems.push("No gold in that cut!");
   if(B.plant===null)R.problems.push("Drop the plant next to your cut!");
-  if(!B.wat.length)R.problems.push(kit.wat==="pump"?"Pump goes right by the water.":"Dig a settling pond for water.");
+  if(!B.wat.length)R.problems.push(kit.wat==="pump"?"Set the pump where it can reach the creek.":"Dig a settling pond for water.");
+  else if(R.ws&&R.ws.dry)R.problems.push(R.ws.suck>R.ws.pump.suck?"That pump can't suck water up that high \u2014 set it lower or buy a bigger one.":"Too far from the water!");
   if(kit.dig==="exc"&&B.cut&&B.plant!==null){
     if(!R.haulKind)R.problems.push(kit.belt&&kit.trucks?"Lay a belt or send trucks!":kit.belt?"Lay the belt!":"Send in the trucks!");
     else if(R.haulKind==="belt"&&!R.bs.ok)R.problems.push(R.bs.bad);}
@@ -1141,7 +1151,9 @@ function drawScene(g,G,C,B,U,o){
       const gx=Math.max(0,Math.min(COLS-1,dx)),dd=gx<1.3?1:gx>COLS-2.3?-1:dir; // swing the arm inboard at the edges
       drawExc(g,G,gx,surf(C,bc)-dep,dd,t,o.mode==="run"&&o.running,o.broken==="dig");}}
   // pumps drawn last so the intake sits on top
-  B.wat.forEach(c=>{if(C.kit.wat==="pump")drawPump(g,G,c,C.h[c],isW(C,c-1)?-1:1,C.L,o.broken==="wat");});
+  B.wat.forEach(c=>{if(C.kit.wat!=="pump")return;
+    let bw=null;C.wc.forEach(w=>{if(bw===null||Math.abs(w-c)<Math.abs(bw-c))bw=w;});
+    drawPump(g,G,c,C.h[c],bw<c?-1:1,C.L,o.broken==="wat",bw===null?undefined:bw+0.5);});
   // ghost machine
   if(o.ghost){g.globalAlpha=0.6;drawPart(g,G,C,o.ghost.kind,o.ghost.c,t,B);g.globalAlpha=1;}
   if(o.pops)o.pops.forEach(p=>drawPop(g,G,p,t));
@@ -1165,21 +1177,20 @@ function drawPlant(g,G,C,B,R,t,o){
       for(let i=0;i<gl;i++){const f=(i+0.5)/3;g.beginPath();g.arc(X(xa+(xb-xa)*f),Y(ya+(yb-ya)*f)+2,1.7,0,7);g.fill();}}}
   if(running&&n){const xe=x0+n*0.42,ye=y0-drop*n*0.9,sz=0.3+(o.prog||0)*0.7;
     g.fillStyle="#9a8a70";g.strokeStyle="#2a1d10";g.lineWidth=1.3;g.beginPath();g.ellipse(X(xe+0.15),Y(base),G.cw*0.3*sz,G.u*0.8*sz,0,Math.PI,0);g.fill();g.stroke();}
-  if((R.gear?R.gear.plant.k:B.ptype)==="shk")drawShaker(g,G,c,base,t,running,o.broken==="trm");
-  else drawTrommel(g,G,c,base,1,t,running,o.broken==="trm");
+  drawPlantUnit(g,G,c,base,gr.plant,t,running,o.broken==="trm");
 }
-function drawShaker(g,G,c,base,t,on,broken){
-  const X=G.X,Y=G.Y,cw=G.cw,u=G.u,j=on?Math.sin(t*40)*1.2:0;
+function drawShaker(g,G,c,base,t,on,broken,it){
+  const X=G.X,Y=G.Y,cw=G.cw,u=G.u,j=on?Math.sin(t*40)*1.2:0,col=(it&&it.col)||"#8a3a26",col2=(it&&it.col2)||"#9e6a2c";
   g.lineCap="round";g.strokeStyle="#2a1d10";g.lineWidth=4;
   g.beginPath();g.moveTo(X(c+0.1),Y(base));g.lineTo(X(c+0.15),Y(base+1.1));g.moveTo(X(c+0.9),Y(base));g.lineTo(X(c+0.85),Y(base+0.8));g.stroke();
   g.save();g.translate(j,0);
   // two screen decks
-  [[1.35,"#8a3a26"],[1.0,"#9e6a2c"]].forEach(([yy,col])=>{g.fillStyle=col;g.beginPath();
+  [[1.35,col],[1.0,col2]].forEach(([yy,cc])=>{g.fillStyle=cc;g.beginPath();
     g.moveTo(X(c-0.05),Y(base+yy+0.35));g.lineTo(X(c+1.05),Y(base+yy));g.lineTo(X(c+1.05),Y(base+yy-0.22));g.lineTo(X(c-0.05),Y(base+yy+0.13));
     g.closePath();g.fill();g.strokeStyle=broken?"#d0452e":"#2a1d10";g.lineWidth=1.6;g.stroke();
     g.strokeStyle="#ffffff66";g.lineWidth=1;for(let i=1;i<6;i++){const xx=c-0.05+i*0.18;g.beginPath();g.moveTo(X(xx),Y(base+yy+0.35-i*0.058));g.lineTo(X(xx),Y(base+yy+0.13-i*0.058));g.stroke();}});
   // feed hopper
-  g.fillStyle="#5a3320";g.beginPath();g.moveTo(X(c-0.1),Y(base+2.1));g.lineTo(X(c+0.55),Y(base+2.1));g.lineTo(X(c+0.35),Y(base+1.7));g.lineTo(X(c+0.05),Y(base+1.7));
+  g.fillStyle=col2;g.beginPath();g.moveTo(X(c-0.1),Y(base+2.1));g.lineTo(X(c+0.55),Y(base+2.1));g.lineTo(X(c+0.35),Y(base+1.7));g.lineTo(X(c+0.05),Y(base+1.7));
   g.closePath();g.fill();g.strokeStyle="#2a1d10";g.lineWidth=1.6;g.stroke();
   g.strokeStyle="#6f98a6";g.lineWidth=2.5;g.beginPath();g.moveTo(X(c-0.05),Y(base+2.24));g.lineTo(X(c+0.55),Y(base+2.24));g.stroke();
   g.restore();
@@ -1220,9 +1231,8 @@ function drawTruck(g,G,x,base,dir,full){
 function drawPart(g,G,C,kind,c,t,B){
   if(!inB(c))return;const s=C.h[c];
   if(kind==="dig"){if(C.kit.dig==="dredge")drawDredge(g,G,c,C.L,C.h[c],-1,t,false,false);else drawExc(g,G,c,s,c<1.3?1:-1,t,false,false);}
-  else if(kind==="trm")drawTrommel(g,G,c,s,1,t,false,false);
-  else if(kind==="shk")drawShaker(g,G,c,s,t,false,false);
-  else if(kind==="wat"){if(C.kit.wat==="pond")drawPond(g,G,c,s,0,false);else drawPump(g,G,c,s,isW(C,c-1)?-1:1,C.L,false);}
+  else if(kind==="trm"||kind==="shk")drawPlantUnit(g,G,c,s,B&&B.gear?gearItem("plant",B.gear.plant):null,t,false,false);
+  else if(kind==="wat"){if(C.kit.wat==="pond")drawPond(g,G,c,s,0,false);else{let bw=null;C.wc.forEach(w=>{if(bw===null||Math.abs(w-c)<Math.abs(bw-c))bw=w;});drawPump(g,G,c,s,bw<c?-1:1,C.L,false,bw===null?undefined:bw+0.5);}}
   else if(kind==="dozer")drawDozer(g,G,c,s,t,false);
 }
 
@@ -1269,27 +1279,82 @@ function drawTrestle(g,G,c,base,top){
   g.strokeStyle="#2a1d10";g.lineWidth=5;legs();g.stroke();g.strokeStyle="#b07a3e";g.lineWidth=3;legs();g.stroke();
   g.fillStyle="#6b4a28";rrect(g,X(c+0.32),Y(top)-3,G.cw*0.36,6,2);g.fill();g.strokeStyle="#2a1d10";g.lineWidth=1.3;g.stroke();
 }
-function drawTrommel(g,G,c,base,dir,t,on,broken){
-  const X=G.X,Y=G.Y,cw=G.cw,u=G.u;
+function drawTrommel(g,G,c,base,dir,t,on,broken,it){
+  const X=G.X,Y=G.Y,cw=G.cw,u=G.u,col=(it&&it.col)||"#58717e",col2=(it&&it.col2)||"#3a4a53";
   g.lineCap="round";g.strokeStyle="#2a1d10";g.lineWidth=4;
   g.beginPath();g.moveTo(X(c+0.22),Y(base));g.lineTo(X(c+0.3),Y(base+1.0));
   g.moveTo(X(c+0.78),Y(base));g.lineTo(X(c+0.7),Y(base+1.0));g.stroke();
-  g.fillStyle="#3a4a53";g.beginPath();
+  g.fillStyle=col2;g.beginPath();
   g.moveTo(X(c+0.5+dir*0.3),Y(base+1.15));g.lineTo(X(c+0.5+dir*0.52),Y(base+1.0));
   g.lineTo(X(c+0.5+dir*0.52),Y(base+0.75));g.lineTo(X(c+0.5+dir*0.3),Y(base+0.95));g.closePath();g.fill();g.lineWidth=1.5;g.stroke();
   const x0=X(c+0.05),y0=Y(base+1.7),w=cw*0.9,hh=0.75*u;
-  g.fillStyle="#58717e";rrect(g,x0,y0,w,hh,4);g.fill();
+  g.fillStyle=col;rrect(g,x0,y0,w,hh,4);g.fill();
   g.save();rrect(g,x0,y0,w,hh,4);g.clip();
   g.strokeStyle="#ffffff55";g.lineWidth=2.5;const off=on?(t*30)%8:0;
   for(let x=x0-8+off;x<x0+w;x+=8){g.beginPath();g.moveTo(x,y0);g.lineTo(x+3,y0+hh);g.stroke();}
   g.fillStyle="#ffffff30";g.fillRect(x0,y0,w,hh*0.3);g.restore();
   g.strokeStyle=broken?"#e0452e":"#2a1d10";g.lineWidth=broken?3:1.8;rrect(g,x0,y0,w,hh,4);g.stroke();
-  g.fillStyle="#3a4a53";g.beginPath();
+  g.fillStyle=col2;g.beginPath();
   g.moveTo(X(c+0.16),Y(base+2.08));g.lineTo(X(c+0.84),Y(base+2.08));
   g.lineTo(X(c+0.63),Y(base+1.7));g.lineTo(X(c+0.37),Y(base+1.7));g.closePath();g.fill();
   g.strokeStyle="#2a1d10";g.lineWidth=1.6;g.stroke();
   g.strokeStyle="#6f98a6";g.lineWidth=2.5;g.beginPath();g.moveTo(X(c+0.18),Y(base+2.24));g.lineTo(X(c+0.82),Y(base+2.24));g.stroke();
   if(on){g.fillStyle="#9fb4b8";for(let i=0;i<5;i++){g.fillRect(X(c+0.25+i*0.12),Y(base+2.18)+((t*60+i*7)%10),1.6,3);}}
+}
+
+// a rocker box: timber, hand-cranked, tiny
+function drawRocker(g,G,c,base,t,on,broken,it){
+  const X=G.X,Y=G.Y,cw=G.cw,u=G.u,rock=on?Math.sin(t*4)*0.06:0,col=(it&&it.col)||"#8a6a3e",col2=(it&&it.col2)||"#6b5030";
+  g.save();g.translate(X(c+0.5),Y(base+0.5));g.rotate(rock);g.translate(-X(c+0.5),-Y(base+0.5));
+  g.fillStyle=col2;rrect(g,X(c+0.12),Y(base+0.35),cw*0.76,0.3*u,3);g.fill();g.strokeStyle="#2a1d10";g.lineWidth=1.6;g.stroke();
+  g.fillStyle=col;g.beginPath();g.moveTo(X(c+0.08),Y(base+1.15));g.lineTo(X(c+0.92),Y(base+0.95));
+  g.lineTo(X(c+0.92),Y(base+0.5));g.lineTo(X(c+0.08),Y(base+0.7));g.closePath();g.fill();
+  g.strokeStyle=broken?"#e0452e":"#2a1d10";g.lineWidth=broken?3:1.8;g.stroke();
+  g.strokeStyle="#00000044";g.lineWidth=1.4;for(let i=1;i<5;i++){const x=c+0.08+i*0.17;g.beginPath();g.moveTo(X(x),Y(base+1.15-i*0.045));g.lineTo(X(x),Y(base+0.7-i*0.045));g.stroke();}
+  g.fillStyle=col2;g.beginPath();g.moveTo(X(c+0.1),Y(base+1.62));g.lineTo(X(c+0.62),Y(base+1.62));g.lineTo(X(c+0.48),Y(base+1.18));g.lineTo(X(c+0.2),Y(base+1.18));g.closePath();g.fill();
+  g.strokeStyle="#2a1d10";g.lineWidth=1.5;g.stroke();
+  g.strokeStyle="#6b5030";g.lineWidth=3;g.beginPath();g.moveTo(X(c+0.85),Y(base+0.95));g.lineTo(X(c+1.0),Y(base+0.6+(on?Math.sin(t*4)*0.2:0)));g.stroke();
+  g.restore();
+  if(on){g.fillStyle="#9fb4b8";for(let i=0;i<3;i++)g.fillRect(X(c+0.2+i*0.12),Y(base+1.7)+((t*50+i*9)%9),1.4,3);}
+}
+// roller deck: rocks bounce off the rollers, fines drop to the box
+function drawDerock(g,G,c,base,t,on,broken,it){
+  const X=G.X,Y=G.Y,cw=G.cw,u=G.u,col=(it&&it.col)||"#d8a01e",col2=(it&&it.col2)||"#a5750f";
+  g.strokeStyle="#2a1d10";g.lineWidth=4;g.lineCap="round";
+  g.beginPath();g.moveTo(X(c+0.12),Y(base));g.lineTo(X(c+0.2),Y(base+1.0));g.moveTo(X(c+0.9),Y(base));g.lineTo(X(c+0.82),Y(base+0.8));g.stroke();
+  g.fillStyle=col;g.beginPath();g.moveTo(X(c-0.02),Y(base+1.5));g.lineTo(X(c+1.02),Y(base+1.15));
+  g.lineTo(X(c+1.02),Y(base+0.8));g.lineTo(X(c-0.02),Y(base+1.15));g.closePath();g.fill();
+  g.strokeStyle=broken?"#e0452e":"#2a1d10";g.lineWidth=broken?3:1.8;g.stroke();
+  const spin=on?t*6:0;
+  for(let i=0;i<6;i++){const x=c+0.06+i*0.16,y=base+1.42-i*0.055,px=X(x),py=Y(y);
+    g.fillStyle=col2;g.beginPath();g.arc(px,py,cw*0.055,0,7);g.fill();g.strokeStyle="#2a1d10";g.lineWidth=1.2;g.stroke();
+    g.strokeStyle="#00000066";g.beginPath();g.moveTo(px,py);g.lineTo(px+Math.cos(spin+i)*cw*0.05,py+Math.sin(spin+i)*cw*0.05);g.stroke();}
+  g.fillStyle=col2;g.beginPath();g.moveTo(X(c-0.08),Y(base+2.15));g.lineTo(X(c+0.6),Y(base+2.15));g.lineTo(X(c+0.42),Y(base+1.62));g.lineTo(X(c+0.08),Y(base+1.62));g.closePath();g.fill();
+  g.strokeStyle="#2a1d10";g.lineWidth=1.6;g.stroke();
+  if(on){g.fillStyle="#9fb4b8";for(let i=0;i<5;i++)g.fillRect(X(c+i*0.12),Y(base+2.2)+((t*60+i*7)%10),1.6,3);}
+}
+// two barrels side by side
+function drawTwin(g,G,c,base,dir,t,on,broken,it){
+  const X=G.X,Y=G.Y,cw=G.cw,u=G.u,col=(it&&it.col)||"#a4562c",col2=(it&&it.col2)||"#6f381b";
+  g.strokeStyle="#2a1d10";g.lineWidth=4;g.lineCap="round";
+  g.beginPath();g.moveTo(X(c+0.18),Y(base));g.lineTo(X(c+0.26),Y(base+1.0));g.moveTo(X(c+0.86),Y(base));g.lineTo(X(c+0.78),Y(base+1.0));g.stroke();
+  [[1.35,0.02],[1.95,0.12]].forEach(([yy,dx],k)=>{
+    const x0=X(c+dx),y0=Y(base+yy),w=cw*0.86,hh=0.62*u;
+    g.fillStyle=k?col2:col;rrect(g,x0,y0,w,hh,4);g.fill();
+    g.save();rrect(g,x0,y0,w,hh,4);g.clip();g.strokeStyle="#ffffff40";g.lineWidth=2.4;const off=on?(t*30)%8:0;
+    for(let x=x0-8+off;x<x0+w;x+=8){g.beginPath();g.moveTo(x,y0);g.lineTo(x+3,y0+hh);g.stroke();}g.restore();
+    g.strokeStyle=broken?"#e0452e":"#2a1d10";g.lineWidth=broken?3:1.8;rrect(g,x0,y0,w,hh,4);g.stroke();});
+  g.fillStyle=col2;g.beginPath();g.moveTo(X(c+0.1),Y(base+2.75));g.lineTo(X(c+0.85),Y(base+2.75));
+  g.lineTo(X(c+0.62),Y(base+2.3));g.lineTo(X(c+0.33),Y(base+2.3));g.closePath();g.fill();g.strokeStyle="#2a1d10";g.lineWidth=1.6;g.stroke();
+  if(on){g.fillStyle="#9fb4b8";for(let i=0;i<5;i++)g.fillRect(X(c+0.22+i*0.12),Y(base+2.85)+((t*60+i*7)%10),1.6,3);}
+}
+function drawPlantUnit(g,G,c,base,it,t,on,broken){
+  const k=it?it.k:"trm";
+  if(k==="rock")drawRocker(g,G,c,base,t,on,broken,it);
+  else if(k==="derock")drawDerock(g,G,c,base,t,on,broken,it);
+  else if(k==="dbl")drawTwin(g,G,c,base,1,t,on,broken,it);
+  else if(k==="shk")drawShaker(g,G,c,base,t,on,broken,it);
+  else drawTrommel(g,G,c,base,1,t,on,broken,it);
 }
 function drawExc(g,G,c,base,dir,t,on,broken){
   const X=G.X,Y=G.Y,cw=G.cw,u=G.u,sw=Math.max(1,cw/36);
@@ -1395,10 +1460,18 @@ function drawDredge(g,G,c,L,bed,dir,t,on,broken){
   g.lineTo(X(c+0.5+dir*0.45),Y(L+1.55+bob));g.lineTo(X(c+0.5+dir*0.72),Y(L+0.32+bob));g.stroke();
   g.fillStyle="#2a1d10";rrect(g,X(c+0.38),Y(L+1.12+bob),cw*0.24,0.2*u,2);g.fill();
 }
-function drawPump(g,G,c,s,wd,L,broken){const X=G.X,Y=G.Y,cw=G.cw,u=G.u;
-  g.lineCap="round";g.strokeStyle="#2a1d10";g.lineWidth=5;g.beginPath();g.moveTo(X(c+0.5+wd*0.2),Y(s+0.35));
-  g.lineTo(X(c+0.5+wd*0.95),Y(s+0.35));g.lineTo(X(c+0.5+wd*0.95),Y(L-0.6));g.stroke();
-  g.strokeStyle="#7a6a50";g.lineWidth=3;g.stroke();
+function drawPump(g,G,c,s,wd,L,broken,wx){
+  const X=G.X,Y=G.Y,cw=G.cw,u=G.u;
+  // suction line: runs from the pump across to the creek, then drops in
+  const tx=(wx===undefined||wx===null)?c+0.5+wd*0.95:wx;
+  const px=c+0.5+(tx>c+0.5?0.32:-0.32),py=s+0.35;
+  g.lineCap="round";g.lineJoin="round";
+  g.strokeStyle="#2a1d10";g.lineWidth=6;g.beginPath();g.moveTo(X(px),Y(py));g.lineTo(X(tx),Y(py));g.lineTo(X(tx),Y(L-0.6));g.stroke();
+  g.strokeStyle="#7a6a50";g.lineWidth=3.6;g.beginPath();g.moveTo(X(px),Y(py));g.lineTo(X(tx),Y(py));g.lineTo(X(tx),Y(L-0.6));g.stroke();
+  // pipe joints every column or so
+  const step=(tx-px);g.fillStyle="#5c5040";
+  for(let k=1;k<Math.abs(step);k++){const jx=px+Math.sign(step)*k;g.fillRect(X(jx)-2,Y(py)-4,4,8);}
+  g.fillStyle="#3e3527";g.beginPath();g.arc(X(tx),Y(L-0.6),4,0,7);g.fill();
   g.fillStyle="#8c3a25";rrect(g,X(c+0.18),Y(s+0.8),cw*0.6,0.8*u,5);g.fill();
   g.strokeStyle=broken?"#f5b82e":"#2a1d10";g.lineWidth=broken?3:1.8;g.stroke();
   g.fillStyle="#2a1d10";g.beginPath();g.arc(X(c+0.48),Y(s+0.4),0.2*u,0,7);g.fill();
@@ -1428,8 +1501,7 @@ function iconCanvas(kind,C,w,hh,opt){
   const water=(kind==="dig"&&C.kit.dig==="dredge");
   if(water){g.fillStyle="#3ea0d8";g.fillRect(0,G.Y(0.9),w,hh);}else{g.fillStyle="#8a6a44";g.fillRect(0,gy,w,4);}
   if(kind==="dig"){if(water)drawDredge(g,G,0,0.9,-1,-1,0,false,false);else drawExc(g,G,0,0,-1,0,false,false);}
-  else if(kind==="trm")drawTrommel(g,G,0,0,1,0,false,false);
-  else if(kind==="shk")drawShaker(g,G,0,0,0,false,false);
+  else if(kind==="trm"||kind==="shk")drawPlantUnit(g,G,0,0,opt.item||null,0,false,false);
   else if(kind==="wat"){if(C.kit.wat==="pond")drawPond(g,G,0,0.6,0,true);else{g.fillStyle="#3ea0d8";g.fillRect(G.X(1),G.Y(0.1),w,hh);drawPump(g,G,0,0,1,0,false);}}
   else if(kind==="dozer")drawDozer(g,G,-0.1,0,0,false);
   else if(kind==="truck"){const G2={cw:w/1.1,u:w/2.2,W:w,H:hh,X:x=>w/2+(x-0.5)*w/1.1,Y:y=>gy-y*w/2.2};drawTruck(g,G2,0.5,0,1,true);}
@@ -1492,10 +1564,11 @@ function buildFor(C){if(!S.builds[C.id])S.builds[C.id]=newBuild();const B=S.buil
 const GKIND={plant:"Wash plant",slu:"Sluice",pump:"Water"};
 function gearStat(kind,it){return kind==="plant"?it.cap+" yd/day \u00b7 water \u00d7"+it.need
   :kind==="slu"?Math.round(it.rec*100)+"% caught \u00b7 water \u00d7"+it.wat
-  :it.flow+" gal \u00b7 lifts "+it.lift+"m";}
+  :it.flow+" gal \u00b7 lifts "+it.lift+"m \u00b7 sucks "+it.suck+"m";}
 const MINI_FOR={1:"pan",2:"det",3:"dive",4:"dive",5:"opal",6:"pan"};
 function SHORT(m){return m;}
-function NAME(k,C){return {dig:C.kit.dig==="dredge"?"Dredge":"Digger",trm:"Trommel",shk:"Shaker",wat:C.kit.wat==="pond"?"Pond":"Pump",
+function NAME(k,C,B){if((k==="trm"||k==="shk")&&B)return gearOf(C,B,curU()).plant.n;
+  return {dig:C.kit.dig==="dredge"?"Dredge":"Digger",trm:"Trommel",shk:"Shaker",wat:C.kit.wat==="pond"?"Pond":"Pump",
   belt:"Belt",truck:"Truck",dozer:"Dozer",sluice:"Sluice"}[k]||k;}
 
 /* =============== UI HELPERS =============== */
@@ -1706,6 +1779,11 @@ function screenIntro(){
 function screenGear(){
   const C=CLAIMS[S.claim],U=curU(),B=buildFor(C),bud=budgetOf(C,U);
   if(!B.gear)B.gear=newGear();
+  // a claim with a smaller budget can't carry last season's kit — drop back to what we can afford
+  for(let guard=0;guard<12;guard++){const G0=gearOf(C,B,U),c0=G0.plant.cost+G0.slu.cost+G0.pump.cost;if(c0<=bud)break;
+    const k=["plant","slu","pump"].sort((a,b)=>G0[b].cost-G0[a].cost)[0],L=gearList(k,C,U);
+    const i=L.findIndex(x=>x.id===G0[k].id);B.gear[k]=L[Math.max(0,i-1)].id;}
+  save();
   const KINDS=[["plant","Wash plant","trm"],["slu","Sluice","sluice"],["pump",C.kit.wat==="pond"?"Pond pump":"Pump","wat"]];
   function cost(){return gearOf(C,B,U).plant.cost+gearOf(C,B,U).slu.cost+gearOf(C,B,U).pump.cost;}
   function setup(){const G=gearOf(C,B,U);return (G.plant.sd||0)+(G.slu.sd||0)+(G.pump.sd||0);}
@@ -1730,16 +1808,18 @@ function screenGear(){
           <span class="gtx"><b>${it.n}</b><small>${gearStat(k,it)}</small><em>${it.d||""}</em></span>
           <span class="gc">${it.cost?"$"+it.cost:"FREE"}${it.sd?`<i>+${it.sd}d</i>`:""}</span></button>`;}).join("");
       shelf.querySelectorAll(".gcard").forEach((bt,i)=>{
-        bt.querySelector(".gi2").appendChild(iconCanvas(k==="plant"?list[i].k:k==="slu"?"sluice":"wat",C,52,40,{boxes:list[i].boxes}));
+        bt.querySelector(".gi2").appendChild(iconCanvas(k==="plant"?(list[i].k==="shk"?"shk":"trm"):k==="slu"?"sluice":"wat",C,52,40,{boxes:list[i].boxes,item:k==="plant"?list[i]:null}));
         bt.onclick=()=>{const it=list[i],other=cost()-gearOf(C,B,U)[k].cost;
           if(other+it.cost>bud){say("Not enough budget — sell something back first.","worry");return;}
           B.gear[k]=it.id;B.ptype=gearOf(C,B,U).plant.k;save();draw();};});
     });
     const left=bud-cost();$("#left").textContent="$"+left;$("#sd").textContent=setup();
+    $("#left").style.color=left<0?"#e0452e":"";$("#go").disabled=left<0;
     const G=gearOf(C,B,U);
     say(left>=bud*0.55?"Plenty left in the kitty — could we run bigger?":
         left<=0?"Every cent spent. Nothing left for spares.":
-        G.plant.cap>200&&G.pump.flow<150?"That big plant will drink more water than we've got.":
+        G.plant.cap>190&&G.pump.flow<200?"That big plant will drink more water than we've got.":
+        C.kit.wat==="pump"?"Pump can sit back from the creek \u2014 long pipe, less flow.":
         "Right, let's get it on the claim.");
   }
   draw();
@@ -1759,7 +1839,7 @@ function screenBuild(){
        <span class="chip">${ICON.sun}<b id="hd"></b><small>days</small></span>
        <span class="chip">${starRow(S.stars[C.id]||0,"xs")}</span>
      </div>`,
-    tray=`<div class="tray" id="tray">${tiles.map(k=>`<div class="tile" data-k="${k}"><span class="badge"></span><span class="tl">${NAME(k,C)}</span></div>`).join("")}</div>`,
+    tray=`<div class="tray" id="tray">${tiles.map(k=>`<div class="tile" data-k="${k}"><span class="badge"></span><span class="tl">${NAME(k,C,B)}</span></div>`).join("")}</div>`,
     btns=`<div class="row2"><button class="btn round" id="wipe">${ICON.reset}</button>
        <button class="btn go big" id="run">${ICON.play}<span>RUN SEASON</span></button></div>`,
     crew=`<div class="crewline"><div id="mnw"></div><div class="bubble" id="bb"></div></div>`,wide=WIDE();
@@ -1768,7 +1848,7 @@ function screenBuild(){
   else h(`<div class="stage" id="stage"><canvas id="gd"></canvas></div>
      <div class="plantrow" id="pr"></div>${crew}`,{re:screenBuild,top:hud,foot:tray+btns});
   const trayEl=$("#tray"),cv=$("#gd"),W=wide?WS():W0(),G=geo(W),g=fit(cv,W,G.H),mn=addMiner("#mnw",60,76,"grin");
-  $$("#tray .tile").forEach(t=>t.appendChild(iconCanvas(t.dataset.k,C,wide?64:46,wide?48:36)));
+  $$("#tray .tile").forEach(t=>t.appendChild(iconCanvas(t.dataset.k,C,wide?64:46,wide?48:36,{item:gearOf(C,B,U).plant})));
   $(".tgt .tp").appendChild(goldPileCanvas(1,30,22));
   const floatEl=document.createElement("div");floatEl.className="float";document.body.appendChild(floatEl);
   let drag=null,tmsg=null,R=evaluate(C,B,U),T=0;const t0=performance.now(),puffs=[];
