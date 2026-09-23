@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=1,user-scalable=no">
 <meta name="app-repo" content="get-the-gold">
-<meta name="app-version" content="1.0.20">
+<meta name="app-version" content="1.0.23">
 <meta name="theme-color" content="#2a1d10">
 <title>Get the Gold</title>
 <style>
@@ -306,7 +306,7 @@ h2{color:var(--txt)}
 .bubble.tap{animation:tapme 1s ease-in-out infinite;cursor:pointer}
 @keyframes tapme{50%{box-shadow:2px 3px 0 #000,0 0 0 4px rgba(217,161,43,.55)}}
 
-/* ===== v1.0.20 fixed chrome: header + footer stay put, only the middle scrolls ===== */
+/* ===== v1.0.23 fixed chrome: header + footer stay put, only the middle scrolls ===== */
 html,body{height:100%;overflow:hidden}
 #app{height:100vh;height:100dvh;min-height:0;overflow:hidden}
 #bar{position:relative;flex:0 0 auto}
@@ -358,14 +358,16 @@ html,body{height:100%;overflow:hidden}
 #app.wide .introg .dg{max-width:150px}
 .stage{width:fit-content;max-width:100%;margin-left:auto;margin-right:auto;background:#141110!important;line-height:0}
 .stage canvas{display:block}
-.crews{grid-template-columns:repeat(4,minmax(0,1fr))}.crew{min-width:0;overflow:hidden}.crew .pt canvas{max-width:100%;height:auto!important}
-/* v1.0.20 name labels */
+.crews{grid-template-columns:repeat(3,minmax(0,1fr))}.crew{min-width:0}
+.crew b{overflow-wrap:break-word;font-size:12px;padding:0 3px;line-height:1.15}
+@media (min-width:520px){.crews{grid-template-columns:repeat(4,minmax(0,1fr))}}.crew .pt canvas{max-width:100%;height:auto!important}
+/* v1.0.23 name labels */
 .tile{flex-direction:column;gap:2px;padding:4px 2px 3px}
 .tile canvas{order:1}.tile .tl{order:2;font:800 10px/1 system-ui,-apple-system,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#1a140e;white-space:nowrap}
 .wside .tile .tl{font-size:12px}
 .plantrow .pi{display:flex;flex-direction:column;align-items:center;gap:1px}.plantrow .pl{order:2;font:800 9px/1 system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--txt2)}
 .gr .gi{flex-direction:column;align-items:center;flex-basis:52px}.gr .gi span{order:2;font:800 9px/1 system-ui,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:var(--txt2)}
-/* v1.0.20 yard + gear bar */
+/* v1.0.23 yard + gear bar */
 .shelf{display:flex;flex-direction:column;gap:8px}
 .gcard{display:flex;align-items:center;gap:10px;width:100%;text-align:left;font-family:inherit;color:var(--txt);
  background:linear-gradient(#35302a,#27231e);border:2px solid var(--ink);border-radius:6px;box-shadow:0 3px 0 #000;padding:7px 9px}
@@ -390,6 +392,27 @@ html,body{height:100%;overflow:hidden}
 .plantrow .gchg svg{width:14px;height:14px}
 #app.wide .wmain .plantrow{grid-template-columns:repeat(3,minmax(0,1fr)) 74px}
 #app.wide .wmain .plantrow .gchg{grid-column:4;grid-row:1}
+/* v1.0.23 crew tally + swap */
+.crew .cs{display:flex;align-items:center;justify-content:center;gap:2px;font-weight:900;font-size:11px;color:var(--hz);margin-top:1px}
+.crew .cs svg{width:11px;height:11px}
+.crew .cs small{font-size:9px;color:var(--txt2);font-weight:800}
+.crew .cs.done{color:#8fd07a}
+.chall{margin:8px 0 2px;opacity:.85}
+.ctally{display:flex;align-items:center;gap:7px;margin-top:7px}
+.ctally .meter{max-width:130px}
+.ctally b{font-size:16px;font-weight:900}.ctally b small{font-size:10px;color:var(--txt2)}
+.maphead{width:100%;text-align:left;font-family:inherit;cursor:pointer;position:relative}
+.maphead .swap{display:flex;flex-direction:column;align-items:center;gap:2px;flex:0 0 auto;padding:5px 7px;border-radius:5px;
+ border:2px solid var(--ink);background:linear-gradient(#a79e8b,#7a7262);color:#14100b;box-shadow:0 2px 0 #000}
+.maphead .swap svg{width:17px;height:17px}
+.maphead .swap small{font-size:8px;font-weight:900;letter-spacing:.04em;text-transform:uppercase;line-height:1.1;text-align:center}
+.maphead:active{transform:translateY(2px)}
+/* v1.0.23 sound toggle feedback */
+#bar .snd.off{opacity:.5}
+#stoast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom) + 84px);transform:translate(-50%,14px);z-index:80;
+ background:#15120f;border:2px solid var(--hz);border-radius:20px;color:var(--txt);padding:8px 16px;font:800 13px/1.2 system-ui,-apple-system,sans-serif;
+ letter-spacing:.03em;box-shadow:0 4px 0 #000;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;max-width:86vw;text-align:center}
+#stoast.show{opacity:1;transform:translate(-50%,0)}
 </style>
 </head>
 <body>
@@ -404,10 +427,10 @@ html,body{height:100%;overflow:hidden}
   <main id="screen"></main>
   <footer id="foot"></footer>
 </div>
-<div id="ver">v1.0.20</div>
+<div id="ver">v1.0.23</div>
 <script>
 "use strict";
-const VERSION="1.0.20";
+const VERSION="1.0.23";
 /*__ENGINE_START__*/
 const COLS=10,YMAX=11,YMIN=-3,TREE_H=3;
 const GR={0:0,1:0.9,2:1.8,3:3.0};
@@ -1551,11 +1574,60 @@ function minerCanvas(L,w,hh,mood,shadow){
 }
 
 /* =============== STATE =============== */
-const SAVE="gtg-save-4";
-let S={best:{},stars:{},mini:0,builds:{},claim:0,crew:null};
-function bankOz(){let t=S.mini;for(const k in S.best)t+=S.best[k];return t;}
-function load(){try{const r=JSON.parse(localStorage.getItem(SAVE));if(r)S=Object.assign(S,r);}catch(e){}}
-function save(){try{localStorage.setItem(SAVE,JSON.stringify(S));}catch(e){}}
+/* One save for every version of the game. The key never changes again; anything
+   older is imported once, and migrate() brings old saves up to the current shape,
+   so shipping a new build never costs anyone their stars. */
+const SAVE="gtg-save",LEGACY=["gtg-save-4","gtg-save-3","gtg-save-2","gtg-save-1","gtg-gold-save"],SAVE_V=5;
+let S={v:SAVE_V,best:{},stars:{},cstars:{},mini:0,builds:{},claim:0,crew:null,snd:true};
+function bankOz(){let t=S.mini||0;for(const k in S.best)t+=S.best[k];return t;}
+function readKey(k){try{const r=JSON.parse(localStorage.getItem(k));return r&&typeof r==="object"?r:null;}catch(e){return null;}}
+function load(){
+  let r=readKey(SAVE);
+  if(!r){for(const k of LEGACY){const o=readKey(k);if(o){r=o;break;}}}          // first run on the new key
+  if(r)S=Object.assign(S,r);
+  migrate();
+  save();
+}
+function migrate(){
+  const ids={};CLAIMS.forEach(C=>ids[C.id]=C);
+  S.best=S.best&&typeof S.best==="object"?S.best:{};
+  S.stars=S.stars&&typeof S.stars==="object"?S.stars:{};
+  S.builds=S.builds&&typeof S.builds==="object"?S.builds:{};
+  S.cstars=S.cstars&&typeof S.cstars==="object"?S.cstars:{};
+  // stars earned before the per-crew tally existed belong to whoever was running the show
+  if(!S.seeded){S.seeded=1;const who=S.crew;if(who&&Object.keys(S.stars).length){S.cstars[who]=Object.assign({},S.stars,S.cstars[who]||{});}}
+  for(const id in S.cstars){if(!CREWS.some(c=>c.id===id)){delete S.cstars[id];continue;}
+    for(const k in S.cstars[id])if(!ids[k])delete S.cstars[id][k];}
+  if(typeof S.mini!=="number"||!isFinite(S.mini))S.mini=0;
+  // drop anything for claims that no longer exist, keep every score we know about
+  for(const k in S.best){if(!ids[k]||typeof S.best[k]!=="number"||!isFinite(S.best[k]))delete S.best[k];}
+  for(const k in S.stars){if(!ids[k])delete S.stars[k];}
+  for(const k in S.builds){if(!ids[k])delete S.builds[k];}
+  // stars are re-derived from the oz banked, so re-tuned targets can only ever help
+  CLAIMS.forEach(C=>{const oz=S.best[C.id];if(oz===undefined)return;
+    const st=Math.max(S.stars[C.id]||0,starsFor(C,oz));if(st)S.stars[C.id]=st;});
+  // old layouts: fill in anything the current build needs, drop what it doesn't
+  for(const k in S.builds){const B=S.builds[k],C=ids[k];
+    if(!B||typeof B!=="object"){delete S.builds[k];continue;}
+    if(B.slu)delete B.slu;
+    if(!B.gear||typeof B.gear!=="object")B.gear=newGear();
+    ["plant","slu","pump"].forEach(kind=>{const want=B.gear[kind];
+      if(!GEAR[kind].some(i=>i.id===want))B.gear[kind]=newGear()[kind];});
+    if(!Array.isArray(B.wat))B.wat=[];
+    B.wat=B.wat.filter(c=>typeof c==="number"&&c>=0&&c<COLS);
+    if(typeof B.trucks!=="number")B.trucks=0;
+    if(B.cut&&(!Array.isArray(B.cut)||B.cut.length!==2))B.cut=null;
+    B.ptype=plantTile(gearOf(C,B,{}).plant.k);}
+  if(!CREWS.some(c=>c.id===S.crew))S.crew=S.crew?null:S.crew;
+  if(typeof S.claim!=="number"||S.claim<0||S.claim>=CLAIMS.length)S.claim=0;
+  S.v=SAVE_V;
+}
+function save(){const j=JSON.stringify(S);
+  try{localStorage.setItem(SAVE,j);}catch(e){}
+  try{localStorage.setItem(LEGACY[0],j);}catch(e){}   // mirror, so an older build of the game stays in step
+}
+addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")save();});
+addEventListener("pagehide",save);
 function claimOpen(i){return i===0||(S.stars[CLAIMS[i-1].id]||0)>0;}
 function starsFor(C,oz){const e=1e-6;return oz>=C.s[2]-e?3:oz>=C.s[1]-e?2:oz>=C.s[0]-e?1:0;}
 function crewOf(){return CREWS.find(c=>c.id===S.crew)||CREWS[1];}
@@ -1624,28 +1696,40 @@ const SND=(()=>{let ac=null,noise=null;
     f.frequency.value=freq;f.Q.value=Q||1;s.connect(f);f.connect(env(a,t,peak,0.004,dec));s.start(t);s.stop(t+dec+0.05);}
   // metal-on-metal clank + two-tone klaxon
   function alarm(urgent){if(!on())return;const a=ctx();if(!a)return;const t=a.currentTime+0.01;
-    if(!urgent){hiss(a,t,0.5,0.22,1900,2.5);[311,587,1244,2093].forEach((f,i)=>tone(a,"triangle",f,t,0.22/(i+1),0.003,0.7-i*0.12));
-      tone(a,"sine",90,t,0.4,0.005,0.25,45);}
+    if(!urgent){hiss(a,t,0.75,0.26,1900,2.5);[311,587,1244,2093].forEach((f,i)=>tone(a,"triangle",f,t,0.34/(i+1),0.003,0.75-i*0.12));
+      tone(a,"sine",90,t,0.6,0.005,0.3,45);}
     const st=urgent?t:t+0.22;
-    for(let i=0;i<(urgent?4:3);i++){const f=i%2?470:620,t1=st+i*0.19;
+    for(let i=0;i<(urgent?5:4);i++){const f=i%2?470:620,t1=st+i*0.19;
       const o=a.createOscillator(),lp=a.createBiquadFilter();o.type="square";o.frequency.value=f;lp.type="lowpass";lp.frequency.value=1800;
-      o.connect(lp);const gn=a.createGain();gn.gain.setValueAtTime(0.0001,t1);gn.gain.exponentialRampToValueAtTime(0.13,t1+0.015);
-      gn.gain.setValueAtTime(0.13,t1+0.15);gn.gain.exponentialRampToValueAtTime(0.0001,t1+0.18);lp.connect(gn);gn.connect(a.destination);o.start(t1);o.stop(t1+0.2);}}
+      o.connect(lp);const gn=a.createGain();gn.gain.setValueAtTime(0.0001,t1);gn.gain.exponentialRampToValueAtTime(0.3,t1+0.015);
+      gn.gain.setValueAtTime(0.3,t1+0.15);gn.gain.exponentialRampToValueAtTime(0.0001,t1+0.18);lp.connect(gn);gn.connect(a.destination);o.start(t1);o.stop(t1+0.2);}}
   function wrench(){if(!on())return;const a=ctx();if(!a)return;const t=a.currentTime+0.01;
     for(let i=0;i<5;i++)hiss(a,t+i*0.09,0.35,0.035,3200,4,"bandpass");}
   function fixed(){if(!on())return;const a=ctx();if(!a)return;const t=a.currentTime+0.01;
     const o=a.createOscillator(),lp=a.createBiquadFilter();o.type="sawtooth";o.frequency.setValueAtTime(55,t);o.frequency.exponentialRampToValueAtTime(120,t+0.45);
     o.frequency.exponentialRampToValueAtTime(85,t+0.8);lp.type="lowpass";lp.frequency.value=600;o.connect(lp);lp.connect(env(a,t,0.22,0.08,0.75));o.start(t);o.stop(t+0.9);
     tone(a,"triangle",1318,t+0.05,0.08,0.005,0.35);}
-  function unlock(){const a=ctx();if(!a)return;const b=a.createBuffer(1,1,22050),s=a.createBufferSource();s.buffer=b;s.connect(a.destination);s.start(0);}
-  return{alarm,wrench,fixed,unlock,stop(){}};})();
-["pointerdown","touchend","click"].forEach(ev=>document.addEventListener(ev,()=>{if(S.snd!==false)SND.unlock();},{once:true,capture:true}));
+  function unlock(){
+    try{if(navigator.audioSession&&S.snd!==false)navigator.audioSession.type="playback";}catch(e){}  // ring/silent switch shouldn't kill the alarm
+    const a=ctx();if(!a)return;const b=a.createBuffer(1,1,22050),s=a.createBufferSource();s.buffer=b;s.connect(a.destination);s.start(0);}
+  function ready(){return !!ac&&ac.state==="running";}
+  return{alarm,wrench,fixed,unlock,ready,stop(){}};})();
+// every tap keeps the audio awake (iOS suspends it whenever it feels like it)
+["pointerdown","touchend"].forEach(ev=>document.addEventListener(ev,()=>{if(S.snd!==false)SND.unlock();},{capture:true,passive:true}));
 const sndEl=document.getElementById("snd");
-function syncSnd(){sndEl.innerHTML=`<svg viewBox="0 0 24 24" width="20" height="20"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/>${S.snd===false?
+function sndToast(txt){let el=document.getElementById("stoast");
+  if(!el){el=document.createElement("div");el.id="stoast";document.body.appendChild(el);}
+  el.textContent=txt;el.classList.remove("show");void el.offsetWidth;el.classList.add("show");
+  clearTimeout(window.__st);window.__st=setTimeout(()=>el.classList.remove("show"),2200);}
+function syncSnd(){sndEl.classList.toggle("off",S.snd===false);
+  sndEl.innerHTML=`<svg viewBox="0 0 24 24" width="20" height="20"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/>${S.snd===false?
   '<path d="M16 9l5 6M21 9l-5 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>':
   '<path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>'}</svg>`;
-  sndEl.setAttribute("aria-label",S.snd===false?"Sound off":"Sound on");}
-sndEl.onclick=()=>{S.snd=S.snd===false;save();syncSnd();if(S.snd!==false){SND.unlock();SND.fixed();}};
+  sndEl.setAttribute("aria-label",S.snd===false?"Breakdown alarm off":"Breakdown alarm on");}
+sndEl.onclick=()=>{S.snd=S.snd===false;save();syncSnd();
+  if(S.snd!==false){SND.unlock();SND.alarm();                     // play the actual breakdown alarm so you know what you're listening for
+    setTimeout(()=>sndToast(SND.ready()?"Breakdown alarm ON \u2014 that's the sound":"Breakdown alarm ON \u2014 check your ringer switch"),60);}
+  else sndToast("Breakdown alarm OFF \u2014 watch for the red ring");};
 
 /* =============== TITLE =============== */
 function screenTitle(){
@@ -1673,31 +1757,40 @@ function screenTitle(){
   $("#go").onclick=()=>S.crew?screenMap():screenCrew();
   if($("#wipe")){let armed=false;$("#wipe").onclick=()=>{if(!armed){armed=true;$("#wipe").textContent="Tap again to wipe everything";
     setTimeout(()=>{armed=false;const w=$("#wipe");if(w)w.textContent="New game";},3000);return;}
-    try{localStorage.removeItem(SAVE);}catch(e){}S={best:{},stars:{},mini:0,builds:{},claim:0,crew:null};screenTitle();};}
+    try{[SAVE].concat(LEGACY).forEach(k=>localStorage.removeItem(k));}catch(e){}
+    S={v:SAVE_V,best:{},stars:{},mini:0,builds:{},claim:0,crew:null,snd:S.snd};save();screenTitle();};}
 }
 
 /* =============== CREW =============== */
 function totalStars(){let t=0;for(const k in S.stars)t+=S.stars[k];return t;}
+const MAXSTARS=CLAIMS.length*3;
+function crewBook(id){if(!S.cstars)S.cstars={};if(!S.cstars[id])S.cstars[id]={};return S.cstars[id];}
+function crewStars(id){const b=(S.cstars||{})[id]||{};let t=0;for(const k in b)t+=b[k];return t;}
+function recordCrewStars(C,st){const b=crewBook(S.crew||crewOf().id);if(st>(b[C.id]||0)){b[C.id]=st;save();}}
 function crewOpen(c){return !c.unlock||totalStars()>=c.unlock;}
 function screenCrew(){
   syncBar(false);let pick=CREWS.findIndex(c=>c.id===S.crew);if(pick<0)pick=1;
   const ts=totalStars();
   h(`<div class="h1">PICK YOUR CREW</div>
      <div class="crews">${CREWS.map((c,i)=>{const o=crewOpen(c);return `<button class="crew ${o?"":"locked"}" data-i="${i}"><div class="pt"></div>
-       <b>${o?c.name.replace("The ",""):"???"}</b>${o?"":`<span class="need">${ICON.star}${c.unlock}</span>`}</button>`;}).join("")}</div>
+       <b>${o?c.name.replace("The ",""):"???"}</b>${o?`<span class="cs ${crewStars(c.id)>=MAXSTARS?"done":""}">${ICON.star}${crewStars(c.id)}<small>/${MAXSTARS}</small></span>`
+         :`<span class="need">${ICON.star}${c.unlock}</span>`}</button>`;}).join("")}</div>
+     <div class="sub center chall">Challenge: three stars on every claim \u2014 with every crew</div>
      <div class="card detail" id="cd"></div>`,{re:screenCrew,foot:`<button class="btn go big" id="ok">LET'S GO!</button>`});
   const cards=$$(".crew");
   cards.forEach((b,i)=>{b.querySelector(".pt").appendChild(minerCanvas(CREWS[i].look,78,88,"grin",!crewOpen(CREWS[i])));b.onclick=()=>{pick=i;show();};});
   let big=null;
   function show(){cards.forEach((b,i)=>b.classList.toggle("sel",i===pick));const c=CREWS[pick],o=crewOpen(c);
     if(o)$("#cd").innerHTML=`<div class="dl"><div id="bp"></div><div><div class="sub">${c.boss}</div><div class="dn">${c.name}</div>
-      <div class="q">\u201c${c.line}\u201d</div><div class="perk"><span>${ICON.star}</span><b>${c.perk}</b> \u2014 ${c.pd}</div></div></div>`;
+      <div class="q">\u201c${c.line}\u201d</div><div class="perk"><span>${ICON.star}</span><b>${c.perk}</b> \u2014 ${c.pd}</div>
+      <div class="ctally"><span class="sub">Stars with this crew</span><div class="meter gold"><i style="width:${crewStars(c.id)/MAXSTARS*100}%"></i></div>
+        <b>${crewStars(c.id)}<small> / ${MAXSTARS}</small></b>${crewStars(c.id)>=MAXSTARS?'<span class="tag">ALL DONE!</span>':""}</div></div></div>`;
     else $("#cd").innerHTML=`<div class="dl"><div id="bp"></div><div style="flex:1"><div class="sub">Secret crew</div><div class="dn">Who could it be?</div>
       <div class="q">A legend of the goldfields is waiting to join you.</div>
       <div class="perk">${ICON.star} Earn <b>${c.unlock} stars</b> to unlock<div class="meter gold" style="margin-top:6px"><i style="width:${Math.min(100,ts/c.unlock*100)}%"></i></div>
       <div class="sub" style="margin-top:4px">${ts} / ${c.unlock} stars</div></div></div></div>`;
     big=minerCanvas(c.look,96,116,"grin",!o);$("#bp").appendChild(big);
-    const ok=$("#ok");ok.disabled=!o;ok.innerHTML=o?"LET'S GO!":ICON.lock+"<span>LOCKED</span>";}
+    const ok=$("#ok");ok.disabled=!o;ok.innerHTML=o?(CREWS[pick].id===S.crew?"KEEP THIS CREW":"RUN WITH THEM"):ICON.lock+"<span>LOCKED</span>";}
   show();
   const t0=performance.now();loop(()=>{if(big)big.draw("grin",(performance.now()-t0)/1000);});
   $("#ok").onclick=()=>{if(!crewOpen(CREWS[pick]))return;S.crew=CREWS[pick].id;save();screenMap();};
@@ -1724,10 +1817,10 @@ function screenMap(){
   const crew=crewOf(),bank=bankOz(),next=UNLOCKS.find(u=>bank<u.oz),prev=[...UNLOCKS].reverse().find(u=>bank>=u.oz);
   const lo=prev?prev.oz:0,pct=next?Math.min(100,(bank-lo)/(next.oz-lo)*100):100;
   const chOpen=ch=>{const i=CLAIMS.findIndex(c=>c.ch===ch);return claimOpen(i);};
-  h(`<div class="maphead card"><div id="mnw"></div>
-       <div class="mh"><div class="sub">${crew.boss}</div><div class="dn">${crew.name}</div>
+  h(`<button class="maphead card" id="crew"><div id="mnw"></div>
+       <div class="mh"><div class="sub">${crew.boss} \u00b7 ${crewStars(crew.id)}/${MAXSTARS}${ICON.star}</div><div class="dn">${crew.name}</div>
          <div class="unl">${next?`<span class="sub">Next: ${next.n}</span><div class="meter gold"><i style="width:${pct}%"></i></div><span class="sub">${fmt(next.oz-bank)} oz to go</span>`:`<span class="sub">All kit unlocked!</span>`}</div></div>
-       <button class="btn round sm" id="crew">${ICON.reset}</button></div>
+       <span class="swap">${ICON.reset}<small>Swap<br>crew</small></span></button>
      ${CHAPTERS.map(ch=>{const cs=CLAIMS.map((c,i)=>[c,i]).filter(([c])=>c.ch===ch.id),open=chOpen(ch.id),
         got=cs.reduce((a,[c])=>a+(S.stars[c.id]||0),0);
        return `<div class="region ${open?"":"locked"}"><div class="rname"><span>${ch.id} · ${ch.n}</span><span class="rs">${ICON.star}${got}/9</span></div>
@@ -2128,6 +2221,7 @@ function screenResult(oz,R,fail,ranDay,siltDay,lostDays){
   const before=bankOz(),starsBefore=totalStars(),st=starsFor(C,oz),won=st>0,prevBest=S.best[C.id]||0;
   if(won&&oz>prevBest)S.best[C.id]=oz;
   if(st>(S.stars[C.id]||0))S.stars[C.id]=st;
+  if(st)recordCrewStars(C,st);
   save();syncBar(false);
   const newU=UNLOCKS.filter(u=>before<u.oz&&bankOz()>=u.oz),lim=R.limit;
   const newCrew=CREWS.filter(c=>c.unlock&&starsBefore<c.unlock&&totalStars()>=c.unlock);
@@ -2162,8 +2256,10 @@ function screenResult(oz,R,fail,ranDay,siltDay,lostDays){
        ${R.silted?`<div class="gnote hot">Ponds silted up on day ${siltDay}</div>`:""}
      </div>
      ${newU.map(u=>`<div class="card unlock"><span class="tag">UNLOCKED!</span><b>${u.n}</b><div>${u.d}</div></div>`).join("")}
-     ${newCrew.map(c=>`<div class="card unlock crewun"><span class="tag">NEW CREW!</span><div class="cu" data-c="${c.id}"></div><b>${c.name}</b><div>${c.boss} \u2014 ${c.pd}</div></div>`).join("")}
+     ${newCrew.map(c=>`<div class="card unlock crewun"><span class="tag">NEW CREW!</span><div class="cu" data-c="${c.id}"></div><b>${c.name}</b><div>${c.boss} \u2014 ${c.pd}</div>
+       <div class="sub" style="margin-top:6px">Swap to them any time from the map</div></div>`).join("")}
      ${won?`<button class="btn ghost" id="tweak">${ICON.play}<span>Tweak this build</span></button><button class="btn ghost" id="mini">${ICON.pan}<span>Go prospecting</span></button>`:""}
+     ${newCrew.length?`<button class="btn ghost" id="meet">${ICON.star}<span>Meet ${newCrew[0].boss}</span></button>`:""}
      <button class="btn ghost" id="map">${ICON.map}<span>Map</span></button>
      <div class="ov" id="ov"><canvas id="fx"></canvas>
        <div class="ovp" id="ovp">
@@ -2224,6 +2320,7 @@ function screenResult(oz,R,fail,ranDay,siltDay,lostDays){
   if($("#tweak"))$("#tweak").onclick=()=>screenBuild();
   if($("#nx"))$("#nx").onclick=()=>{if(next){S.claim++;save();screenIntro();}else screenMap();};
   $("#map").onclick=()=>screenMap();
+  if($("#meet"))$("#meet").onclick=()=>screenCrew();
   if($("#mini"))$("#mini").onclick=()=>startMini(MINI_FOR[C.ch]||"pan",gz=>{S.mini+=gz*(crewOf().P.miniMul||1);save();screenMap();});
 }
 
