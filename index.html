@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=1,user-scalable=no">
 <meta name="app-repo" content="get-the-gold">
-<meta name="app-version" content="1.0.15">
+<meta name="app-version" content="1.0.16">
 <meta name="theme-color" content="#2a1d10">
 <title>Get the Gold</title>
 <style>
@@ -306,7 +306,7 @@ h2{color:var(--txt)}
 .bubble.tap{animation:tapme 1s ease-in-out infinite;cursor:pointer}
 @keyframes tapme{50%{box-shadow:2px 3px 0 #000,0 0 0 4px rgba(217,161,43,.55)}}
 
-/* ===== v1.0.15 fixed chrome: header + footer stay put, only the middle scrolls ===== */
+/* ===== v1.0.16 fixed chrome: header + footer stay put, only the middle scrolls ===== */
 html,body{height:100%;overflow:hidden}
 #app{height:100vh;height:100dvh;min-height:0;overflow:hidden}
 #bar{position:relative;flex:0 0 auto}
@@ -359,6 +359,12 @@ html,body{height:100%;overflow:hidden}
 .stage{width:fit-content;max-width:100%;margin-left:auto;margin-right:auto;background:#141110!important;line-height:0}
 .stage canvas{display:block}
 .crews{grid-template-columns:repeat(4,minmax(0,1fr))}.crew{min-width:0;overflow:hidden}.crew .pt canvas{max-width:100%;height:auto!important}
+/* v1.0.16 name labels */
+.tile{flex-direction:column;gap:2px;padding:4px 2px 3px}
+.tile canvas{order:1}.tile .tl{order:2;font:800 10px/1 system-ui,-apple-system,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#1a140e;white-space:nowrap}
+.wside .tile .tl{font-size:12px}
+.plantrow .pi{display:flex;flex-direction:column;align-items:center;gap:1px}.plantrow .pl{order:2;font:800 9px/1 system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--txt2)}
+.gr .gi{flex-direction:column;align-items:center;flex-basis:52px}.gr .gi span{order:2;font:800 9px/1 system-ui,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:var(--txt2)}
 </style>
 </head>
 <body>
@@ -373,10 +379,10 @@ html,body{height:100%;overflow:hidden}
   <main id="screen"></main>
   <footer id="foot"></footer>
 </div>
-<div id="ver">v1.0.15</div>
+<div id="ver">v1.0.16</div>
 <script>
 "use strict";
-const VERSION="1.0.15";
+const VERSION="1.0.16";
 /*__ENGINE_START__*/
 const COLS=10,YMAX=11,YMIN=-3,TREE_H=3;
 const GR={0:0,1:0.9,2:1.8,3:3.0};
@@ -932,8 +938,8 @@ function terrain(C,G){
   const sg=g.createRadialGradient(W*0.84,H*0.14,0,W*0.84,H*0.14,G.cw*0.9);sg.addColorStop(0,"rgba(245,228,180,.85)");sg.addColorStop(0.4,"rgba(235,210,150,.45)");sg.addColorStop(1,"rgba(235,210,150,0)");
   g.fillStyle=sg;g.fillRect(0,0,W,H*0.5);
   // far hills
-  g.fillStyle=P.hill;g.beginPath();g.moveTo(0,Y(4));
-  for(let x=0;x<=W;x+=8)g.lineTo(x,Y(6.5)+Math.sin(x/60+C.id.length)*16+Math.sin(x/23)*5);
+  g.fillStyle=P.hill;g.beginPath();g.moveTo(0,Y(3));
+  for(let i=0,n=Math.ceil(W/8);i<=n;i++){const x=Math.min(W,i*8);g.lineTo(x,Y(6.5)+Math.sin(x/60+C.id.length)*16+Math.sin(x/23)*5);}
   g.lineTo(W,Y(3));g.lineTo(0,Y(3));g.closePath();g.fill();
   // water
   C.wc.forEach(c=>{const wg=g.createLinearGradient(0,Y(C.L),0,Y(C.h[c]));wg.addColorStop(0,"#5b8591");wg.addColorStop(1,"#27434d");
@@ -1073,6 +1079,20 @@ function drawScene(g,G,C,B,U,o){
     else drawExc(g,G,dx,C.h[bc],dir,t,o.mode==="run"&&o.running,o.broken==="dig");}
   // pumps drawn last so the intake sits on top
   B.wat.forEach(c=>{if(C.kit.wat==="pump")drawPump(g,G,c,C.h[c],isW(C,c-1)?-1:1,C.L,o.broken==="wat");});
+  // name tags under each machine so it's clear what's what
+  if(o.labels!==false&&(o.mode==="build"||o.mode==="run")){const L=[],gy=c=>Y(C.h[Math.max(0,Math.min(COLS-1,Math.floor(c)))]);
+    if(dx!==null)L.push({x:dx+0.5,y:dred?Y(C.L):gy(dx+0.5),t:dred?"DREDGE":"DIGGER"});
+    if(B.plant!==null){L.push({x:B.plant+0.5,y:gy(B.plant+0.5),t:B.ptype==="shk"?"SHAKER":"TROMMEL"});
+      const n=Math.min(B.slu.n,R&&R.kit?R.kit.slu:B.slu.n);L.push({x:B.plant+0.85+n*0.21,y:gy(B.plant+0.85+n*0.21),t:"SLUICE"});}
+    B.wat.forEach(c=>L.push({x:c+0.5,y:gy(c+0.5)+(C.kit.wat==="pond"?0.8*u:0),t:C.kit.wat==="pond"?"POND":"PUMP"}));
+    if(B.dozer&&cut.length&&!dred){const dz=o.dozX!==undefined?o.dozX:(o._near!==undefined?o._near:B.cut[0]);L.push({x:dz+0.5,y:gy(dz+0.5),t:"DOZER"});}
+    const fs=Math.max(8,Math.min(12,cw*0.22));g.font="800 "+fs+"px system-ui,-apple-system,sans-serif";g.textAlign="center";g.textBaseline="middle";
+    L.sort((p,q)=>p.x-q.x);const placedL=[];
+    L.forEach(p=>{const w=g.measureText(p.t).width+10,hgt=fs+6;let x=Math.max(w/2+2,Math.min(G.W-w/2-2,X(p.x))),y=p.y+hgt/2+5;
+      for(let k=0;k<4;k++){const hit=placedL.find(q=>Math.abs(q.x-x)<(q.w+w)/2+2&&Math.abs(q.y-y)<hgt);if(!hit)break;y=hit.y+hgt+2;}
+      placedL.push({x,y,w});g.fillStyle="rgba(14,11,8,.78)";rrect(g,x-w/2,y-hgt/2,w,hgt,3);g.fill();
+      g.fillStyle="#e8ddc6";g.fillText(p.t,x,y+0.5);});
+    g.textBaseline="alphabetic";g.textAlign="left";}
   // ghost machine
   if(o.ghost){g.globalAlpha=0.6;drawPart(g,G,C,o.ghost.kind,o.ghost.c,t,B);g.globalAlpha=1;}
   if(o.pops)o.pops.forEach(p=>drawPop(g,G,p,t));
@@ -1335,6 +1355,8 @@ function curU(){return Object.assign(upg(bankOz()),crewOf().P);}
 function buildFor(C){if(!S.builds[C.id])S.builds[C.id]=newBuild();return S.builds[C.id];}
 const MINI_FOR={1:"pan",2:"det",3:"dive",4:"dive",5:"opal",6:"pan"};
 function SHORT(m){return m;}
+function NAME(k,C){return {dig:C.kit.dig==="dredge"?"Dredge":"Digger",trm:"Trommel",shk:"Shaker",wat:C.kit.wat==="pond"?"Pond":"Pump",
+  belt:"Belt",truck:"Truck",dozer:"Dozer",sluice:"Sluice"}[k]||k;}
 
 /* =============== UI HELPERS =============== */
 const scr=document.getElementById("screen"),bankEl=document.getElementById("bank"),backEl=document.getElementById("back");
@@ -1470,12 +1492,12 @@ function drawRegion(g,W,H,name,seed){
   const P=PAL[name],sk=g.createLinearGradient(0,0,0,H);sk.addColorStop(0,P.sky[0]);sk.addColorStop(1,P.sky[1]);
   g.fillStyle=sk;g.fillRect(0,0,W,H);
   g.fillStyle=P.hill;g.beginPath();g.moveTo(0,H);
-  for(let x=0;x<=W;x+=6)g.lineTo(x,H*0.45+Math.sin(x/50+seed*2)*14+Math.sin(x/19+seed)*5);g.lineTo(W,H);g.fill();
+  for(let x=0;x<=W+5.99;x+=6)g.lineTo(x,H*0.45+Math.sin(x/50+seed*2)*14+Math.sin(x/19+seed)*5);g.lineTo(W,H);g.fill();
   g.fillStyle=P.ob;g.beginPath();g.moveTo(0,H);
-  for(let x=0;x<=W;x+=6)g.lineTo(x,H*0.68+Math.sin(x/40+seed*3)*8);g.lineTo(W,H);g.fill();
-  g.strokeStyle=P.top;g.lineWidth=4;g.beginPath();for(let x=0;x<=W;x+=6){const y=H*0.68+Math.sin(x/40+seed*3)*8;x?g.lineTo(x,y):g.moveTo(x,y);}g.stroke();
+  for(let x=0;x<=W+5.99;x+=6)g.lineTo(x,H*0.68+Math.sin(x/40+seed*3)*8);g.lineTo(W,H);g.fill();
+  g.strokeStyle=P.top;g.lineWidth=4;g.beginPath();for(let x=0;x<=W+5.99;x+=6){const y=H*0.68+Math.sin(x/40+seed*3)*8;x?g.lineTo(x,y):g.moveTo(x,y);}g.stroke();
   g.strokeStyle="#4d707c";g.lineWidth=5;g.lineCap="round";g.beginPath();
-  for(let x=0;x<=W;x+=6){const y=H*0.86+Math.sin(x/30+seed)*5;x?g.lineTo(x,y):g.moveTo(x,y);}g.stroke();
+  for(let x=0;x<=W+5.99;x+=6){const y=H*0.86+Math.sin(x/30+seed)*5;x?g.lineTo(x,y):g.moveTo(x,y);}g.stroke();
   const r=rnd32(seed*91+3);g.fillStyle=P.tree;g.strokeStyle="#2a1d10";g.lineWidth=1.3;
   for(let i=0;i<9;i++){const x=r()*W,y=H*0.66+Math.sin(x/40+seed*3)*8;g.beginPath();g.moveTo(x-6,y);g.lineTo(x+6,y);g.lineTo(x,y-18);g.closePath();g.fill();g.stroke();}
 }
@@ -1552,7 +1574,7 @@ function screenBuild(){
        <span class="chip">${ICON.sun}<b id="hd"></b><small>days</small></span>
        <span class="chip">${starRow(S.stars[C.id]||0,"xs")}</span>
      </div>`,
-    tray=`<div class="tray" id="tray">${tiles.map(k=>`<div class="tile" data-k="${k}"><span class="badge"></span></div>`).join("")}</div>`,
+    tray=`<div class="tray" id="tray">${tiles.map(k=>`<div class="tile" data-k="${k}"><span class="badge"></span><span class="tl">${NAME(k,C)}</span></div>`).join("")}</div>`,
     btns=`<div class="row2"><button class="btn round" id="wipe">${ICON.reset}</button>
        <button class="btn go big" id="run">${ICON.play}<span>RUN SEASON</span></button></div>`,
     crew=`<div class="crewline"><div id="mnw"></div><div class="bubble" id="bb"></div></div>`,wide=WIDE();
@@ -1588,7 +1610,7 @@ function screenBuild(){
     const pr=$("#pr");
     if(B.plant===null){pr.innerHTML="";pr.style.display="none";}
     else{pr.style.display="";
-      pr.innerHTML=`<span class="pi" id="pi"></span>
+      pr.innerHTML=`<span class="pi" id="pi"><span class="pl">Sluice</span></span>
         <span class="grp"><button data-a="n-">−</button><b>${B.slu.n}</b><small>box${B.slu.n>1?"es":""}</small><button data-a="n+">+</button></span>
         <span class="grp"><button data-a="t-">−</button><span class="ang" style="transform:rotate(${TILT_DEG[B.slu.tilt-1]}deg)"></span><b>${TILT_DEG[B.slu.tilt-1]}°</b><button data-a="t+">+</button></span>`;
       $("#pi").appendChild(iconCanvas("sluice",C,34,24));
@@ -1873,9 +1895,9 @@ function screenResult(oz,R,fail,ranDay,siltDay,lostDays){
      <div class="sub center">★ ${C.s[0]} · ★★ ${C.s[1]} · ★★★ ${C.s[2]}</div>
      <div class="crewline"><div id="mnw"></div><div class="bubble ${won?"":"bad"}">${tip}</div></div>
      <div class="gauges card">
-       ${rows.filter(r=>r[0]&&r[1]!==null).map(([kd,v,hl])=>`<div class="gr ${hl&&!fail?"hot":""}"><div class="gi" data-k="${kd}"></div>
+       ${rows.filter(r=>r[0]&&r[1]!==null).map(([kd,v,hl])=>`<div class="gr ${hl&&!fail?"hot":""}"><div class="gi" data-k="${kd}"><span>${NAME(kd,C)}</span></div>
          <div class="gb"><i style="width:${Math.min(100,v/mx*100)}%"></i></div><b>${Math.round(v)}</b><small>yd/day</small></div>`).join("")}
-       <div class="gr ${R.off||!R.boxes?"hot":""}"><div class="gi" data-k="sluice"></div>
+       <div class="gr ${R.off||!R.boxes?"hot":""}"><div class="gi" data-k="sluice"><span>Sluice</span></div>
          <div class="gb"><i style="width:${R.rec*100}%"></i></div><b>${Math.round(R.rec*100)}%</b><small>caught</small></div>
        ${R.ranOut?`<div class="gnote hot">Cut dug out on day ${ranDay}</div>`:""}
        ${R.silted?`<div class="gnote hot">Ponds silted up on day ${siltDay}</div>`:""}
