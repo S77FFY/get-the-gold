@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=1,user-scalable=no">
 <meta name="app-repo" content="get-the-gold">
-<meta name="app-version" content="1.0.29">
+<meta name="app-version" content="1.0.30">
 <meta name="theme-color" content="#2a1d10">
 <title>Get the Gold</title>
 <style>
@@ -75,6 +75,7 @@ h3{font-size:14px;font-weight:900;margin:14px 0 6px;letter-spacing:.08em;text-tr
  align-items:center;justify-content:center;padding:4px 0;touch-action:none;cursor:grab;min-height:54px;box-shadow:0 3px 0 #000}
 .tile canvas{max-width:100%}
 .tile.used{opacity:.5}
+.tile.off{opacity:.3;filter:grayscale(1)}
 .tile .badge{position:absolute;top:-9px;right:-7px;background:var(--gold);border:2px solid #000;border-radius:12px;min-width:23px;height:23px;
  font-weight:900;font-size:13px;display:flex;align-items:center;justify-content:center;padding:0 5px;color:#000}
 .tile .badge.done{background:var(--good);color:#fff}
@@ -306,7 +307,7 @@ h2{color:var(--txt)}
 .bubble.tap{animation:tapme 1s ease-in-out infinite;cursor:pointer}
 @keyframes tapme{50%{box-shadow:2px 3px 0 #000,0 0 0 4px rgba(217,161,43,.55)}}
 
-/* ===== v1.0.29 fixed chrome: header + footer stay put, only the middle scrolls ===== */
+/* ===== v1.0.30 fixed chrome: header + footer stay put, only the middle scrolls ===== */
 html,body{height:100%;overflow:hidden}
 #app{height:100vh;height:100dvh;min-height:0;overflow:hidden}
 #bar{position:relative;flex:0 0 auto}
@@ -361,13 +362,13 @@ html,body{height:100%;overflow:hidden}
 .crews{grid-template-columns:repeat(3,minmax(0,1fr))}.crew{min-width:0}
 .crew b{overflow-wrap:break-word;font-size:12px;padding:0 3px;line-height:1.15}
 @media (min-width:520px){.crews{grid-template-columns:repeat(4,minmax(0,1fr))}}.crew .pt canvas{max-width:100%;height:auto!important}
-/* v1.0.29 name labels */
+/* v1.0.30 name labels */
 .tile{flex-direction:column;gap:2px;padding:4px 2px 3px}
 .tile canvas{order:1}.tile .tl{order:2;font:800 10px/1 system-ui,-apple-system,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#1a140e;white-space:nowrap}
 .wside .tile .tl{font-size:12px}
 .plantrow .pi{display:flex;flex-direction:column;align-items:center;gap:1px}.plantrow .pl{order:2;font:800 9px/1 system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--txt2)}
 .gr .gi{flex-direction:column;align-items:center;flex-basis:52px}.gr .gi span{order:2;font:800 9px/1 system-ui,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:var(--txt2)}
-/* v1.0.29 yard + gear bar */
+/* v1.0.30 yard + gear bar */
 .shelf{display:flex;flex-direction:column;gap:8px}
 .gcard{display:flex;align-items:center;gap:10px;width:100%;text-align:left;font-family:inherit;color:var(--txt);
  background:linear-gradient(#35302a,#27231e);border:2px solid var(--ink);border-radius:6px;box-shadow:0 3px 0 #000;padding:7px 9px}
@@ -392,7 +393,7 @@ html,body{height:100%;overflow:hidden}
 .plantrow .gchg svg{width:14px;height:14px}
 #app.wide .wmain .plantrow{grid-template-columns:repeat(3,minmax(0,1fr)) 74px}
 #app.wide .wmain .plantrow .gchg{grid-column:4;grid-row:1}
-/* v1.0.29 crew tally + swap */
+/* v1.0.30 crew tally + swap */
 .crew .cs{display:flex;align-items:center;justify-content:center;gap:2px;font-weight:900;font-size:11px;color:var(--hz);margin-top:1px}
 .crew .cs svg{width:11px;height:11px}
 .crew .cs small{font-size:9px;color:var(--txt2);font-weight:800}
@@ -407,13 +408,13 @@ html,body{height:100%;overflow:hidden}
 .maphead .swap svg{width:17px;height:17px}
 .maphead .swap small{font-size:8px;font-weight:900;letter-spacing:.04em;text-transform:uppercase;line-height:1.1;text-align:center}
 .maphead:active{transform:translateY(2px)}
-/* v1.0.29 sound toggle feedback */
+/* v1.0.30 sound toggle feedback */
 #bar .snd.off{opacity:.5}
 #stoast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom) + 84px);transform:translate(-50%,14px);z-index:80;
  background:#15120f;border:2px solid var(--hz);border-radius:20px;color:var(--txt);padding:8px 16px;font:800 13px/1.2 system-ui,-apple-system,sans-serif;
  letter-spacing:.03em;box-shadow:0 4px 0 #000;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;max-width:86vw;text-align:center}
 #stoast.show{opacity:1;transform:translate(-50%,0)}
-/* v1.0.29 prospecting gates */
+/* v1.0.30 prospecting gates */
 .gate{display:flex;align-items:center;gap:10px;margin:14px 0 10px;padding:9px 11px;border-radius:6px;color:var(--txt);
  background:linear-gradient(#332d24,#26211b);border:2px dashed var(--hz);box-shadow:0 3px 0 #000}
 .gate.done{border-style:solid;background:linear-gradient(#3a3324,#282219)}
@@ -436,7 +437,7 @@ html,body{height:100%;overflow:hidden}
 .gnote2{font-size:13px;font-weight:800;margin-top:6px}
 .bfrom{margin-top:4px;color:var(--hz);opacity:.9}
 #app.wide #screen.mapg>.gate{grid-column:1/-1;max-width:760px;justify-self:center;width:100%}
-/* v1.0.29 tutorial coach marks + how to play */
+/* v1.0.30 tutorial coach marks + how to play */
 .coach{position:fixed;left:8px;right:8px;top:calc(env(safe-area-inset-top) + 58px);z-index:70;display:flex;align-items:flex-start;gap:6px;pointer-events:none;
  animation:coachin .35s cubic-bezier(.3,1.4,.5,1) both}
 @keyframes coachin{from{opacity:0;transform:translateY(-14px)}}
@@ -456,7 +457,7 @@ html,body{height:100%;overflow:hidden}
 .howrow b{display:block;font-size:15px;font-weight:900;margin-bottom:2px}
 .howrow div div{font-size:13px;line-height:1.35;color:var(--txt2)}
 #screen.howg .sub{margin-bottom:6px}
-/* v1.0.29 foreman + tray fit */
+/* v1.0.30 foreman + tray fit */
 .tray{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr)}
 .tile canvas{max-width:100%;height:auto!important;align-self:center;flex:0 0 auto;object-fit:contain}
 .tile .tl{max-width:100%;overflow:hidden;white-space:nowrap;text-overflow:clip;letter-spacing:0}
@@ -466,7 +467,7 @@ html,body{height:100%;overflow:hidden}
 .nofm svg{width:18px;height:18px;flex:0 0 auto;opacity:.8}
 .gnote2b{font-size:11.5px;font-weight:800;color:var(--txt2);text-align:center;padding:5px 2px 1px;letter-spacing:.02em}
 .gnote2b.fmcut{color:#e07a5a}
-/* v1.0.29 bonus chapters + options */
+/* v1.0.30 bonus chapters + options */
 .gate.bonus{border-style:solid;border-color:#8b7bd0;background:linear-gradient(#2c2740,#211d30)}
 .gate.bonus.locked{border-color:#4e4866}
 .gate.bonus .bi{flex:0 0 40px;display:flex;justify-content:center}
@@ -480,7 +481,7 @@ html,body{height:100%;overflow:hidden}
 .obt small{font-size:10px;font-weight:800;color:var(--txt2);text-align:center;line-height:1.2}
 .obt.wide2{flex:1 1 100%;align-items:flex-start}.obt.wide2 b{font-size:15px}.obt.wide2 small{text-align:left}
 #screen.optg .sub{margin:6px 0 2px}
-/* v1.0.29 title */
+/* v1.0.30 title */
 #screen.titleg{display:flex;align-items:center;justify-content:center;padding-top:8px;padding-bottom:6px}
 .title{flex-direction:column;align-items:center;gap:4px}
 .logoc{display:block}
@@ -490,7 +491,7 @@ html,body{height:100%;overflow:hidden}
 #app::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
  background:radial-gradient(ellipse at 50% 0%,rgba(0,0,0,.18),rgba(0,0,0,.55) 70%,rgba(0,0,0,.72))}
 #bar,#top,#screen,#foot{position:relative;z-index:1}
-/* v1.0.29 locked claims stay a mystery */
+/* v1.0.30 locked claims stay a mystery */
 .strip.hush canvas{filter:grayscale(1) brightness(.22) contrast(1.1)}
 .strip.hush{position:relative}
 .strip .qmark{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:900 54px/1 Impact,system-ui,sans-serif;
@@ -503,6 +504,16 @@ html,body{height:100%;overflow:hidden}
  font:700 11px/1.35 ui-monospace,Menlo,Consolas,monospace;resize:none;height:88px;-webkit-user-select:text;user-select:text}
 .codecard .row{gap:8px}.codecard .btn{margin-top:4px;font-size:14px;padding:10px}
 #screen.moveg .sub{margin:4px 0}
+/* v1.0.30 yard projections */
+.proj{display:block;margin-top:3px;font:900 11.5px/1.2 system-ui,-apple-system,sans-serif;letter-spacing:.02em}
+.proj.up{color:#8fd07a}.proj.down{color:#d98a6a}.proj.now{color:var(--hz)}.proj.bad{color:#b04a30}
+.projbar{display:flex;align-items:center;justify-content:center;gap:6px;margin:0 0 8px;padding:5px 8px;border-radius:5px;
+ background:#15120f;border:2px solid var(--ink);color:var(--txt)}
+.projbar b{font-size:17px;font-weight:900}.projbar small{font-size:10.5px;font-weight:800;color:var(--txt2);text-transform:uppercase;letter-spacing:.06em}
+.projbar svg{width:18px;height:18px}
+.teach{background:linear-gradient(#2f3a2a,#242c20);border-color:#4a5b3f}
+.teach div{font-size:13px;line-height:1.4;margin-top:5px}
+.teach .tsub{font-size:11px;color:var(--txt2);margin-top:6px}
 </style>
 </head>
 <body>
@@ -517,10 +528,10 @@ html,body{height:100%;overflow:hidden}
   <main id="screen"></main>
   <footer id="foot"></footer>
 </div>
-<div id="ver">v1.0.29</div>
+<div id="ver">v1.0.30</div>
 <script>
 "use strict";
-const VERSION="1.0.29";
+const VERSION="1.0.30";
 /*__ENGINE_START__*/
 const COLS=10,YMAX=11,YMIN=-3,TREE_H=3;
 const GR={0:0,1:0.9,2:1.8,3:3.0};
@@ -677,14 +688,14 @@ const CLAIMS=[
  h: [0,2,3,3,4,4,4,5,5,5], ob:[0,1,1,3,2,4,5,3,2,2],
  p: [0,0,0,2,3,3,3,2,1,0],  g: [0,0,0,2,3,3,3,2,1,0], trees:[8,9],rock:[]},
 {id:"sixtymile",ch:3,name:"Sixtymile",region:"Alaska",country:"Yukon border, Alaska",mx:55,my:34,
- days:48,brk:0.11,ideal:3,s:[47,56.7,65.8],
+ days:48,brk:0.11,ideal:3,s:[73,88.7,103.4],
  tip:"Timber AND muck. Pick a cut that's worth the felling.",
  kit:{dig:"exc",wat:"pump",belt:4,trucks:1,dozer:1,slu:3},
  wc:[9],L:2,
  h: [5,5,5,4,4,4,3,3,3,1], ob:[3,5,3,2,4,2,2,1,1,0],
  p: [2,3,3,3,2,2,1,0,0,0],  g: [3,3,3,2,2,2,1,0,0,0], trees:[0,1,2,3],rock:[]},
 {id:"fortymile",ch:3,name:"Fortymile",region:"Alaska",country:"Fortymile River, Alaska",mx:84,my:62,
- days:48,brk:0.11,ideal:3,s:[89,107.5,124.9],
+ days:48,brk:0.11,ideal:3,s:[89,107.5,126.4],
  tip:"Shallow lean dirt here, deep rich dirt there. Dozer and trucks.",
  kit:{dig:"exc",wat:"pump",belt:3,trucks:2,dozer:1,slu:3},
  wc:[0],L:2,
@@ -692,14 +703,14 @@ const CLAIMS=[
  p: [0,0,1,1,1,0,3,3,3,2],  g: [0,0,1,1,1,0,3,3,3,3], trees:[5],rock:[]},
 /* ---------- 4 BIG IRON ---------- */
 {id:"tarkwa",ch:4,name:"Tarkwa Flats",region:"West Africa",country:"Western Region, Ghana",mx:22,my:48,
- days:50,brk:0.11,ideal:2,s:[70,85.5,100.5],
+ bud:655,days:49,brk:0.11,ideal:2,s:[70,85.5,100.5],
  tip:"Lots of pay here. A small plant will never keep up with it.",
  kit:{digRate:330,dig:"exc",wat:"pump",belt:4,trucks:1,dozer:1,shaker:1,slu:3},
  wc:[0],L:2,
  h: [1,2,2,2,2,3,3,3,3,3], ob:[0,1,1,1,3,1,2,1,3,1],
  p: [0,0,0,3,3,3,3,3,3,2],  g: [0,0,0,2,2,2,2,2,1,1], trees:[2,9],rock:[]},
 {id:"obuasi",ch:4,name:"Obuasi Hills",region:"West Africa",country:"Ashanti Region, Ghana",mx:52,my:60,
- days:50,brk:0.12,ideal:2,s:[82,99.4,116.9],
+ days:50,brk:0.12,ideal:2,s:[86,104.2,122.3],
  tip:"Gold's up the hill and the water's down below. Mind the lift.",
  kit:{digRate:330,dig:"exc",wat:"pump",belt:4,trucks:2,dozer:1,shaker:1,slu:4},
  wc:[0,1],L:2,
@@ -714,21 +725,21 @@ const CLAIMS=[
  p: [0,0,0,3,3,3,3,0,0,0],  g: [0,0,0,2,3,3,2,0,0,0], trees:[0,1,8,9],rock:[]},
 /* ---------- 5 EVERY DROP ---------- */
 {id:"coober",ch:5,name:"Coober Pedy",region:"Australia",country:"South Australia",mx:24,my:40,
- days:45,brk:0.10,ideal:3,silt:2100,s:[68,82.2,96.7],
+ days:45,brk:0.10,ideal:3,silt:2100,s:[68,82.4,96.9],
  tip:"Ponds fill with silt. When they're full, the plant stops. Dig a second one!",
  kit:{dig:"exc",wat:"pond",belt:4,trucks:1,dozer:1,slu:3,ponds:2},
  wc:[],L:-9,
  h: [4,4,3,3,3,3,3,2,2,2], ob:[3,1,2,1,2,1,1,1,1,1],
  p: [3,3,2,2,1,0,0,0,0,0],  g: [3,3,2,2,1,0,0,0,0,0], trees:[6],rock:[]},
 {id:"andamooka",ch:5,name:"Andamooka",region:"Australia",country:"South Australia",mx:54,my:62,
- days:45,brk:0.10,ideal:2,silt:1950,maxFlow:55,s:[43,52.5,61.6],
+ days:45,brk:0.10,ideal:2,silt:1950,maxFlow:55,s:[45,55.1,64.6],
  tip:"Your water licence only allows so much. Make every yard count.",
  kit:{dig:"exc",wat:"pond",belt:4,trucks:2,dozer:1,slu:4,ponds:2},
  wc:[],L:-9,
  h: [2,2,2,3,3,3,4,4,4,4], ob:[1,1,1,1,2,1,3,1,2,2],
  p: [0,0,0,1,1,2,3,3,3,2],  g: [0,0,0,1,1,2,3,3,3,2], trees:[1],rock:[]},
 {id:"oodnadatta",ch:5,name:"Oodnadatta Track",region:"Australia",country:"South Australia",mx:84,my:38,
- days:45,brk:0.11,ideal:2,silt:1750,s:[88,106.3,124.9],
+ days:45,brk:0.11,ideal:2,silt:1750,s:[88,106.8,125.6],
  tip:"Three ponds, two trucks, one long dusty track.",
  kit:{dig:"exc",wat:"pond",belt:3,trucks:2,dozer:1,slu:3,ponds:3},
  wc:[],L:-9,
@@ -750,7 +761,7 @@ const CLAIMS=[
  h: [4,4,4,5,5,4,3,3,2,1], ob:[2,4,2,3,2,1,1,1,1,0],
  p: [3,3,3,2,1,0,0,0,0,0],  g: [3,3,3,2,1,0,0,0,0,0], trees:[0,1,2,6,7],rock:[4]},
 {id:"motherlode",ch:6,name:"The Motherlode",region:"Alaska",country:"Klondike, Yukon",mx:82,my:58,
- days:49,brk:0.13,ideal:3,silt:3100,s:[107,130.4,149],
+ bud:1005,days:47,brk:0.13,ideal:3,silt:3100,s:[118,142.8,167.9],
  tip:"Everything you've learned. Timber, muck, distance, water. Go get it.",
  kit:{digRate:330,dig:"exc",wat:"pond",belt:4,trucks:2,dozer:1,shaker:1,slu:4,ponds:2},
  wc:[],L:-9,
@@ -765,14 +776,14 @@ const CLAIMS=[
  h: [2,2,4,5,6,6,6,5,4,3], ob:[0,0,2,3,4,4,4,3,2,1],
  p: [0,0,2,3,3,3,2,0,0,0],  g: [0,0,3,3,3,3,2,0,0,0], trees:[7,8],rock:[]},
 {id:"chilkoot",ch:7,name:"Chilkoot Seam",region:"Klondike",country:"Yukon, 1899",mx:56,my:62,mode:"hard",
- days:60,brk:0.12,ideal:3,s:[78,94.7,103.9],
+ days:60,brk:0.12,ideal:3,s:[79,96.1,104.9],
  tip:"Timber holds the roof and the powder shifts the rock. Both cost you days.",
  kit:{dig:"exc",digRate:52,wat:"pump",belt:4,trucks:2,dozer:1},
  wc:[9],L:2,
  h: [3,4,5,6,7,7,6,5,4,2], ob:[1,2,3,4,5,5,4,3,2,0],
  p: [1,2,3,3,2,2,0,0,0,0],  g: [2,3,3,3,3,2,0,0,0,0], trees:[0,1,2],rock:[6,7]},
 {id:"perseverance",ch:7,name:"Perseverance Adit",region:"Klondike",country:"Yukon River, 1901",mx:82,my:36,mode:"hard",
- days:64,brk:0.13,ideal:3,s:[99,119.9,131.2],
+ days:64,brk:0.13,ideal:3,s:[102,124.3,135.9],
  tip:"Quartz reef, deep in the hill. Stamps will crush it \u2014 if you can feed them.",
  kit:{dig:"exc",digRate:58,wat:"pump",belt:4,trucks:3,dozer:1},
  wc:[0],L:2,
@@ -780,7 +791,7 @@ const CLAIMS=[
  p: [0,1,3,3,3,3,3,1,0,0],  g: [0,2,3,3,3,3,3,2,0,0], trees:[8,9],rock:[4,5]},
 /* ---------- 8 OFF WORLD ---------- */
 {id:"mare",ch:8,name:"Mare Tranquillitatis",region:"Moon",country:"The Moon \u00b7 Sea of Tranquillity",mx:22,my:54,mode:"space",
- days:52,brk:0.09,ideal:2,s:[99,120.7,135.5],
+ days:52,brk:0.09,ideal:2,s:[100,121,142.3],
  tip:"Regolith over buried ice. Melt the ice, wash the dust, keep the rare earths.",
  kit:{dig:"exc",digRate:340,wat:"pump",belt:5,trucks:2,dozer:1},
  wc:[8,9],L:2,
@@ -826,9 +837,8 @@ function onGold(C,c){return C.p[c]>0&&!isW(C,c);}
 function whyPlant(C,B,c){
   if(!inB(c))return"Off the claim!";
   if(isW(C,c))return"Needs dry ground!";
-  if(onGold(C,c))return"That's on the gold!";
   if(C.rock.indexOf(c)>=0)return"Solid ironstone \u2014 can't build there!";
-  if(cutCols(B).indexOf(c)>=0)return"That's in your cut!";
+  if(cutCols(B).indexOf(c)>=0)return"That's in your cut \u2014 it has to stand on ground you're not digging!";
   if(B.wat.indexOf(c)>=0)return"The water's there!";
   return null;
 }
@@ -890,7 +900,9 @@ function waterState(C,B,U){
   o.dist=pump?watDist(C,w):0;                         // columns of suction line back to the creek
   o.suck=pump?Math.max(0,C.h[w]-C.L):0;               // how high it has to pull the water
   o.line=pump?Math.max(0.25,1-0.085*o.dist):1;        // friction down a long suction line
-  o.base=Math.round(P.flow*(pump?1:0.8)*o.line);o.lim=P.lift+(pump?0:-0.5);
+  o.n=B.wat.length;
+  o.pondMul=pump?1:1+0.55*(o.n-1);                    // each extra pond holds and feeds more water
+  o.base=Math.round(P.flow*(pump?1:0.8)*o.line*o.pondMul);o.lim=P.lift+(pump?0:-0.5);
   o.dry=pump&&(o.dist>6||o.suck>P.suck+1e-9);
   if(B.plant===null)return o;
   o.reach=reachAt(C,B,U,B.plant);o.head=C.h[B.plant]+2;
@@ -1827,7 +1839,7 @@ function drawExc(g,G,c,base,dir,t,on,broken,o){
   const lerp=(A,B,f)=>[A[0]+(B[0]-A[0])*f,A[1]+(B[1]-A[1])*f];
   const per=(A,B,d)=>{const dx=B[0]-A[0],dy=B[1]-A[1],L=Math.hypot(dx,dy)||1;return[-dy/L*d,dx/L*d];};
   const hx=c+0.5,ink="#2a1d10",yel="#c4912a",yel2="#e0aa3a";
-  const boomPivot=P(hx+dir*0.22,base+1.05);
+  const boomPivot=P(hx+dir*0.22,base+1.28);
   const armEnd=P(hx+dir*(0.22+r),base+yy);
   // two-link solve so the boom and arm follow the bucket
   const L1=cw*1.15,L2=cw*0.95;
@@ -1859,7 +1871,7 @@ function drawExc(g,G,c,base,dir,t,on,broken,o){
     const hi=per(A,B,-th*0.28*sw),A2=[A[0]+hi[0],A[1]+hi[1]],B2=[B[0]+hi[0],B[1]+hi[1]];
     g.strokeStyle="#e8c165";g.lineWidth=th*0.22*sw;g.beginPath();g.moveTo(A2[0],A2[1]);g.lineTo(B2[0],B2[1]);g.stroke();}
   // ---------- undercarriage ----------
-  {const top=Y(base+0.95),bot=Y(base+0.04),hh2=bot-top,x0=X(c+0.01),x1=X(c+0.99);
+  {const top=Y(base+0.95),bot=Y(base+0.04),hh2=bot-top,x0=X(c-0.14),x1=X(c+1.14);
    const rad=hh2*0.46,cy=bot-rad-hh2*0.05,sx=x1-rad-hh2*0.1,ix=x0+rad+hh2*0.1;
    // loop: frame inside, wheels, then the chain as a band round the outside
    const loop=()=>{g.beginPath();g.moveTo(ix,cy-rad);g.lineTo(sx,cy-rad);g.arc(sx,cy,rad,-Math.PI/2,Math.PI/2);
@@ -1896,16 +1908,19 @@ function drawExc(g,G,c,base,dir,t,on,broken,o){
      g.fillStyle="#6b6258";g.beginPath();g.arc(rx,cy+rad*0.58,rad*0.22,0,7);g.fill();
      g.strokeStyle=ink;g.lineWidth=1.4*sw;g.stroke();}}
   // ---------- house: counterweight, body, cab ----------
-  g.fillStyle="#6b6155";rrect(g,X(hx-dir*0.46),Y(base+1.28),cw*0.24*dir,0.62*u,4);g.fill();g.strokeStyle=ink;g.lineWidth=1.8*sw;g.stroke();
-  g.fillStyle=yel;rrect(g,X(c+0.12),Y(base+1.22),cw*0.76,0.62*u,5);g.fill();
+  // slew ring between the tracks and the house
+  g.fillStyle="#6b6258";rrect(g,X(c+0.2),Y(base+1.06),cw*0.6,0.2*u,3);g.fill();g.strokeStyle=ink;g.lineWidth=1.6*sw;g.stroke();
+  g.fillStyle="#4a443c";rrect(g,X(c+0.3),Y(base+1.16),cw*0.4,0.12*u,2);g.fill();
+  g.fillStyle="#6b6155";rrect(g,X(hx-dir*0.44),Y(base+1.45),cw*0.22*dir,0.6*u,4);g.fill();g.strokeStyle=ink;g.lineWidth=1.8*sw;g.stroke();
+  g.fillStyle=yel;rrect(g,X(c+0.14),Y(base+1.42),cw*0.72,0.62*u,5);g.fill();
   g.strokeStyle=broken?"#e0452e":ink;g.lineWidth=(broken?3:1.9)*sw;g.stroke();
-  g.fillStyle="#00000022";rrect(g,X(c+0.16),Y(base+0.86),cw*0.68,0.12*u,3);g.fill();
+  g.fillStyle="#00000022";rrect(g,X(c+0.18),Y(base+1.06),cw*0.64,0.12*u,3);g.fill();
   const cx=hx-dir*0.30;
-  g.fillStyle=yel2;rrect(g,X(cx-(dir>0?0:0.3)),Y(base+1.95),cw*0.3,0.78*u,4);g.fill();g.strokeStyle=ink;g.lineWidth=1.9*sw;g.stroke();
-  g.fillStyle="#9fb4b8";rrect(g,X(cx+(dir>0?0.05:-0.25)),Y(base+1.84),cw*0.2,0.42*u,3);g.fill();g.strokeStyle=ink;g.lineWidth=1.4*sw;g.stroke();
-  g.fillStyle="#2a1d10";rrect(g,X(hx-dir*0.06),Y(base+1.5),cw*0.16*dir,0.2*u,2);g.fill(); // exhaust
+  g.fillStyle=yel2;rrect(g,X(cx-(dir>0?0:0.3)),Y(base+2.15),cw*0.3,0.78*u,4);g.fill();g.strokeStyle=ink;g.lineWidth=1.9*sw;g.stroke();
+  g.fillStyle="#9fb4b8";rrect(g,X(cx+(dir>0?0.05:-0.25)),Y(base+2.04),cw*0.2,0.42*u,3);g.fill();g.strokeStyle=ink;g.lineWidth=1.4*sw;g.stroke();
+  g.fillStyle="#2a1d10";rrect(g,X(hx-dir*0.06),Y(base+1.7),cw*0.16*dir,0.2*u,2);g.fill(); // exhaust
   // ---------- boom, arm, rams ----------
-  const boomCylA=P(hx-dir*0.10,base+1.05),boomCylB=lerp(boomPivot,boomTip,0.52);
+  const boomCylA=P(hx-dir*0.10,base+1.28),boomCylB=lerp(boomPivot,boomTip,0.52);
   const armCylA=lerp(boomPivot,boomTip,0.42),armCylB=lerp(boomTip,armEnd,0.24);
   const bkCylA=lerp(boomTip,armEnd,0.18),bkCylB=lerp(boomTip,armEnd,0.9);
   const off=per(boomPivot,boomTip,-7*sw);
@@ -2013,7 +2028,7 @@ function iconCanvas(kind,C,w,hh,opt){
   const cv=document.createElement("canvas"),d=Math.min(devicePixelRatio||1,2.5);
   cv.width=w*d;cv.height=hh*d;cv.style.width=w+"px";cv.style.height=hh+"px";
   const g=cv.getContext("2d");g.setTransform(d,0,0,d,0,0);
-  const IC={dig:[2.25,0.05],dozer:[1.55,0.45],shk:[2.9,0.5]}[kind]||[1.7,0.5],cw=w/IC[0],u=cw*0.5,ox=w/2-IC[1]*cw,gy=hh-4;
+  const IC={dig:[2.9,0.15],dozer:[1.55,0.45],shk:[2.9,0.5]}[kind]||[1.7,0.5],cw=w/IC[0],u=cw*0.5,ox=w/2-IC[1]*cw,gy=hh-3;
   const G={cw,u,W:w,H:hh,X:x=>ox+x*cw,Y:y=>gy-y*u};
   const water=(kind==="dig"&&C.kit.dig==="dredge");
   if(water){g.fillStyle="#3ea0d8";g.fillRect(0,G.Y(0.9),w,hh);}else{g.fillStyle="#8a6a44";g.fillRect(0,gy,w,4);}
@@ -2645,6 +2660,9 @@ function screenGear(){
   if(!B.fm)B.fm="none";
   function cost(){return gearOf(C,B,U).plant.cost+gearOf(C,B,U).slu.cost+gearOf(C,B,U).pump.cost+(B.fm==="flat"?FEE:0);}
   function setup(){const G=gearOf(C,B,U);return (G.plant.sd||0)+(G.slu.sd||0)+(G.pump.sd||0);}
+  const LIMN2={dig:"digger-limited",haul:"haul-limited",plant:"plant-limited",water:"water-limited"};
+  const sgn=v=>(v>=0.05?"+":"")+fmt(v)+" oz";
+  const delta=v=>Math.abs(v)<0.05?0:v;
   h(`<div class="h1">THE YARD</div>
      <div class="sub center">Kit it out for ${C.name} \u2014 what's left over pays for spares</div>
      ${GATE[C.ch]?`<div class="sub center bfrom">${money(C.bud||CH_BUDGET[C.ch])} season budget + ${money(grubOf(C,U))} from your ${GATE_NAME[GATE[C.ch]].toLowerCase()} run</div>`:""}
@@ -2653,21 +2671,29 @@ function screenGear(){
      <div class="crewline"><div id="mnw"></div><div class="bubble" id="bb"></div></div>`,
     {re:screenGear,cls:"yardg",
      top:`<div class="hud"><span class="chip gold grow"><b id="left">-</b><small>left of ${money(bud)}</small></span>
-          <span class="chip">${ICON.sun}<b id="sd">0</b><small>rig-up days</small></span></div>`,
+          <span class="chip">${ICON.sun}<b id="sd">0</b><small>rig-up days</small></span></div>
+          <div class="projbar" id="proj"></div>`,
      foot:`<div class="row2"><button class="btn round" id="back2">${ICON.map}</button>
        <button class="btn go big" id="go">${ICON.play}<span>TO THE CLAIM</span></button></div>`});
   addMiner("#mnw",56,70,"grin");
   const say=(txt,mood)=>{const bb=$("#bb");bb.textContent=txt;bb.classList.toggle("bad",mood==="worry");};
+  function project(kind,id){                      // what this claim would wash with that item fitted
+    const B2=clone(B);if(kind==="fm")B2.fm=id;else B2.gear[kind]=id;
+    const R2=evaluate(C,B2,U);
+    return {est:R2.est,ready:R2.ready&&!R2.problems.length,limit:R2.limit,cost:R2.cost,over:R2.cost>R2.budget};}
   function draw(){
+    const now=evaluate(C,B,U),base=now.est,laid=!!B.cut&&B.plant!==null&&B.wat.length>0;
     // foreman shelf
     const FM=[["none","Run it yourself","Free","You watch the season and tap the breakdowns."],
               ["flat","Foreman \u2014 flat fee",money(FEE),"Paid out of this budget. He fixes the breakdowns, and you can skip the season."],
               ["pct","Foreman \u2014 a cut","+"+PCT+"%","Paid out of the gold you wash. Same deal, nothing up front."]];
     const fs2=scr.querySelector('.shelf[data-k="fm"]');
     fs2.innerHTML=FM.map(([id,n,c,d])=>{const on=B.fm===id,afford=id!=="flat"||cost()-(B.fm==="flat"?FEE:0)+FEE<=bud;
+      const pj=laid?project("fm",id):null;
       return `<button class="gcard ${on?"on":""} ${afford||on?"":"no"}" data-f="${id}">
         <span class="gi2 fmi">${id==="none"?ICON.play:ICON.star}</span>
-        <span class="gtx"><b>${n}</b><small>${id==="pct"?"takes "+PCT+"% of the season's gold":id==="flat"?money(FEE)+" off your kit money":"no cost, no skipping"}</small><em>${d}</em></span>
+        <span class="gtx"><b>${n}</b><small>${id==="pct"?"takes "+PCT+"% of the season's gold":id==="flat"?money(FEE)+" off your kit money":"no cost, no skipping"}</small><em>${d}</em>
+          ${pj?`<span class="proj ${pj.over?"bad":on?"now":delta(pj.est-base)>=0?"up":"down"}">${pj.over?"over budget":fmt(pj.est)+" oz"+(on?"":" \u00b7 "+sgn(pj.est-base))}</span>`:""}</span>
         <span class="gc">${c}</span></button>`;}).join("");
     fs2.querySelectorAll(".gcard").forEach(bt=>bt.onclick=()=>{const id=bt.dataset.f;
       if(id==="flat"&&cost()-(B.fm==="flat"?FEE:0)+FEE>bud){say("Can't afford his fee as well as that kit.","worry");return;}
@@ -2676,9 +2702,11 @@ function screenGear(){
       const shelf=scr.querySelector('.shelf[data-k="'+k+'"]'),list=gearList(k,C,U);
       shelf.innerHTML=list.map(it=>{const on=gearOf(C,B,U)[k].id===it.id;
         const other=cost()-gearOf(C,B,U)[k].cost,afford=other+it.cost<=bud;
+        const pj=laid&&(afford||on)?project(k,it.id):null;
         return `<button class="gcard ${on?"on":""} ${afford||on?"":"no"}" data-id="${it.id}">
           <span class="gi2"></span>
-          <span class="gtx"><b>${it.n}</b><small>${gearStat(k,it)}</small><em>${it.d||""}</em></span>
+          <span class="gtx"><b>${it.n}</b><small>${gearStat(k,it)}</small><em>${it.d||""}</em>
+            ${pj?`<span class="proj ${on?"now":delta(pj.est-base)>=0?"up":"down"}">${fmt(pj.est)} oz${on?" \u00b7 as set up":" \u00b7 "+sgn(pj.est-base)}${pj.est>0?" \u00b7 "+LIMN2[pj.limit]:""}</span>`:""}</span>
           <span class="gc">${it.cost?money(it.cost):"FREE"}${it.sd?`<i>+${it.sd}d</i>`:""}</span></button>`;}).join("");
       shelf.querySelectorAll(".gcard").forEach((bt,i)=>{
         bt.querySelector(".gi2").appendChild(iconCanvas(k==="plant"?(list[i].k==="shk"?"shk":"trm"):k==="slu"?"sluice":"wat",C,52,40,{boxes:list[i].boxes,item:k==="plant"?list[i]:null}));
@@ -2687,6 +2715,9 @@ function screenGear(){
           B.gear[k]=it.id;B.ptype=plantTile(gearOf(C,B,U).plant.k);save();draw();};});
     });
     const left=bud-cost();$("#left").textContent=(left<0?"-":"")+money(Math.abs(left));$("#sd").textContent=setup();
+    const pv=$("#proj");
+    if(pv)pv.innerHTML=laid?`${ICON.nugget}<b>${fmt(base)}</b><small>oz as set up \u00b7 ${LIMN2[now.limit]}</small>`
+      :`<small>Lay the claim out, then come back \u2014 every option will show what it'd wash</small>`;
     $("#left").style.color=left<0?"#e0452e":"";$("#go").disabled=left<0;
     const G=gearOf(C,B,U);
     say(left>=bud*0.55?"Plenty left in the kitty — could we run bigger?":
@@ -2730,7 +2761,9 @@ function screenBuild(){
   let drag=null,tmsg=null,R=evaluate(C,B,U),T=0;const t0=performance.now(),puffs=[];
 
   function say(txt,mood,dur){tmsg={txt,mood:mood||"worry",until:T+Math.max(dur||0,2.6+txt.length*0.045)};updateUI();}
-  function hint(){if(R.problems.length)return R.problems[0];return"Lookin' good. Hit RUN!";}
+  const LIMN={dig:"the digger",haul:"the haul",plant:"the plant",water:"the water"};
+  function hint(){if(R.problems.length)return R.problems[0];
+    return "Lookin' good \u2014 "+LIMN[R.limit]+" sets the pace at "+Math.round(R.thru)+" yd/day. Hit RUN!";}
   function complete(){return !R.problems.length;}
   function placed(k){
     if(k==="dig")return !!B.cut;if(k==="trm")return B.plant!==null&&B.ptype==="trm";if(k==="shk")return B.plant!==null&&B.ptype==="shk";
@@ -2742,12 +2775,15 @@ function screenBuild(){
     $("#hd").textContent=R.days;
     $$("#tray .tile").forEach(t=>{const k=t.dataset.k,b=t.querySelector(".badge");let txt,done=placed(k),full=false;
       if(k==="wat"&&kit.wat==="pond"){txt=B.wat.length+"/"+kit.ponds;full=B.wat.length>=kit.ponds;}
-      else if(k==="truck"){txt=B.trucks+"/"+kit.trucks;full=B.trucks>=kit.trucks;}
+      else if(k==="truck"){txt=B.trucks?kit.trucks+"\u00d7":kit.trucks+"\u00d7";full=B.trucks>0;}
       else if(k==="belt"){txt=done?(R.bs.ok?"✓":"!"):kit.belt+"m";full=done;}
       else if(k==="dozer"){txt=done?"✓":"1";full=done;}
       else{txt=done?"✓":"1";full=done;}
       b.textContent=txt;b.classList.toggle("done",done&&!(k==="belt"&&!R.bs.ok));b.classList.toggle("warn",k==="belt"&&done&&!R.bs.ok);
-      t.classList.toggle("used",full);});
+      t.classList.toggle("used",full);
+      // belt or trucks, never both: the one you're not using goes grey
+      const off=(k==="belt"&&B.trucks>0)||(k==="truck"&&B.belt);
+      t.classList.toggle("off",off);});
     // what you bought in the yard
     const pr=$("#pr"),GG=gearOf(C,B,U);
     pr.innerHTML=["plant","slu","pump"].map(k=>`<span class="gz"><b>${GG[k].n}</b><small>${gearStat(k,GG[k])}</small></span>`).join("")
@@ -2781,7 +2817,7 @@ function screenBuild(){
       return{cols:[c],ok:!why,why,apply:()=>{if(kit.wat==="pump")B.wat=[c];else if(d.idx>=0)B.wat[d.idx]=c;else B.wat.push(c);puff(c,C.h[c]);}};}
     if(d.kind==="dozer"){const ok=!!B.cut&&cutCols(B).indexOf(c)>=0;return{cols:ok?cutCols(B):[c],ok,why:B.cut?"Put the dozer on your cut!":"Open a cut first!",apply:()=>{B.dozer=true;}};}
     if(d.kind==="belt"){const ok=!!B.cut&&B.plant!==null;return{cols:[],ok,why:"Place the cut and the plant first!",apply:()=>{B.belt=true;B.trucks=0;}};}
-    if(d.kind==="truck"){const ok=B.trucks<kit.trucks;return{cols:[],ok,why:"That's all your trucks!",apply:()=>{B.trucks++;B.belt=false;}};}
+    if(d.kind==="truck"){const ok=kit.trucks>0;return{cols:[],ok,why:"No trucks on this claim!",apply:()=>{B.trucks=kit.trucks;B.belt=false;}};}
     return{cols:[],ok:false};
   }
   function removeKind(k,idx){
@@ -2789,7 +2825,7 @@ function screenBuild(){
     if(k==="trm"||k==="shk"){B.plant=null;return"Plant back in the tray.";}
     if(k==="wat"){if(idx>=0)B.wat.splice(idx,1);else B.wat.pop();return kit.wat==="pump"?"Pump back in the tray.":"Pond filled in.";}
     if(k==="belt"){B.belt=false;return"Belt packed up.";}
-    if(k==="truck"){B.trucks=Math.max(0,B.trucks-1);return"One truck parked up.";}
+    if(k==="truck"){B.trucks=0;return"Trucks sent home.";}
     if(k==="dozer"){B.dozer=false;return"Dozer back in the tray.";}
   }
   function dragMove(e){
@@ -2812,13 +2848,15 @@ function screenBuild(){
     if(d.mode==="tree"){if(!d.moved)say("Trees in your cut or under your kit get felled — 4 days a stand.","grin",2.4);return;}
     if(!d.moved){
       if(d.tile){if(placed(d.kind)){say(removeKind(d.kind,-1),"grin",1.4);}
-        else say(d.kind==="belt"?"Drag the belt onto the claim!":d.kind==="truck"?"Drag a truck onto the claim!":"Drag it onto the claim!","grin",1.8);}
+        else if(d.kind==="truck"&&kit.trucks){B.trucks=kit.trucks;B.belt=false;say("Trucks on \u2014 all "+kit.trucks+" of them.","wow",1.6);}
+        else if(d.kind==="belt"&&kit.belt&&B.cut&&B.plant!==null){B.belt=true;B.trucks=0;const r3=evaluate(C,B,U);say(r3.bs.ok?"Belt's in!":r3.bs.bad,r3.bs.ok?"wow":"worry",1.8);}
+        else say(d.kind==="belt"?"Drag the belt onto the claim!":d.kind==="truck"?"Drag the trucks onto the claim!":"Drag it onto the claim!","grin",1.8);}
       else say("Drag it to move it — or back to the tray.","grin",1.8);
       save();updateUI();return;}
     if(d.over==="tray"&&d.src==="scene"){say(removeKind(d.kind,d.idx),"grin",1.4);}
     else if(d.over==="scene"&&d.prop){if(d.prop.ok){d.prop.apply();
         if(d.kind==="belt"){const r2=evaluate(C,B,U);say(r2.bs.ok?"Belt's in! Nice!":r2.bs.bad,r2.bs.ok?"wow":"worry",2);}
-        else if(d.kind==="truck")say("Truck on the haul road!","wow",1.4);
+        else if(d.kind==="truck")say("The whole fleet's on the haul road \u2014 "+kit.trucks+" truck"+(kit.trucks>1?"s":"")+".","wow",1.8);
         else if(d.kind==="dozer")say("Dozer's on. It strips the muck off the whole cut — and shoves the timber over in half the time.","wow",2.6);}
       else say(d.prop.why||"Can't go there!","worry");}
     save();updateUI();
@@ -3015,18 +3053,23 @@ function screenResult(oz,R,fail,ranDay,siltDay,lostDays){
   const newU=UNLOCKS.filter(u=>before<u.oz&&bankOz()>=u.oz),lim=R.limit;
   const newCrew=CREWS.filter(c=>c.unlock&&starsBefore<c.unlock&&totalStars()>=c.unlock);
   let tip="";
+  const LIMTIP={
+    dig:()=>kit.dozer&&!B.dozer?"The digger set the pace. Put the dozer on \u2014 it strips the muck so the digger stays in the pay."
+      :C.mode==="hard"?"The pick crew set the pace. Powder shifts rock faster than men do."
+      :"The digger set the pace. A cut with less muck on top digs faster.",
+    haul:()=>R.haulKind==="trucks"?"The haul set the pace. Trucks lose time on every trip \u2014 move the plant nearer the cut, or lay a belt if it reaches."
+      :"The haul set the pace. A shorter, flatter belt run carries more.",
+    plant:()=>"The plant set the pace \u2014 it couldn't swallow what the digger sent. More feed capacity in the yard is worth more oz here.",
+    water:()=>R.ws.dry?"No water reached the plant. The pump must sit near the creek and low enough to suck from it."
+      :R.ws.head>R.ws.reach+1e-6?"Water set the pace \u2014 the plant sits above what the pump can push. Drop the plant lower, move the water closer, or buy more lift."
+      :"Water set the pace. A bigger pump, more ponds, or thriftier kit would wash more."};
   if(fail)tip=fail;
-  else if(R.ranOut&&ranDay)tip="You ran out of pay on day "+ranDay+"! Paint a bigger cut.";
-  else if(R.silted&&siltDay)tip="Ponds silted up on day "+siltDay+"! "+(B.wat.length<kit.ponds?"Dig another pond.":"Wash less dirt, catch more gold.");
-  else if(lim==="water"&&C.maxFlow&&R.ws.flow>=C.maxFlow-0.01)tip="Your licence caps the water. Squeeze more from every yard!";
-  else if(lim==="water"&&R.ws.head>R.ws.reach+1e-6)tip="Water can't climb that high! Plant lower, or water closer.";
-  else if(lim==="water")tip="Water's the limit \u2014 a bigger pump, or thriftier kit.";
-  else if(lim==="dig")tip=kit.dozer&&!B.dozer?"Muck's slowing the digger — bring the dozer!":"The digger can't dig any faster here.";
-  else if(lim==="haul")tip=R.haulKind==="trucks"?(B.trucks<kit.trucks?"Trucks can't keep up — send another!":"Long haul! Move the plant closer to the cut."):"The haul's the limit.";
-  else if(lim==="plant")tip="The plant's flat out \u2014 buy more capacity in the yard.";
-  if(!fail){if(R.rec<0.7)tip+=" A better sluice would catch more of it.";
+  else if(R.ranOut&&ranDay)tip="You ran out of pay on day "+ranDay+"! Paint a bigger cut \u2014 you had days in hand.";
+  else if(R.silted&&siltDay)tip="Ponds silted up on day "+siltDay+"! "+(B.wat.length<kit.ponds?"Dig another pond \u2014 every one holds more.":"Wash less dirt, catch more gold.");
+  else tip=(LIMTIP[lim]||(()=>"That's the pace of it."))();
+  if(!fail){if(R.rec<0.7)tip+=" And a better sluice would catch more of what you wash.";
     if(st===3)tip="Now THAT'S a plant!";
-    if(lostDays)tip+=" Breakdowns cost you "+lostDays+" day"+(lostDays>1?"s":"")+" — fix them faster!";}
+    if(lostDays)tip+=" Breakdowns cost you "+lostDays+" day"+(lostDays>1?"s":"")+" \u2014 fix them faster!";}
   const next=CLAIMS[S.claim+1];
   const nextGate=[2,3,4,5,6].find(ch=>gateOpen(ch))||0;
   const mx=Math.max(R.dig,R.haul===Infinity?0:Math.min(R.haul,250),R.cap,R.water,1);
@@ -3037,6 +3080,12 @@ function screenResult(oz,R,fail,ranDay,siltDay,lostDays){
      <div class="haul">${ICON.nugget}<b>${fmt(oz)}</b><small>${unit(C)}</small><span class="rst">${starRow(st,"sm")}</span></div>
      <div class="sub center">★ ${C.s[0]} · ★★ ${C.s[1]} · ★★★ ${C.s[2]}</div>
      <div class="crewline"><div id="mnw"></div><div class="bubble ${won?"":"bad"}">${tip}</div></div>
+     ${C.ch<=1&&!fail?`<div class="card teach"><span class="tag">WHAT TO TRY</span>
+       <div>${lim==="plant"?"Your digger and haul were feeding more than the plant could wash. In the yard, spend on feed capacity before anything else."
+        :lim==="water"?"Your plant could have washed more, but the water ran short. Move the pump closer to the creek or the plant lower \u2014 then buy lift."
+        :lim==="haul"?"The dirt couldn't get to the plant fast enough. Shorten the run: plant beside the cut, belt if it reaches, trucks if it doesn't."
+        :"The digger was the slow part. Cut where the muck on top is thinnest \u2014 every metre of overburden is time you don't spend on pay."}</div>
+       <div class="tsub">Bars below: the shortest one is the pace of the whole plant.</div></div>`:""}
      <div class="gauges card">
        ${rows.filter(r=>r[0]&&r[1]!==null).map(([kd,v,hl])=>`<div class="gr ${hl&&!fail?"hot":""}"><div class="gi" data-k="${kd}"><span>${NAME(kd,C)}</span></div>
          <div class="gb"><i style="width:${Math.min(100,v/mx*100)}%"></i></div><b>${Math.round(v)}</b><small>yd/day</small></div>`).join("")}
