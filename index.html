@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=1,user-scalable=no">
 <meta name="app-repo" content="get-the-gold">
-<meta name="app-version" content="1.0.25">
+<meta name="app-version" content="1.0.27">
 <meta name="theme-color" content="#2a1d10">
 <title>Get the Gold</title>
 <style>
@@ -306,7 +306,7 @@ h2{color:var(--txt)}
 .bubble.tap{animation:tapme 1s ease-in-out infinite;cursor:pointer}
 @keyframes tapme{50%{box-shadow:2px 3px 0 #000,0 0 0 4px rgba(217,161,43,.55)}}
 
-/* ===== v1.0.25 fixed chrome: header + footer stay put, only the middle scrolls ===== */
+/* ===== v1.0.27 fixed chrome: header + footer stay put, only the middle scrolls ===== */
 html,body{height:100%;overflow:hidden}
 #app{height:100vh;height:100dvh;min-height:0;overflow:hidden}
 #bar{position:relative;flex:0 0 auto}
@@ -335,10 +335,10 @@ html,body{height:100%;overflow:hidden}
 #screen.wgrid{display:grid;grid-template-columns:minmax(0,1fr) 268px;gap:18px;align-items:start}
 .wmain{min-width:0;display:flex;flex-direction:column;align-items:center}
 .wmain>.hud{align-self:stretch}.wmain>.plantrow,.wmain>.prog{align-self:stretch}
-.wside{position:sticky;top:0;display:flex;flex-direction:column;gap:10px;min-height:calc(100dvh - 120px)}
+.wside{position:sticky;top:0;display:flex;flex-direction:column;gap:10px;min-height:0;max-height:calc(100dvh - 118px);overflow-y:auto;overflow-x:hidden}
 .wside .crewline{margin:0}
 .wside .bubble{font-size:14px;min-height:64px}
-.wside .tray{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:14px 12px 12px}
+.wside .tray{display:grid;grid-auto-flow:row;grid-template-columns:1fr 1fr;gap:10px;padding:12px 10px 10px;grid-auto-rows:minmax(66px,auto);flex:0 0 auto}
 .wside .tile{min-height:78px}
 .wside .wbtns{margin-top:auto}
 .wside .wbtns .btn{margin-top:8px}
@@ -361,13 +361,13 @@ html,body{height:100%;overflow:hidden}
 .crews{grid-template-columns:repeat(3,minmax(0,1fr))}.crew{min-width:0}
 .crew b{overflow-wrap:break-word;font-size:12px;padding:0 3px;line-height:1.15}
 @media (min-width:520px){.crews{grid-template-columns:repeat(4,minmax(0,1fr))}}.crew .pt canvas{max-width:100%;height:auto!important}
-/* v1.0.25 name labels */
+/* v1.0.27 name labels */
 .tile{flex-direction:column;gap:2px;padding:4px 2px 3px}
 .tile canvas{order:1}.tile .tl{order:2;font:800 10px/1 system-ui,-apple-system,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#1a140e;white-space:nowrap}
 .wside .tile .tl{font-size:12px}
 .plantrow .pi{display:flex;flex-direction:column;align-items:center;gap:1px}.plantrow .pl{order:2;font:800 9px/1 system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--txt2)}
 .gr .gi{flex-direction:column;align-items:center;flex-basis:52px}.gr .gi span{order:2;font:800 9px/1 system-ui,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:var(--txt2)}
-/* v1.0.25 yard + gear bar */
+/* v1.0.27 yard + gear bar */
 .shelf{display:flex;flex-direction:column;gap:8px}
 .gcard{display:flex;align-items:center;gap:10px;width:100%;text-align:left;font-family:inherit;color:var(--txt);
  background:linear-gradient(#35302a,#27231e);border:2px solid var(--ink);border-radius:6px;box-shadow:0 3px 0 #000;padding:7px 9px}
@@ -392,7 +392,7 @@ html,body{height:100%;overflow:hidden}
 .plantrow .gchg svg{width:14px;height:14px}
 #app.wide .wmain .plantrow{grid-template-columns:repeat(3,minmax(0,1fr)) 74px}
 #app.wide .wmain .plantrow .gchg{grid-column:4;grid-row:1}
-/* v1.0.25 crew tally + swap */
+/* v1.0.27 crew tally + swap */
 .crew .cs{display:flex;align-items:center;justify-content:center;gap:2px;font-weight:900;font-size:11px;color:var(--hz);margin-top:1px}
 .crew .cs svg{width:11px;height:11px}
 .crew .cs small{font-size:9px;color:var(--txt2);font-weight:800}
@@ -407,13 +407,13 @@ html,body{height:100%;overflow:hidden}
 .maphead .swap svg{width:17px;height:17px}
 .maphead .swap small{font-size:8px;font-weight:900;letter-spacing:.04em;text-transform:uppercase;line-height:1.1;text-align:center}
 .maphead:active{transform:translateY(2px)}
-/* v1.0.25 sound toggle feedback */
+/* v1.0.27 sound toggle feedback */
 #bar .snd.off{opacity:.5}
 #stoast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom) + 84px);transform:translate(-50%,14px);z-index:80;
  background:#15120f;border:2px solid var(--hz);border-radius:20px;color:var(--txt);padding:8px 16px;font:800 13px/1.2 system-ui,-apple-system,sans-serif;
  letter-spacing:.03em;box-shadow:0 4px 0 #000;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;max-width:86vw;text-align:center}
 #stoast.show{opacity:1;transform:translate(-50%,0)}
-/* v1.0.25 prospecting gates */
+/* v1.0.27 prospecting gates */
 .gate{display:flex;align-items:center;gap:10px;margin:14px 0 10px;padding:9px 11px;border-radius:6px;color:var(--txt);
  background:linear-gradient(#332d24,#26211b);border:2px dashed var(--hz);box-shadow:0 3px 0 #000}
 .gate.done{border-style:solid;background:linear-gradient(#3a3324,#282219)}
@@ -436,7 +436,7 @@ html,body{height:100%;overflow:hidden}
 .gnote2{font-size:13px;font-weight:800;margin-top:6px}
 .bfrom{margin-top:4px;color:var(--hz);opacity:.9}
 #app.wide #screen.mapg>.gate{grid-column:1/-1;max-width:760px;justify-self:center;width:100%}
-/* v1.0.25 tutorial coach marks + how to play */
+/* v1.0.27 tutorial coach marks + how to play */
 .coach{position:fixed;left:8px;right:8px;top:calc(env(safe-area-inset-top) + 58px);z-index:70;display:flex;align-items:flex-start;gap:6px;pointer-events:none;
  animation:coachin .35s cubic-bezier(.3,1.4,.5,1) both}
 @keyframes coachin{from{opacity:0;transform:translateY(-14px)}}
@@ -456,6 +456,30 @@ html,body{height:100%;overflow:hidden}
 .howrow b{display:block;font-size:15px;font-weight:900;margin-bottom:2px}
 .howrow div div{font-size:13px;line-height:1.35;color:var(--txt2)}
 #screen.howg .sub{margin-bottom:6px}
+/* v1.0.27 foreman + tray fit */
+.tray{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr)}
+.tile canvas{max-width:100%;height:auto!important;align-self:center;flex:0 0 auto;object-fit:contain}
+.tile .tl{max-width:100%;overflow:hidden;white-space:nowrap;text-overflow:clip;letter-spacing:0}
+.fmshelf .gi2.fmi svg{width:30px;height:30px;opacity:.85}
+.nofm{display:flex;align-items:center;justify-content:center;gap:7px;padding:9px 10px;border:2px dashed #6a5f52;border-radius:6px;
+ color:var(--txt2);font:800 11.5px/1.25 system-ui,-apple-system,sans-serif;letter-spacing:.02em;text-align:left}
+.nofm svg{width:18px;height:18px;flex:0 0 auto;opacity:.8}
+.gnote2b{font-size:11.5px;font-weight:800;color:var(--txt2);text-align:center;padding:5px 2px 1px;letter-spacing:.02em}
+.gnote2b.fmcut{color:#e07a5a}
+/* v1.0.27 bonus chapters + options */
+.gate.bonus{border-style:solid;border-color:#8b7bd0;background:linear-gradient(#2c2740,#211d30)}
+.gate.bonus.locked{border-color:#4e4866}
+.gate.bonus .bi{flex:0 0 40px;display:flex;justify-content:center}
+.gate.bonus .bi svg{width:30px;height:30px;color:#b9a9f0}
+.gate.bonus .gtx2 small{display:block;margin-top:2px;line-height:1.3}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.obt{flex:1 1 30%;min-width:96px;display:flex;flex-direction:column;align-items:center;gap:2px;padding:9px 6px;font-family:inherit;color:var(--txt);
+ background:linear-gradient(#35302a,#27231e);border:2px solid var(--ink);border-radius:6px;box-shadow:0 3px 0 #000}
+.obt.on{background:linear-gradient(#5a4a26,#3a2f18);box-shadow:0 0 0 2px var(--hz),0 4px 0 #000}
+.obt b{font-size:19px;font-weight:900}
+.obt small{font-size:10px;font-weight:800;color:var(--txt2);text-align:center;line-height:1.2}
+.obt.wide2{flex:1 1 100%;align-items:flex-start}.obt.wide2 b{font-size:15px}.obt.wide2 small{text-align:left}
+#screen.optg .sub{margin:6px 0 2px}
 </style>
 </head>
 <body>
@@ -470,10 +494,10 @@ html,body{height:100%;overflow:hidden}
   <main id="screen"></main>
   <footer id="foot"></footer>
 </div>
-<div id="ver">v1.0.25</div>
+<div id="ver">v1.0.27</div>
 <script>
 "use strict";
-const VERSION="1.0.25";
+const VERSION="1.0.27";
 /*__ENGINE_START__*/
 const COLS=10,YMAX=11,YMIN=-3,TREE_H=3;
 const GR={0:0,1:0.9,2:1.8,3:3.0};
@@ -486,45 +510,79 @@ const DIG_RATE=190,DOZER_RATE=245,DREDGE_RATE=240,TRUCK_LOAD=22;
 /* ---------- YARD SHOP: what you can buy for each season ---------- */
 const GEAR={
  plant:[
-  {id:"rock", n:"Rocker box",        k:"rock",  col:"#8a6a3e",col2:"#6b5030", cost:0,   cap:48,  need:0.45,boxes:2, sd:0, d:"Timber and elbow grease. Sips water."},
-  {id:"port", n:"Portable washplant",k:"trm",   col:"#9aa3a8",col2:"#6f787d", cost:70,  cap:82,  need:0.8, boxes:3, sd:0, d:"Trailer-sized. Handy, not hungry."},
-  {id:"grey", n:"Grey Ghost",        k:"trm",   col:"#7d858a",col2:"#5b6266", cost:150, cap:118, need:1.0, boxes:3, sd:1, d:"Old trommel and sluice. The workhorse."},
-  {id:"derk", n:"Derocker Deck",     k:"derock",col:"#d8a01e",col2:"#a5750f", cost:200, cap:132, need:0.9, boxes:4, sd:2, ch:2, d:"Roller deck throws the rocks out. Thrifty."},
-  {id:"blue", n:"Blue Thunder",      k:"trm",   col:"#2f6d9e",col2:"#1d4c72", cost:230, cap:148, need:1.15,boxes:4, sd:2, ch:2, d:"Big barrel, steady feed."},
-  {id:"ogre", n:"Red Ogre",          k:"shk",   col:"#b8382a",col2:"#7d2318", cost:310, cap:178, need:1.4, boxes:4, sd:3, ch:3, d:"Hopper feeder onto a shaker. Loud and thirsty."},
-  {id:"emer", n:"Emerald Beast",     k:"trm",   col:"#3f7a42",col2:"#2a552c", cost:345, cap:196, need:1.3, boxes:5, sd:3, ch:4, d:"Long sluice run off a big drum."},
-  {id:"twin", n:"Twin Fury",         k:"dbl",   col:"#a4562c",col2:"#6f381b", cost:355, cap:218, need:1.25,boxes:5, sd:2, ch:4, d:"Two barrels side by side. Eats everything."},
-  {id:"hell", n:"Hellfire SD-600",   k:"shk",   col:"#7e1f1c",col2:"#4d100e", cost:450, cap:245, need:1.6,boxes:6, sd:4, ch:5, d:"Shaker deck straight onto a monster box."}
+  {id:"rock", n:"Rocker box", sn:"Rocker", k:"rock",  col:"#8a6a3e",col2:"#6b5030", cost:0,   cap:48,  need:0.45,boxes:2, sd:0, d:"Timber and elbow grease. Sips water."},
+  {id:"port", n:"Portable washplant",sn:"Portable",k:"trm",   col:"#9aa3a8",col2:"#6f787d", cost:70,  cap:82,  need:0.8, boxes:3, sd:0, d:"Trailer-sized. Handy, not hungry."},
+  {id:"grey", n:"Grey Ghost", sn:"Grey Ghost", k:"trm",   col:"#7d858a",col2:"#5b6266", cost:150, cap:118, need:1.0, boxes:3, sd:1, d:"Old trommel and sluice. The workhorse."},
+  {id:"derk", n:"Derocker Deck",sn:"Derocker",k:"derock",col:"#d8a01e",col2:"#a5750f", cost:200, cap:132, need:0.9, boxes:4, sd:2, ch:2, d:"Roller deck throws the rocks out. Thrifty."},
+  {id:"blue", n:"Blue Thunder",sn:"Blue Thunder",k:"trm",   col:"#2f6d9e",col2:"#1d4c72", cost:230, cap:148, need:1.15,boxes:4, sd:2, ch:2, d:"Big barrel, steady feed."},
+  {id:"ogre", n:"Red Ogre",    sn:"Red Ogre",   k:"shk",   col:"#b8382a",col2:"#7d2318", cost:310, cap:178, need:1.4, boxes:4, sd:3, ch:3, d:"Hopper feeder onto a shaker. Loud and thirsty."},
+  {id:"emer", n:"Emerald Beast",sn:"Emerald",  k:"trm",   col:"#3f7a42",col2:"#2a552c", cost:345, cap:196, need:1.3, boxes:5, sd:3, ch:4, d:"Long sluice run off a big drum."},
+  {id:"twin", n:"Twin Fury",  sn:"Twin Fury",  k:"dbl",   col:"#a4562c",col2:"#6f381b", cost:355, cap:218, need:1.25,boxes:5, sd:2, ch:4, d:"Two barrels side by side. Eats everything."},
+  {id:"hell", n:"Hellfire SD-600",sn:"Hellfire",k:"shk",   col:"#7e1f1c",col2:"#4d100e", cost:450, cap:245, need:1.6,boxes:6, sd:4, ch:5, d:"Shaker deck straight onto a monster box."}
+ ,
+  /* ---- Old Timers: hand work ---- */
+  {id:"rocker2",n:"Hand rocker",   sn:"Rocker",  k:"rock",  m:"hard", col:"#8a6a3e",col2:"#6b5030", cost:0,   cap:34,  need:0.35,boxes:2, sd:0, d:"One man rocking, one man feeding."},
+  {id:"longtom",n:"Long tom",      sn:"Long Tom",k:"rock",  m:"hard", col:"#9a7a4a",col2:"#6f5330", cost:120, cap:62,  need:0.7, boxes:3, sd:1, d:"A sluice you can shovel into all day."},
+  {id:"stamp",  n:"Stamp battery", sn:"Stamps",  k:"dbl",   m:"hard", col:"#6b6155",col2:"#46403a", cost:260, cap:104, need:1.0, boxes:4, sd:3, ch:7, d:"Steam-driven hammers. Crushes quartz to sand."},
+  /* ---- Off World ---- */
+  {id:"sift",   n:"Regolith sifter",sn:"Sifter", k:"trm",   m:"space",col:"#b9c0c6",col2:"#8b939a", cost:0,   cap:110, need:0.6, boxes:3, sd:0, d:"Standard issue. Shakes the dust out of the grit."},
+  {id:"cyc",    n:"Vacuum cyclone", sn:"Cyclone",k:"shk",   m:"space",col:"#8fa3b8",col2:"#5f7183", cost:260, cap:210, need:1.1, boxes:4, sd:2, d:"Spins the heavies out with no water at all."},
+  {id:"mill",   n:"Mass driver mill",sn:"Mill",  k:"dbl",   m:"space",col:"#cfd6da",col2:"#9aa2a8", cost:520, cap:330, need:1.6, boxes:5, sd:4, ch:8, d:"Grinds rock and flings the tailings into orbit."}
  ],
  slu:[
   {id:"s3",n:"3-box run",        cost:0,   rec:0.62, wat:1.0,  boxes:3, sd:0, d:"Standard riffles. Loses the fine stuff."},
   {id:"s5",n:"5-box riffles",    cost:140, rec:0.76, wat:1.05, boxes:4, sd:1, d:"More run, more gold caught."},
   {id:"sm",n:"Deep riffles + matting", cost:250, rec:0.86, wat:1.15, boxes:5, sd:2, ch:2, d:"Holds the flour gold."},
   {id:"sj",n:"Jig + long run",   cost:390, rec:0.94, wat:1.3,  boxes:6, sd:3, ch:4, d:"Catches nearly everything — drinks for it."}
+ ,
+  {id:"hb",   n:"Blanket riffles",  m:"hard", cost:0,   rec:0.55, wat:1.0,  boxes:3, sd:0, d:"Wool blankets in a wooden box. Loses plenty."},
+  {id:"hplate",n:"Copper plates",   m:"hard", cost:120, rec:0.74, wat:1.1,  boxes:4, sd:1, d:"Amalgam plates catch what the blankets miss."},
+  {id:"hjig", n:"Hand jig \u0026 tom",m:"hard", cost:230, rec:0.88, wat:1.25, boxes:5, sd:2, ch:7, d:"Slow, fiddly, and it catches nearly everything."},
+  {id:"estat",n:"Electrostatic plates", m:"space",cost:0,   rec:0.6,  wat:0.9,  boxes:3, sd:0, d:"Charged plates pull the metals out of the dust."},
+  {id:"mag",  n:"Magnetic rake",    m:"space",cost:220, rec:0.8,  wat:1.0,  boxes:4, sd:1, d:"Rakes the magnetics off the belt."},
+  {id:"ion",  n:"Ion sorter",       m:"space",cost:430, rec:0.95, wat:1.2,  boxes:6, sd:3, ch:8, d:"Sorts by atomic weight. Nothing gets past it."}
  ],
  pump:[
   {id:"p2",n:"2-inch pump",      cost:0,   flow:110,  lift:3,   suck:2.5, sd:0,   d:"Small and low."},
   {id:"p4",n:"4-inch pump",      cost:140, flow:195, lift:4.5, suck:4,   sd:1, d:"More water, lifts higher."},
-  {id:"p6",n:"6-inch + booster", cost:270, flow:300, lift:6.5, suck:6.5, sd:2, ch:3, d:"Fills the biggest plant, climbs a bench."}
+  {id:"p6",n:"6-inch + booster", cost:270, flow:300, lift:6.5, suck:6.5, sd:2, ch:3, d:"Fills the biggest plant, climbs a bench."},
+  {id:"hw",    n:"Bucket windlass", m:"hard", cost:0,   flow:60,  lift:2.5, suck:2,   sd:0, d:"Two lads and a rope."},
+  {id:"hflume",n:"Timber flume",    m:"hard", cost:110, flow:110, lift:4,   suck:3.5, sd:2, d:"Runs the creek to you along a wooden race."},
+  {id:"hsteam",n:"Steam pump",      m:"hard", cost:240, flow:170, lift:6,   suck:5,   sd:2, ch:7, d:"Thumping great boiler. Drinks wood."},
+  {id:"melt",  n:"Ice melt rig",    m:"space",cost:0,   flow:100, lift:4,   suck:4,   sd:0, d:"Bakes water out of the buried ice."},
+  {id:"solar", n:"Solar boiler",    m:"space",cost:210, flow:190, lift:6,   suck:6,   sd:1, d:"Mirror farm. Melts a lot more, a lot faster."},
+  {id:"fus",   n:"Fusion melt rig", m:"space",cost:420, flow:300, lift:9,   suck:9,   sd:2, ch:8, d:"Overkill, unless your mill is running."}
  ]
 };
 /* Chapters 2-6 are reached through a prospecting run; what you dig there is the
    grubstake that tops up the yard budget for that chapter. */
-const CH_BUDGET={1:320,2:300,3:470,4:670,5:820,6:1020};
+const CH_BUDGET={1:320,2:300,3:470,4:670,5:820,6:1020,7:640,8:1180};
 const MAXGRUB=130;
 const GATE={2:"det",3:"pan",4:"dive",5:"opal",6:"det"};
 const GATE_PAR={det:3.2,pan:4.0,dive:4.0,opal:5.0};
 const GATE_NAME={det:"Metal detecting",pan:"Gold panning",dive:"Creek diving",opal:"Opal cutting"};
 function grubFor(kind,oz){return Math.round(Math.max(0,Math.min(1,oz/(GATE_PAR[kind]||4)))*MAXGRUB);}
-function gearList(kind,C,U){return GEAR[kind].filter(it=>!it.ch||C.ch>=it.ch);}
+function modeOf(C){return C.mode||"placer";}
+function gearList(kind,C,U){const m=modeOf(C);
+  return GEAR[kind].filter(it=>(it.m||"placer")===m&&(!it.ch||C.ch>=it.ch));}
 function gearItem(kind,id){return GEAR[kind].find(i=>i.id===id)||GEAR[kind][0];}
 function grubOf(C,U){U=U||{};return C.ch>1?Math.max(0,Math.min(MAXGRUB,(U.grubs&&U.grubs[C.ch])||0)):0;}
 function budgetOf(C,U){U=U||{};return (C.bud||CH_BUDGET[C.ch]||300)+grubOf(C,U)+(U.bud1?80:0)+(U.bud2?120:0)+(U.budAdd||0);}
-function gearOf(C,B,U){const g=B.gear||{};
-  const pick=(kind)=>{const it=gearItem(kind,g[kind]);return (!it.ch||C.ch>=it.ch)?it:GEAR[kind][0];};
+function budgetLeftFor(C,U,B){return budgetOf(C,U)-(foremanOf(B)==="flat"?foremanFee(C):0);}
+function gearOf(C,B,U){const g=B.gear||{},m=modeOf(C);
+  const pick=(kind)=>{const L=gearList(kind,C,U),it=L.find(x=>x.id===g[kind]);return it||L[0]||GEAR[kind][0];};
   return{plant:pick("plant"),slu:pick("slu"),pump:pick("pump")};}
 function gearCost(C,B){const G=gearOf(C,B);return G.plant.cost+G.slu.cost+G.pump.cost;}
-function newGear(){return{plant:"rock",slu:"s3",pump:"p2"};}
+function newGear(C){const m=C?modeOf(C):"placer";
+  if(m==="hard")return{plant:"rocker2",slu:"hb",pump:"hw"};
+  if(m==="space")return{plant:"sift",slu:"estat",pump:"melt"};
+  return{plant:"rock",slu:"s3",pump:"p2"};}
+/* A foreman runs the season for you (breakdowns get fixed without you tapping,
+   and you can skip). He either takes a flat fee out of the yard budget or a cut
+   of the gold. Which one hurts less depends on the claim. */
+function foremanFee(C){const b=(C.bud||CH_BUDGET[C.ch]||300);return Math.round(b*0.22/10)*10;}
+function foremanPct(C){return Math.round((7+(C.ch-1)*1.8)*10)/10;}
+function foremanOf(B){const f=B&&B.fm;return f==="flat"||f==="pct"?f:"none";}
 // every plant drags and drops as one of two tile kinds, whatever its style
 function plantTile(k){return k==="shk"?"shk":"trm";}
 
@@ -535,7 +593,11 @@ const CHAPTERS=[
  {id:3,n:"Strip It",region:"Alaska",d:"Deep muck on top of the pay. Bring the dozer."},
  {id:4,n:"Big Iron",region:"West Africa",d:"A shaker plant eats dirt — and drinks water."},
  {id:5,n:"Every Drop",region:"Australia",d:"Settling ponds silt up. Water is rationed."},
- {id:6,n:"The Motherlode",region:"Alaska",d:"Everything at once."}
+ {id:6,n:"The Motherlode",region:"Alaska",d:"Everything at once."},
+ {id:7,n:"Old Timers",region:"Klondike",d:"No machines. Picks, powder and timber \u2014 drive a drift along the seam.",
+  need:"Six stars in every chapter before this one."},
+ {id:8,n:"Off World",region:"Space",d:"Regolith, rare earths and a rock going past at 30,000 mph.",
+  need:"Three stars on every claim in the game."}
 ];
 
 const CLAIMS=[
@@ -592,14 +654,14 @@ const CLAIMS=[
  h: [0,2,3,3,4,4,4,5,5,5], ob:[0,1,1,3,2,4,5,3,2,2],
  p: [0,0,0,2,3,3,3,2,1,0],  g: [0,0,0,2,3,3,3,2,1,0], trees:[8,9],rock:[]},
 {id:"sixtymile",ch:3,name:"Sixtymile",region:"Alaska",country:"Yukon border, Alaska",mx:55,my:34,
- days:48,brk:0.11,ideal:3,s:[42,51.3,59.5],
+ days:48,brk:0.11,ideal:3,s:[47,56.7,65.8],
  tip:"Timber AND muck. Pick a cut that's worth the felling.",
  kit:{dig:"exc",wat:"pump",belt:4,trucks:1,dozer:1,slu:3},
  wc:[9],L:2,
  h: [5,5,5,4,4,4,3,3,3,1], ob:[3,5,3,2,4,2,2,1,1,0],
  p: [2,3,3,3,2,2,1,0,0,0],  g: [3,3,3,2,2,2,1,0,0,0], trees:[0,1,2,3],rock:[]},
 {id:"fortymile",ch:3,name:"Fortymile",region:"Alaska",country:"Fortymile River, Alaska",mx:84,my:62,
- days:48,brk:0.11,ideal:3,s:[86,104.8,123.2],
+ days:48,brk:0.11,ideal:3,s:[89,107.5,124.9],
  tip:"Shallow lean dirt here, deep rich dirt there. Dozer and trucks.",
  kit:{dig:"exc",wat:"pump",belt:3,trucks:2,dozer:1,slu:3},
  wc:[0],L:2,
@@ -607,14 +669,14 @@ const CLAIMS=[
  p: [0,0,1,1,1,0,3,3,3,2],  g: [0,0,1,1,1,0,3,3,3,3], trees:[5],rock:[]},
 /* ---------- 4 BIG IRON ---------- */
 {id:"tarkwa",ch:4,name:"Tarkwa Flats",region:"West Africa",country:"Western Region, Ghana",mx:22,my:48,
- days:50,brk:0.11,ideal:2,s:[70,85.4,100.5],
+ days:50,brk:0.11,ideal:2,s:[70,85.5,100.5],
  tip:"Lots of pay here. A small plant will never keep up with it.",
  kit:{digRate:330,dig:"exc",wat:"pump",belt:4,trucks:1,dozer:1,shaker:1,slu:3},
  wc:[0],L:2,
  h: [1,2,2,2,2,3,3,3,3,3], ob:[0,1,1,1,3,1,2,1,3,1],
  p: [0,0,0,3,3,3,3,3,3,2],  g: [0,0,0,2,2,2,2,2,1,1], trees:[2,9],rock:[]},
 {id:"obuasi",ch:4,name:"Obuasi Hills",region:"West Africa",country:"Ashanti Region, Ghana",mx:52,my:60,
- days:50,brk:0.12,ideal:2,s:[79,96.5,112.1],
+ days:50,brk:0.12,ideal:2,s:[82,99.4,116.9],
  tip:"Gold's up the hill and the water's down below. Mind the lift.",
  kit:{digRate:330,dig:"exc",wat:"pump",belt:4,trucks:2,dozer:1,shaker:1,slu:4},
  wc:[0,1],L:2,
@@ -636,7 +698,7 @@ const CLAIMS=[
  h: [4,4,3,3,3,3,3,2,2,2], ob:[3,1,2,1,2,1,1,1,1,1],
  p: [3,3,2,2,1,0,0,0,0,0],  g: [3,3,2,2,1,0,0,0,0,0], trees:[6],rock:[]},
 {id:"andamooka",ch:5,name:"Andamooka",region:"Australia",country:"South Australia",mx:54,my:62,
- days:45,brk:0.10,ideal:2,silt:1950,maxFlow:55,s:[41,50,58.6],
+ days:45,brk:0.10,ideal:2,silt:1950,maxFlow:55,s:[43,52.5,61.6],
  tip:"Your water licence only allows so much. Make every yard count.",
  kit:{dig:"exc",wat:"pond",belt:4,trucks:2,dozer:1,slu:4,ponds:2},
  wc:[],L:-9,
@@ -658,19 +720,63 @@ const CLAIMS=[
  h: [0,0,0,0,0,0,3,3,4,4], ob:[0,0,0,0,0,0,1,1,1,1],
  p: [2,3,3,2,2,1,0,0,0,0],  g: [2,3,3,2,2,1,0,0,0,0], trees:[],rock:[]},
 {id:"birim",ch:6,name:"Birim Valley",region:"West Africa",country:"Eastern Region, Ghana",mx:50,my:36,
- days:50,brk:0.13,ideal:2,s:[87,105.6,123.5],
+ days:50,brk:0.13,ideal:2,s:[90,109,128.1],
  tip:"Jungle, muck and a hill between the gold and the river.",
  kit:{digRate:330,dig:"exc",wat:"pump",belt:4,trucks:2,dozer:1,shaker:1,slu:4},
  wc:[9],L:2,
  h: [4,4,4,5,5,4,3,3,2,1], ob:[2,4,2,3,2,1,1,1,1,0],
  p: [3,3,3,2,1,0,0,0,0,0],  g: [3,3,3,2,1,0,0,0,0,0], trees:[0,1,2,6,7],rock:[4]},
 {id:"motherlode",ch:6,name:"The Motherlode",region:"Alaska",country:"Klondike, Yukon",mx:82,my:58,
- days:49,brk:0.13,ideal:3,silt:3100,s:[90,109.4,128.6],
+ days:49,brk:0.13,ideal:3,silt:3100,s:[107,130.4,149],
  tip:"Everything you've learned. Timber, muck, distance, water. Go get it.",
  kit:{digRate:330,dig:"exc",wat:"pond",belt:4,trucks:2,dozer:1,shaker:1,slu:4,ponds:2},
  wc:[],L:-9,
  h: [2,2,3,3,4,4,5,5,5,6], ob:[0,1,1,2,4,2,5,3,2,3],
- p: [0,0,0,1,2,3,3,3,3,2],  g: [0,0,0,1,2,3,3,3,3,3], trees:[2,3,6,7],rock:[]}
+ p: [0,0,0,1,2,3,3,3,3,2],  g: [0,0,0,1,2,3,3,3,3,3], trees:[2,3,6,7],rock:[]},
+/* ---------- 7 OLD TIMERS (hand work: drift along the seam, timber it, blast it) ---------- */
+{id:"eldorado",ch:7,name:"Eldorado Drift",region:"Klondike",country:"Klondike, 1898",mx:24,my:42,mode:"hard",
+ days:60,brk:0.10,ideal:3,s:[80,97.1,109],
+ tip:"No machines here. Drive your drift along the seam \u2014 the muck on top stays where it is.",
+ kit:{dig:"exc",digRate:52,wat:"pump",belt:3,trucks:2,dozer:1},
+ wc:[0,1],L:2,
+ h: [2,2,4,5,6,6,6,5,4,3], ob:[0,0,2,3,4,4,4,3,2,1],
+ p: [0,0,2,3,3,3,2,0,0,0],  g: [0,0,3,3,3,3,2,0,0,0], trees:[7,8],rock:[]},
+{id:"chilkoot",ch:7,name:"Chilkoot Seam",region:"Klondike",country:"Yukon, 1899",mx:56,my:62,mode:"hard",
+ days:60,brk:0.12,ideal:3,s:[78,94.7,103.9],
+ tip:"Timber holds the roof and the powder shifts the rock. Both cost you days.",
+ kit:{dig:"exc",digRate:52,wat:"pump",belt:4,trucks:2,dozer:1},
+ wc:[9],L:2,
+ h: [3,4,5,6,7,7,6,5,4,2], ob:[1,2,3,4,5,5,4,3,2,0],
+ p: [1,2,3,3,2,2,0,0,0,0],  g: [2,3,3,3,3,2,0,0,0,0], trees:[0,1,2],rock:[6,7]},
+{id:"perseverance",ch:7,name:"Perseverance Adit",region:"Klondike",country:"Yukon River, 1901",mx:82,my:36,mode:"hard",
+ days:64,brk:0.13,ideal:3,s:[99,119.9,131.2],
+ tip:"Quartz reef, deep in the hill. Stamps will crush it \u2014 if you can feed them.",
+ kit:{dig:"exc",digRate:58,wat:"pump",belt:4,trucks:3,dozer:1},
+ wc:[0],L:2,
+ h: [2,4,6,7,8,8,7,6,5,4], ob:[0,3,5,6,7,7,6,5,4,3],
+ p: [0,1,3,3,3,3,3,1,0,0],  g: [0,2,3,3,3,3,3,2,0,0], trees:[8,9],rock:[4,5]},
+/* ---------- 8 OFF WORLD ---------- */
+{id:"mare",ch:8,name:"Mare Tranquillitatis",region:"Moon",country:"The Moon \u00b7 Sea of Tranquillity",mx:22,my:54,mode:"space",
+ days:52,brk:0.09,ideal:2,s:[99,120.7,135.5],
+ tip:"Regolith over buried ice. Melt the ice, wash the dust, keep the rare earths.",
+ kit:{dig:"exc",digRate:340,wat:"pump",belt:5,trucks:2,dozer:1},
+ wc:[8,9],L:2,
+ h: [3,3,4,4,5,5,4,4,3,3], ob:[2,2,3,3,4,3,2,2,0,0],
+ p: [2,3,3,3,2,2,0,0,0,0],  g: [2,3,3,3,2,2,0,0,0,0], trees:[],rock:[6]},
+{id:"valles",ch:8,name:"Valles Marineris",region:"Mars",country:"Mars \u00b7 the great rift",mx:54,my:38,mode:"space",
+ days:52,brk:0.12,ideal:2,s:[131,159.4,177.9],
+ tip:"Iron-red dust, deep cut walls. The ice is at the bottom of the canyon.",
+ kit:{dig:"exc",digRate:360,wat:"pump",belt:4,trucks:3,dozer:1},
+ wc:[0],L:2,
+ h: [2,3,5,6,7,7,6,6,5,5], ob:[0,1,4,5,5,4,3,3,2,2],
+ p: [0,0,2,3,3,3,3,2,0,0],  g: [0,0,3,3,3,3,3,2,0,0], trees:[],rock:[9]},
+{id:"impactor",ch:8,name:"2043-QX Impactor",region:"Asteroid",country:"Near-earth asteroid \u00b7 30,000 mph",mx:84,my:58,mode:"space",
+ days:38,brk:0.16,ideal:2,s:[77,93.6,110],
+ tip:"Thirty-eight days before it's gone for good. Everything in it is rare earths.",
+ kit:{dig:"exc",digRate:420,wat:"pump",belt:5,trucks:3,dozer:1},
+ wc:[4,5],L:1,
+ h: [4,5,6,6,3,3,6,6,5,4], ob:[1,2,3,3,0,0,3,3,2,1],
+ p: [3,3,3,0,0,0,0,3,3,3],  g: [3,3,3,0,0,0,0,3,3,3], trees:[],rock:[]},
 ];
 
 const UNLOCKS=[
@@ -686,7 +792,7 @@ function kitOf(C,U){const k=C.kit;return{dig:k.dig,wat:k.wat,
   belt:k.belt?k.belt+(U.belt?2:0)+(U.beltAdd||0):0,
   trucks:k.dig==="exc"&&k.trucks?k.trucks+(U.extra?1:0)+(U.truckAdd||0):0,
   dozer:k.dozer||0,digRate:k.digRate||0,ponds:k.wat==="pond"?(k.ponds||1):1};}
-function newBuild(){return{cut:null,plant:null,ptype:"trm",wat:[],belt:false,trucks:0,dozer:false,gear:newGear()};}
+function newBuild(C){return{cut:null,plant:null,ptype:"trm",wat:[],belt:false,trucks:0,dozer:false,fm:"none",gear:newGear(C)};}
 
 function inB(c){return c>=0&&c<COLS;}
 function isW(C,c){return C.wc.indexOf(c)>=0;}
@@ -749,7 +855,7 @@ function beltState(C,B,kit){
 }
 function cutStats(C,B){
   const o={P:0,O:0,grade:0,hAvg:0,center:0,n:0};let wg=0;
-  cutCols(B).forEach(c=>{const p=C.p[c]*YPU,ob=(isW(C,c)?0:C.ob[c])*YPU;o.P+=p;o.O+=ob;wg+=p*GR[C.g[c]];
+  cutCols(B).forEach(c=>{const p=C.p[c]*YPU,ob=(isW(C,c)||C.mode==="hard"?0:C.ob[c])*YPU;o.P+=p;o.O+=ob;wg+=p*GR[C.g[c]];
     o.hAvg+=surf(C,c);o.center+=c;o.n++;});
   if(o.n){o.hAvg/=o.n;o.center/=o.n;}
   o.grade=o.P?wg/o.P:0;return o;
@@ -777,17 +883,19 @@ function reachAt(C,B,U,c){if(!B.wat.length)return -99;const w=B.wat[0],pump=C.ki
 function evaluate(C,B,U){
   U=U||{};const kit=kitOf(C,U),R={kit,problems:[]};
   const cs=cutStats(C,B);if(U.gradeMul)cs.grade*=U.gradeMul;R.cs=cs;
-  const GR2=gearOf(C,B,U);R.gear=GR2;R.cost=GR2.plant.cost+GR2.slu.cost+GR2.pump.cost;R.budget=budgetOf(C,U);
+  const GR2=gearOf(C,B,U);R.gear=GR2;R.cost=GR2.plant.cost+GR2.slu.cost+GR2.pump.cost;R.fm=foremanOf(B);R.fee=foremanFee(C);R.pct=foremanPct(C);
+  R.budget=budgetOf(C,U)-(R.fm==="flat"?R.fee:0);
   R.setup=(GR2.plant.sd||0)+(GR2.slu.sd||0)+(GR2.pump.sd||0);   // big kit takes days to rig up
-  R.felled=felledCols(C,B);R.cutDays=FELL_DAYS*R.felled.length;
+  R.felled=felledCols(C,B);R.cutDays=(B.dozer&&kit.dozer?FELL_DAYS/2:FELL_DAYS)*R.felled.length;
   R.days=Math.max(0,C.days+(U.daysAdd||0)-R.cutDays-R.setup);
   // digging
   if(!B.cut)R.dig=0;
   else if(kit.dig==="dredge")R.dig=cs.P?(kit.digRate||DREDGE_RATE)*(U.dredgeMul||1):0;
   else{const D=(kit.digRate||DIG_RATE)*(U.digMul||1);
     if(!cs.P)R.dig=0;
+    else if(C.mode==="hard")R.dig=B.dozer&&kit.dozer?D*1.75:D;
     else if(B.dozer&&kit.dozer)R.dig=cs.O?Math.min(D,DOZER_RATE*cs.P/cs.O):D;
-    else R.dig=D*cs.P/(cs.P+cs.O);}
+    else R.dig=cs.O?D*cs.P/(cs.P+cs.O):D;}
   // haulage
   R.bs=beltState(C,B,kit);
   if(kit.dig==="dredge"){
@@ -817,7 +925,9 @@ function evaluate(C,B,U){
   // money you don't spend goes on spares and fuel — fewer days lost to breakdowns
   R.spare=Math.max(0,R.budget-R.cost);R.spareF=Math.min(0.35,R.spare/Math.max(1,R.budget)*0.5);
   R.loss=C.brk*(U.shop?0.35:1)*(1-R.spareF);
-  R.est=R.processed/100*cs.grade*R.rec*(1-R.loss);
+  R.gross=R.processed/100*cs.grade*R.rec*(1-R.loss);
+  R.cut=R.fm==="pct"?R.gross*R.pct/100:0;         // his share of the wash
+  R.est=Math.max(0,R.gross-R.cut);
   // hard problems (things that are simply missing or broken)
   if(!B.cut)R.problems.push(kit.dig==="dredge"?"Float the dredge over the gold!":"Drag the digger onto the gold!");
   else if(!cs.P)R.problems.push("No gold in that cut!");
@@ -1068,7 +1178,12 @@ const ICON={
 const PAL={
  "Alaska":     {sky:["#7a8b93","#c2baa4"],hill:"#87918f",ob:"#65503a",top:"#4a5934",tree:"#2a3c2c",kind:"spruce",bed:"#4a443e"},
  "Australia":  {sky:["#a8805c","#d8bc94"],hill:"#ad8c70",ob:"#944b2a",top:"#6e3a22",tree:"#56633c",kind:"gum",bed:"#56493e"},
- "West Africa":{sky:["#7a8d7e","#cbc3a0"],hill:"#8a9a7e",ob:"#7a4429",top:"#3d5628",tree:"#2e552b",kind:"broad",bed:"#4a423c"}
+ "West Africa":{sky:["#7a8d7e","#cbc3a0"],hill:"#8a9a7e",ob:"#7a4429",top:"#3d5628",tree:"#2e552b",kind:"broad",bed:"#4a423c"},
+ "Klondike":   {sky:["#8a8574","#d6c9a6"],hill:"#7f7d6d",ob:"#5c4a34",top:"#54502f",tree:"#2c3a2a",kind:"spruce",bed:"#43403a",sepia:1},
+ "Moon":       {sky:["#05060a","#12141c"],hill:"#3c3f46",ob:"#6d7076",top:"#5a5d63",tree:"#3a3d42",kind:"spruce",bed:"#2a2c31",space:"moon"},
+ "Mars":       {sky:["#160a07","#3b1d12"],hill:"#6b3423",ob:"#8d4626",top:"#7a3b20",tree:"#4a2a18",kind:"spruce",bed:"#3a1f14",space:"mars"},
+ "Space":      {sky:["#05060c","#12141e"],hill:"#3a3d44",ob:"#5e6168",top:"#50535a",tree:"#33363c",kind:"spruce",bed:"#26282d",space:"moon"},
+ "Asteroid":   {sky:["#03040a","#0a0b12"],hill:"#2f3238",ob:"#4a4d54",top:"#40434a",tree:"#33363c",kind:"spruce",bed:"#212328",space:"rock"}
 };
 function geo(W){const cw=W/COLS,u=cw*0.5;return{W,cw,u,H:(YMAX-YMIN)*u,X:x=>x*cw,Y:y=>(YMAX-y)*u};}
 
@@ -1080,8 +1195,24 @@ function terrain(C,G){
   const P=PAL[C.region],X=G.X,Y=G.Y,cw=G.cw,u=G.u,W=G.W,H=G.H;
   const sk=g.createLinearGradient(0,0,0,H*0.7);sk.addColorStop(0,P.sky[0]);sk.addColorStop(1,P.sky[1]);
   g.fillStyle=sk;g.fillRect(0,0,W,H);
+  if(P.space){ // starfield, and something big on the horizon
+    const rs=rnd32(C.id.length*31+7);
+    for(let i=0;i<110;i++){const x=rs()*W,y=rs()*H*0.62,s=rs();g.fillStyle="rgba(255,255,255,"+(0.25+s*0.7)+")";g.fillRect(x,y,s>0.86?2:1,s>0.86?2:1);}
+    if(P.space==="moon"){const px=W*0.2,py=H*0.16,pr=G.cw*0.62;   // earthrise
+      g.fillStyle="#2b5c8a";g.beginPath();g.arc(px,py,pr,0,7);g.fill();
+      g.fillStyle="#3f7a4a";g.beginPath();g.ellipse(px-pr*0.2,py-pr*0.1,pr*0.45,pr*0.3,0.4,0,7);g.fill();
+      g.beginPath();g.ellipse(px+pr*0.35,py+pr*0.35,pr*0.3,pr*0.18,-0.3,0,7);g.fill();
+      g.fillStyle="rgba(255,255,255,.22)";g.beginPath();g.arc(px-pr*0.3,py-pr*0.3,pr*0.5,0,7);g.fill();
+      g.strokeStyle="#0b1a26";g.lineWidth=2;g.beginPath();g.arc(px,py,pr,0,7);g.stroke();}
+    if(P.space==="mars"){const px=W*0.82,py=H*0.14,pr=G.cw*0.3;    // Phobos, lumpy
+      g.fillStyle="#6b6155";g.beginPath();g.ellipse(px,py,pr,pr*0.8,0.3,0,7);g.fill();
+      g.fillStyle="#4a443c";[[-0.3,-0.2,0.28],[0.35,0.1,0.22],[0,0.35,0.18]].forEach(([dx,dy,r])=>{g.beginPath();g.arc(px+dx*pr,py+dy*pr,r*pr,0,7);g.fill();});}
+    if(P.space==="rock"){const px=W*0.78,py=H*0.13,pr=G.cw*0.5;     // earth, a long way off
+      g.fillStyle="#2b5c8a";g.beginPath();g.arc(px,py,pr*0.5,0,7);g.fill();
+      g.fillStyle="#cfd6da";g.globalAlpha=.5;g.beginPath();g.arc(px-pr*0.15,py-pr*0.1,pr*0.28,0,7);g.fill();g.globalAlpha=1;}
+  }
   // sun
-  const sg=g.createRadialGradient(W*0.84,H*0.14,0,W*0.84,H*0.14,G.cw*0.9);sg.addColorStop(0,"rgba(245,228,180,.85)");sg.addColorStop(0.4,"rgba(235,210,150,.45)");sg.addColorStop(1,"rgba(235,210,150,0)");
+  const sg=g.createRadialGradient(W*0.84,H*0.14,0,W*0.84,H*0.14,G.cw*(P.space?0.35:0.9));sg.addColorStop(0,"rgba(245,228,180,.85)");sg.addColorStop(0.4,"rgba(235,210,150,.45)");sg.addColorStop(1,"rgba(235,210,150,0)");
   g.fillStyle=sg;g.fillRect(0,0,W,H*0.5);
   // far hills
   g.fillStyle=P.hill;g.beginPath();g.moveTo(0,Y(3));
@@ -1130,14 +1261,47 @@ function drawScene(g,G,C,B,U,o){
   g.drawImage(terrain(C,G),0,0,W,H);
   // clouds + rain
   g.fillStyle="rgba(205,200,188,.7)";
-  for(let i=0;i<3;i++){const cx=((i*W*0.41+t*6*(i+1))%(W+80))-40,cy=H*(0.08+i*0.07);
+  for(let i=0;i<(P.space?0:3);i++){const cx=((i*W*0.41+t*6*(i+1))%(W+80))-40,cy=H*(0.08+i*0.07);
     g.beginPath();g.arc(cx,cy,9,0,7);g.arc(cx+11,cy-4,11,0,7);g.arc(cx+23,cy,8,0,7);g.fill();}
   if(o.rain){g.strokeStyle="#3a6f8f88";g.lineWidth=1.2;
     for(let i=0;i<70;i++){const x=((i*53+t*400)%(W+40))-20,y=((i*97+t*900)%H);g.beginPath();g.moveTo(x,y);g.lineTo(x-4,y+10);g.stroke();}}
-  // pits dug so far (run)
-  if(o.dug)cut.forEach(c=>{const d=o.dug[c]||0;if(d<=0)return;const s=surf(C,c),dep=(C.ob[c]*(isW(C,c)?0:1)+C.p[c])*d;
+  // what's been dug so far
+  const HARD=C.mode==="hard";
+  if(HARD&&cut.length){
+    // a drift driven along the seam, timbered as it goes
+    const prog=o.dug?null:1;
+    cut.forEach((c,i)=>{if(!C.p[c])return;
+      const top=C.h[c]-C.ob[c],bot=top-C.p[c],d=o.dug?Math.min(1,(o.dug[c]||0)/0.9):(o.mode==="build"?0.55:1);
+      if(d<=0)return;
+      const y0=Y(top),y1=Y(bot),x0=X(c)+2,w=(cw-4)*Math.max(0.35,d);
+      g.fillStyle="#120d08";g.fillRect(x0,y1,w,y0-y1);
+      // wooden sets: posts and a cap
+      g.fillStyle="#8a6a3e";g.strokeStyle="#2a1d10";g.lineWidth=1.3;
+      [x0+2,x0+w-6].forEach(px=>{g.fillRect(px,y1,4,y0-y1);g.strokeRect(px,y1,4,y0-y1);});
+      g.fillRect(x0,y1,w,4);g.strokeRect(x0,y1,w,4);
+      g.fillRect(x0,y0-4,w,4);
+      g.strokeStyle="#00000055";g.lineWidth=1;
+      for(let k=1;k<3;k++){const yy=y1+(y0-y1)*k/3;g.beginPath();g.moveTo(x0+4,yy);g.lineTo(x0+w-4,yy);g.stroke();}});
+    // the shaft down from the surface at the near end
+    const sc=B.plant!==null&&Math.abs(B.cut[1]-B.plant)<Math.abs(B.cut[0]-B.plant)?B.cut[1]:B.cut[0];
+    const sx=X(sc+0.5),st=Y(C.h[sc]),sb=Y(C.h[sc]-C.ob[sc]-0.2);
+    g.fillStyle="#120d08";g.fillRect(sx-cw*0.16,st,cw*0.32,sb-st);
+    g.fillStyle="#8a6a3e";g.strokeStyle="#2a1d10";g.lineWidth=1.3;
+    for(let yy=st;yy<sb-4;yy+=12){g.fillRect(sx-cw*0.18,yy,cw*0.36,3.5);g.strokeRect(sx-cw*0.18,yy,cw*0.36,3.5);}
+    // headframe over the shaft
+    g.strokeStyle="#6b5030";g.lineWidth=3;g.lineCap="round";
+    g.beginPath();g.moveTo(sx-cw*0.2,st);g.lineTo(sx,st-u*1.5);g.lineTo(sx+cw*0.2,st);g.stroke();
+    g.beginPath();g.moveTo(sx-cw*0.12,st-u*0.7);g.lineTo(sx+cw*0.12,st-u*0.7);g.stroke();
+    g.fillStyle="#3e3527";g.beginPath();g.arc(sx,st-u*1.5,4,0,7);g.fill();}
+  else if(o.dug)cut.forEach(c=>{const d=o.dug[c]||0;if(d<=0)return;const s=surf(C,c),dep=(C.ob[c]*(isW(C,c)?0:1)+C.p[c])*d;
     g.fillStyle="#211a12ee";g.beginPath();g.moveTo(X(c+0.02),Y(s));g.lineTo(X(c+0.98),Y(s));
     g.lineTo(X(c+0.85),Y(s-dep));g.lineTo(X(c+0.15),Y(s-dep));g.closePath();g.fill();});
+  // what the dozer is going to shift: the muck across the whole cut
+  if(B.dozer&&cut.length&&o.mode!=="run"){cut.forEach(c=>{if(isW(C,c))return;const ob=C.ob[c];if(!ob)return;
+    const y0=Y(C.h[c]),y1=Y(C.h[c]-ob);g.save();g.beginPath();g.rect(X(c)+1,y0,cw-2,y1-y0);g.clip();
+    g.strokeStyle="rgba(217,161,43,.45)";g.lineWidth=2;
+    for(let k=-2;k<10;k++){g.beginPath();g.moveTo(X(c)+k*9,y1+6);g.lineTo(X(c)+k*9+16,y0-6);g.stroke();}
+    g.restore();});}
   // cut highlight
   if(cut.length&&o.mode!=="run"){const pulse=0.55+0.45*Math.sin(t*4);
     cut.forEach(c=>{const s=surf(C,c);
@@ -1217,11 +1381,14 @@ function drawScene(g,G,C,B,U,o){
   // sluice + plant
   if(B.plant!==null)drawPlant(g,G,C,B,R,t,o);
   // dozer
-  if(B.dozer&&cut.length&&!dred){const dz=o.dozX!==undefined?o.dozX:(o._near!==undefined?o._near:B.cut[0]);
+  if(B.dozer&&cut.length&&!dred&&C.mode!=="hard"){const dz=o.dozX!==undefined?o.dozX:(o.mode==="build"?(B.cut[0]+B.cut[1])/2+(Math.sin(t*0.8)*Math.max(0.2,(B.cut[1]-B.cut[0])/2)):(o._near!==undefined?o._near:B.cut[0]));
     const dzc=Math.max(0,Math.min(COLS-1,Math.round(dz)));drawDozer(g,G,dz,C.h[dzc],t,o.mode==="run"&&o.running);}
   // digger
   if(dx!==null){const bc=Math.max(0,Math.min(COLS-1,dcol));const dir=B.plant!==null&&B.plant>dx?-1:1;
     if(dred)drawDredge(g,G,dx,C.L,C.h[bc],dir,t,o.mode==="run"&&o.running,o.broken==="dig");
+    else if(HARD){ // a man with a pick at the face, down in the drift
+      const bc2=Math.max(0,Math.min(COLS-1,dcol)),top=C.h[bc2]-C.ob[bc2],bot=top-C.p[bc2];
+      drawPickman(g,G,dx+0.5,(top+bot)/2-0.35,dir,t,o.mode==="run"&&o.running,o.broken==="dig",B.dozer&&!!R.kit.dozer);}
     else{ // the digger drops into the cut and works along the pay, not on top of the muck
       const f=o.dug?Math.min(1,(o.dug[bc]||0)/0.9*1.7):0,dep=((isW(C,bc)?0:C.ob[bc])+C.p[bc])*f;
       const gx=Math.max(0,Math.min(COLS-1,dx)),dd=gx<1.3?1:gx>COLS-2.3?-1:dir; // swing the arm inboard at the edges
@@ -1424,6 +1591,33 @@ function drawTwin(g,G,c,base,dir,t,on,broken,it){
   g.lineTo(X(c+0.62),Y(base+2.3));g.lineTo(X(c+0.33),Y(base+2.3));g.closePath();g.fill();g.strokeStyle="#2a1d10";g.lineWidth=1.6;g.stroke();
   if(on){g.fillStyle="#9fb4b8";for(let i=0;i<5;i++)g.fillRect(X(c+0.22+i*0.12),Y(base+2.85)+((t*60+i*7)%10),1.6,3);}
 }
+function drawPickman(g,G,x,y,dir,t,on,broken,powder){
+  const X=G.X,Y=G.Y,cw=G.cw,u=G.u,sw=Math.max(0.8,cw/46),px=X(x),py=Y(y);
+  const sw2=on?Math.sin(t*5):0.2;
+  g.save();g.translate(px,py);g.scale(dir<0?-1:1,1);
+  // candle glow so you can see him down the hole
+  const gl=g.createRadialGradient(0,0,0,0,0,cw*0.75);gl.addColorStop(0,"rgba(255,206,120,.5)");gl.addColorStop(1,"rgba(255,206,120,0)");
+  g.fillStyle=gl;g.beginPath();g.arc(0,0,cw*0.75,0,7);g.fill();
+  const s=u*0.9;
+  g.fillStyle="#3b4a5a";g.fillRect(-2.2*sw,-s*0.1,4.4*sw,s*0.62);              // legs
+  g.fillStyle="#7a4f36";rrect(g,-3.4*sw,-s*0.75,6.8*sw,s*0.7,2*sw);g.fill();   // body
+  g.strokeStyle="#2a1d10";g.lineWidth=1.2*sw;g.stroke();
+  g.fillStyle="#d8c3a4";g.beginPath();g.arc(0,-s*0.92,2.6*sw,0,7);g.fill();g.stroke();   // head
+  g.fillStyle="#3e3527";g.beginPath();g.arc(0,-s*1.0,2.9*sw,Math.PI,0);g.fill();         // hat
+  // pick, swinging
+  const a2=-0.7+sw2*1.2;
+  g.save();g.translate(2.5*sw,-s*0.6);g.rotate(a2);
+  g.strokeStyle="#6b5030";g.lineWidth=2.2*sw;g.beginPath();g.moveTo(0,0);g.lineTo(cw*0.22,0);g.stroke();
+  g.strokeStyle="#9aa0a6";g.lineWidth=2.6*sw;g.beginPath();g.moveTo(cw*0.2,-3*sw);g.lineTo(cw*0.26,0);g.lineTo(cw*0.2,3*sw);g.stroke();
+  g.restore();
+  if(on&&sw2>0.85){g.fillStyle="#ffe9a8";for(let i=0;i<4;i++){g.beginPath();g.arc(cw*0.3+i*2,-s*0.5+(i%2?3:-3),1.4*sw,0,7);g.fill();}}
+  if(powder){ // a keg of powder and fuse, stacked by the face
+    g.fillStyle="#8c3a25";rrect(g,cw*0.26,-s*0.3,cw*0.16,s*0.34,2);g.fill();g.strokeStyle="#2a1d10";g.lineWidth=1.2*sw;g.stroke();
+    g.strokeStyle="#d8c3a4";g.lineWidth=1.4*sw;g.beginPath();g.moveTo(cw*0.34,-s*0.3);g.quadraticCurveTo(cw*0.42,-s*0.5,cw*0.5,-s*0.36);g.stroke();
+    if(on&&Math.sin(t*9)>0.6){g.fillStyle="#ffd84a";g.beginPath();g.arc(cw*0.5,-s*0.36,2.4*sw,0,7);g.fill();}}
+  if(broken){g.strokeStyle="#e0452e";g.lineWidth=2.4*sw;g.setLineDash([4,3]);g.beginPath();g.arc(0,-s*0.5,cw*0.4,0,7);g.stroke();g.setLineDash([]);}
+  g.restore();
+}
 function drawPlantUnit(g,G,c,base,it,t,on,broken){
   const k=it?it.k:"trm";
   if(k==="rock")drawRocker(g,G,c,base,t,on,broken,it);
@@ -1602,7 +1796,10 @@ function iconCanvas(kind,C,w,hh,opt){
   const G={cw,u,W:w,H:hh,X:x=>ox+x*cw,Y:y=>gy-y*u};
   const water=(kind==="dig"&&C.kit.dig==="dredge");
   if(water){g.fillStyle="#3ea0d8";g.fillRect(0,G.Y(0.9),w,hh);}else{g.fillStyle="#8a6a44";g.fillRect(0,gy,w,4);}
-  if(kind==="dig"){if(water)drawDredge(g,G,0,0.9,-1,-1,0,false,false);else drawExc(g,G,0,0,-1,0,false,false);}
+  if(kind==="dig"){if(C.mode==="hard"){g.fillStyle="#1a140e";g.fillRect(0,G.Y(1.9),w,G.Y(0)-G.Y(1.9));
+      g.fillStyle="#8a6a3e";g.strokeStyle="#2a1d10";g.lineWidth=1.2;[0.1,0.9].forEach(f=>{g.fillRect(w*f-3,G.Y(1.9),6,G.Y(0)-G.Y(1.9));});
+      g.fillRect(0,G.Y(1.9),w,4);drawPickman(g,G,0.5,0.55,1,0.6,false,false,false);}
+    else if(water)drawDredge(g,G,0,0.9,-1,-1,0,false,false);else drawExc(g,G,0,0,-1,0,false,false);}
   else if(kind==="trm"||kind==="shk")drawPlantUnit(g,G,0,0,opt.item||null,0,false,false);
   else if(kind==="wat"){if(C.kit.wat==="pond")drawPond(g,G,0,0.6,0,true);else{g.fillStyle="#3ea0d8";g.fillRect(G.X(1),G.Y(0.1),w,hh);drawPump(g,G,0,0,1,0,false);}}
   else if(kind==="dozer")drawDozer(g,G,-0.1,0,0,false);
@@ -1694,9 +1891,10 @@ function migrate(){
   for(const k in S.builds){const B=S.builds[k],C=ids[k];
     if(!B||typeof B!=="object"){delete S.builds[k];continue;}
     if(B.slu)delete B.slu;
-    if(!B.gear||typeof B.gear!=="object")B.gear=newGear();
+    if(!B.gear||typeof B.gear!=="object")B.gear=newGear(C);
     ["plant","slu","pump"].forEach(kind=>{const want=B.gear[kind];
-      if(!GEAR[kind].some(i=>i.id===want))B.gear[kind]=newGear()[kind];});
+      if(!gearList(kind,C,{}).some(i=>i.id===want))B.gear[kind]=newGear(C)[kind];});
+    if(B.fm!=="flat"&&B.fm!=="pct")B.fm="none";
     if(!Array.isArray(B.wat))B.wat=[];
     B.wat=B.wat.filter(c=>typeof c==="number"&&c>=0&&c<COLS);
     if(typeof B.trucks!=="number")B.trucks=0;
@@ -1714,25 +1912,45 @@ addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")
 addEventListener("pagehide",save);
 function chapDone(ch){const cs=CLAIMS.filter(c=>c.ch===ch);return cs.length>0&&cs.every(c=>(S.stars[c.id]||0)>0);}
 function gateOpen(ch){return !!GATE[ch]&&chapDone(ch-1);}          // finished the three claims before it
+function chapStars(ch){return CLAIMS.filter(c=>c.ch===ch).reduce((a,c)=>a+(S.stars[c.id]||0),0);}
+function oldTimersOpen(){for(let ch=1;ch<=6;ch++)if(chapStars(ch)<6)return false;return true;}
+function offWorldOpen(){return CLAIMS.filter(c=>c.ch<8).every(c=>(S.stars[c.id]||0)>=3);}
+function chapOpen(ch){return ch===7?oldTimersOpen():ch===8?offWorldOpen():true;}
 function gateDone(ch){return S.grub[ch]!==undefined;}
 function claimOpen(i){const C=CLAIMS[i];
+  if(!chapOpen(C.ch))return false;                                 // the two bonus chapters have their own price of entry
   if(GATE[C.ch]&&!gateDone(C.ch))return false;                     // must prospect your way in
   return i===0||CLAIMS[i-1].ch!==C.ch||(S.stars[CLAIMS[i-1].id]||0)>0;}
 function starsFor(C,oz){const e=1e-6;return oz>=C.s[2]-e?3:oz>=C.s[1]-e?2:oz>=C.s[0]-e?1:0;}
 function crewOf(){return CREWS.find(c=>c.id===S.crew)||CREWS[1];}
 function curU(){return Object.assign(upg(bankOz()),{grubs:S.grub||{}},crewOf().P);}
-function buildFor(C){if(!S.builds[C.id])S.builds[C.id]=newBuild();const B=S.builds[C.id];
-  if(!B.gear)B.gear=newGear();if(B.slu)delete B.slu;
+function buildFor(C){if(!S.builds[C.id])S.builds[C.id]=newBuild(C);const B=S.builds[C.id];
+  if(!B.gear)B.gear=newGear(C);if(B.slu)delete B.slu;
   B.ptype=plantTile(gearOf(C,B,curU()).plant.k);return B;}
 const GKIND={plant:"Wash plant",slu:"Sluice",pump:"Water"};
+/* Prices are kept in one internal unit and shown in whatever currency you pick. */
+const CURR=[{id:"usd",s:"$",r:1,n:"US dollar"},{id:"gbp",s:"\u00a3",r:0.8,n:"Pound sterling"},{id:"eur",s:"\u20ac",r:0.95,n:"Euro"},
+ {id:"aud",s:"A$",r:1.55,n:"Australian dollar"},{id:"cad",s:"C$",r:1.4,n:"Canadian dollar"},{id:"zar",s:"R",r:18,n:"South African rand"},
+ {id:"jpy",s:"\u00a5",r:150,n:"Japanese yen"}];
+function curr(){return CURR.find(c=>c.id===S.cur)||CURR[0];}
+function unit(C){return C&&C.mode==="space"?"kg":"oz";}
+function worthM(oz){return Math.round(oz*0.42);}
+function money(v){const c=curr(),n=v*c.r;return c.s+(n>=10000?Math.round(n/100)*100:n>=1000?Math.round(n/10)*10:Math.round(n)).toLocaleString();}
 function gearStat(kind,it){return kind==="plant"?it.cap+" yd/day \u00b7 water \u00d7"+it.need
   :kind==="slu"?Math.round(it.rec*100)+"% caught \u00b7 water \u00d7"+it.wat
   :it.flow+" gal \u00b7 lifts "+it.lift+"m \u00b7 sucks "+it.suck+"m";}
 const MINI_FOR={1:"pan",2:"det",3:"dive",4:"dive",5:"opal",6:"pan"};
 function SHORT(m){return m;}
-function NAME(k,C,B){if((k==="trm"||k==="shk")&&B)return gearOf(C,B,curU()).plant.n;
+function NAME(k,C,B){if((k==="trm"||k==="shk")&&B){const p=gearOf(C,B,curU()).plant;return p.sn||p.n;}
+  const m=C.mode||"placer";
+  if(m==="hard")return {dig:"Pick crew",wat:"Water",belt:"Ore rail",truck:"Ore cart",dozer:"Powder",sluice:"Sluice",trm:"Plant",shk:"Plant"}[k]||k;
+  if(m==="space")return {dig:"Loader",wat:"Ice melt",belt:"Conveyor",truck:"Hauler",dozer:"Plasma cutter",sluice:"Separator",trm:"Plant",shk:"Plant"}[k]||k;
   return {dig:C.kit.dig==="dredge"?"Dredge":"Digger",trm:"Trommel",shk:"Shaker",wat:C.kit.wat==="pond"?"Pond":"Pump",
   belt:"Belt",truck:"Truck",dozer:"Dozer",sluice:"Sluice"}[k]||k;}
+function GLABEL(kind,C){const m=C.mode||"placer";
+  if(kind==="plant")return m==="hard"?"Wash plant":m==="space"?"Processing rig":"Wash plant";
+  if(kind==="slu")return m==="space"?"Separator":"Sluice";
+  return m==="hard"?"Water":m==="space"?"Ice melt":(C.kit.wat==="pond"?"Pond pump":"Pump");}
 
 /* =============== UI HELPERS =============== */
 const scr=document.getElementById("screen"),bankEl=document.getElementById("bank"),backEl=document.getElementById("back");
@@ -1872,6 +2090,30 @@ function tutShow(screen){
     if(st.d&&S.builds[C.id]&&st.d(S.builds[C.id]))tutNext();
   },250);
 }
+/* =============== OPTIONS =============== */
+function screenOpts(back){
+  syncBar(false);
+  h(`<div class="h1">OPTIONS</div>
+     <h3>Currency</h3>
+     <div class="opts" id="cur">${CURR.map(c=>`<button class="obt ${curr().id===c.id?"on":""}" data-c="${c.id}">
+        <b>${c.s}</b><small>${c.n}</small></button>`).join("")}</div>
+     <div class="sub center" id="ex"></div>
+     <h3>Sound</h3>
+     <div class="opts"><button class="obt wide2" id="snd2"></button></div>
+     <h3>Help</h3>
+     <div class="opts"><button class="obt wide2" id="tut2"><b>Replay the tutorial</b><small>walks you through your first claim again</small></button>
+       <button class="obt wide2" id="how3"><b>How to play</b><small>the short version</small></button></div>`,
+    {cls:"optg",foot:`<button class="btn go big" id="ok">${ICON.play}<span>DONE</span></button>`});
+  function ex(){$("#ex").innerHTML=`Kit prices show as ${money(320)}, ${money(1020)} and so on`;
+    $("#snd2").innerHTML=`<b>Breakdown alarm: ${S.snd===false?"OFF":"ON"}</b><small>${S.snd===false?"you'll only see the red ring":"clank and klaxon when a machine stops"}</small>`;}
+  $$("#cur .obt").forEach(b=>b.onclick=()=>{S.cur=b.dataset.c;save();$$("#cur .obt").forEach(x=>x.classList.toggle("on",x.dataset.c===S.cur));ex();});
+  $("#snd2").onclick=()=>{S.snd=S.snd===false;save();syncSnd();ex();if(S.snd!==false){SND.unlock();SND.alarm();}};
+  $("#tut2").onclick=()=>{S.tut=0;S.tutOff=0;S.claim=0;save();screenIntro();};
+  $("#how3").onclick=()=>screenHow(()=>screenOpts(back));
+  ex();
+  $("#ok").onclick=()=>back?back():screenTitle();
+}
+
 /* =============== HOW TO PLAY =============== */
 const HOWTO=[
  ["dig","Paint your cut","Drag the digger over the speckled gold. Only that band pays — the muck on top just slows you down."],
@@ -1902,7 +2144,8 @@ function screenTitle(){
       <div class="stage"><canvas id="tc"></canvas></div>
      </div>`,{re:screenTitle,foot:`<button class="btn go huge pulse" id="go">${ICON.play}<span>PLAY</span></button>
       <div class="row"><button class="btn ghost" id="how">${ICON.map}<span>How to play</span></button>
-      ${has?'<button class="btn ghost" id="wipe">New game</button>':""}</div>`});
+      <button class="btn ghost" id="opt">${ICON.reset}<span>Options</span></button></div>
+      ${has?'<button class="btn ghost" id="wipe">New game</button>':""}`});
   const cv=$("#tc"),W=Math.floor(Math.min(W0(),Math.max(260,(scr.clientHeight-(WIDE()?150:190))/0.78))),H=Math.round(W*0.78),g=fit(cv,W,H),L=crewOf().look,t0=performance.now();
   const nug=[];const r=rnd32(5);for(let i=0;i<14;i++)nug.push([W*0.5+(r()-0.5)*W*0.7,H-26-r()*14,4+r()*6]);
   loop(()=>{const t=(performance.now()-t0)/1000;
@@ -1919,6 +2162,7 @@ function screenTitle(){
   });
   $("#go").onclick=()=>S.crew?screenMap():screenCrew();
   $("#how").onclick=()=>screenHow(screenTitle);
+  $("#opt").onclick=()=>screenOpts(screenTitle);
   if($("#wipe")){let armed=false;$("#wipe").onclick=()=>{if(!armed){armed=true;$("#wipe").textContent="Tap again to wipe everything";
     setTimeout(()=>{armed=false;const w=$("#wipe");if(w)w.textContent="New game";},3000);return;}
     try{[SAVE].concat(LEGACY).forEach(k=>localStorage.removeItem(k));}catch(e){}
@@ -1961,8 +2205,18 @@ function screenCrew(){
 }
 
 function drawRegion(g,W,H,name,seed){
-  const P=PAL[name],sk=g.createLinearGradient(0,0,0,H);sk.addColorStop(0,P.sky[0]);sk.addColorStop(1,P.sky[1]);
+  const P=PAL[name]||PAL.Alaska,sk=g.createLinearGradient(0,0,0,H);sk.addColorStop(0,P.sky[0]);sk.addColorStop(1,P.sky[1]);
   g.fillStyle=sk;g.fillRect(0,0,W,H);
+  if(P.space){  // off-world strips: stars, craters, no trees or creeks
+    const r0=rnd32(seed*57+11);
+    for(let i=0;i<70;i++){const x=r0()*W,y=r0()*H*0.7,s=r0();g.fillStyle="rgba(255,255,255,"+(0.2+s*0.7)+")";g.fillRect(x,y,s>0.9?2:1,s>0.9?2:1);}
+    g.fillStyle=P.hill;g.beginPath();g.moveTo(0,H);
+    for(let x=0;x<=W;x+=6)g.lineTo(x,H*0.58+Math.sin(x/70+seed)*10);g.lineTo(W,H);g.fill();
+    g.fillStyle=P.ob;g.beginPath();g.moveTo(0,H);
+    for(let x=0;x<=W;x+=6)g.lineTo(x,H*0.74+Math.sin(x/42+seed*3)*6);g.lineTo(W,H);g.fill();
+    g.fillStyle="rgba(0,0,0,.22)";
+    for(let i=0;i<7;i++){const x=r0()*W,y=H*0.8+r0()*H*0.16,rr=4+r0()*13;g.beginPath();g.ellipse(x,y,rr,rr*0.4,0,0,7);g.fill();}
+    return;}
   g.fillStyle=P.hill;g.beginPath();g.moveTo(0,H);
   for(let x=0;x<=W+5.99;x+=6)g.lineTo(x,H*0.45+Math.sin(x/50+seed*2)*14+Math.sin(x/19+seed)*5);g.lineTo(W,H);g.fill();
   g.fillStyle=P.ob;g.beginPath();g.moveTo(0,H);
@@ -1973,7 +2227,6 @@ function drawRegion(g,W,H,name,seed){
   const r=rnd32(seed*91+3);g.fillStyle=P.tree;g.strokeStyle="#2a1d10";g.lineWidth=1.3;
   for(let i=0;i<9;i++){const x=r()*W,y=H*0.66+Math.sin(x/40+seed*3)*8;g.beginPath();g.moveTo(x-6,y);g.lineTo(x+6,y);g.lineTo(x,y-18);g.closePath();g.fill();g.stroke();}
 }
-
 
 /* =============== MAP (chapters) =============== */
 function screenMap(){
@@ -1988,11 +2241,17 @@ function screenMap(){
      ${CHAPTERS.map(ch=>{const cs=CLAIMS.map((c,i)=>[c,i]).filter(([c])=>c.ch===ch.id),open=chOpen(ch.id),
         got=cs.reduce((a,[c])=>a+(S.stars[c.id]||0),0);
        const gk=GATE[ch.id],gOpen=gk&&gateOpen(ch.id),gDone=gk&&gateDone(ch.id),gv=S.grub[ch.id]||0;
-       return (gk?`<div class="gate ${gOpen||gDone?"":"locked"} ${gDone?"done":""}">
+       const bonus=ch.id>=7,bOpen=chapOpen(ch.id);
+       const bhead=bonus?`<div class="gate bonus ${bOpen?"done":"locked"}">
+          <div class="bi">${ch.id===7?ICON.pan:ICON.star}</div>
+          <div class="gtx2"><div class="sub">${bOpen?"Unlocked":"Locked"} \u00b7 bonus chapter</div><b>${ch.n}</b>
+            <small>${bOpen?ch.d:ch.need+(ch.id===7?" ("+[1,2,3,4,5,6].map(c=>chapStars(c)).join("/")+" of 6/6/6/6/6/6)":"")}</small></div>
+          ${bOpen?"":`<span class="glock">${ICON.lock}</span>`}</div>`:"";
+       return bhead+(gk?`<div class="gate ${gOpen||gDone?"":"locked"} ${gDone?"done":""}">
           <div class="gi3" data-k="${gk}"></div>
           <div class="gtx2"><div class="sub">Prospecting run — way into Chapter ${ch.id}</div>
             <b>${GATE_NAME[gk]}</b>
-            ${gDone?`<div class="gbar"><div class="meter gold"><i style="width:${gv/MAXGRUB*100}%"></i></div><span>$${gv}<small>/${MAXGRUB}</small></span></div>`
+            ${gDone?`<div class="gbar"><div class="meter gold"><i style="width:${gv/MAXGRUB*100}%"></i></div><span>${money(gv)}<small>/${money(MAXGRUB)}</small></span></div>`
                    :`<small>${gOpen?"Dig up your grubstake — it buys the kit":"Three stars’ worth of seasons first"}</small>`}</div>
           ${gOpen||gDone?`<button class="btn go sm2" data-g="${ch.id}">${gDone?ICON.reset:ICON.play}<span>${gDone?"AGAIN":"GO"}</span></button>`:`<span class="glock">${ICON.lock}</span>`}
         </div>`:"")
@@ -2003,7 +2262,8 @@ function screenMap(){
           return `<button class="pin ${st?"done":o2?"open":"lock"}" data-i="${i}" style="left:${c.mx}%;top:${c.my}%">
             ${o2?`<b>${c.name}</b><span class="ps">${starRow(st,"xs")}</span>`:ICON.lock}</button>`;}).join("")}
         </div></div>`;}).join("")}
-     `,{re:screenMap,cls:"mapg",foot:`<button class="btn ghost" id="how2">${ICON.map}<span>How to play</span></button>`});
+     `,{re:screenMap,cls:"mapg",foot:`<div class="row"><button class="btn ghost" id="how2">${ICON.map}<span>How to play</span></button>
+       <button class="btn ghost" id="opt2">${ICON.reset}<span>Options</span></button></div>`});
   addMiner("#mnw",64,74,"grin");
   $$(".gate .gi3").forEach(el=>el.appendChild(miniIcon(el.dataset.k,46,40)));
   $$(".gate button[data-g]").forEach(b=>b.onclick=()=>playGate(+b.dataset.g));
@@ -2011,6 +2271,7 @@ function screenMap(){
   $$(".pin").forEach(b=>b.onclick=()=>{const i=+b.dataset.i;if(!claimOpen(i))return;S.claim=i;save();screenIntro();});
   $("#crew").onclick=()=>screenCrew();
   $("#how2").onclick=()=>screenHow(screenMap);
+  $("#opt2").onclick=()=>screenOpts(screenMap);
 
   const firstOpen=CLAIMS.findIndex((c,i)=>claimOpen(i)&&!S.stars[c.id]);
   if(firstOpen>2){const el=scr.querySelector(`.pin[data-i="${firstOpen}"]`);if(el)el.closest(".region").scrollIntoView({block:"center"});}
@@ -2027,10 +2288,11 @@ function screenIntro(){
        <div class="dch">Chapter ${ch.id} \u00b7 ${ch.n}</div>
        <div class="dname">${C.name}</div>
        <div class="dloc">${C.country} \u00b7 ${C.days} day season</div>
+       ${C.mode==="space"?`<div class="dch reue">Rare earths \u00b7 every ${unit(C)} is worth about ${money(420)}</div>`:""}
        <div class="photo" id="ph"><canvas id="pv"></canvas><span class="pin2"></span></div>
-       <div class="dgl">Wash this much gold to earn the stars</div>
+       <div class="dgl">${C.mode==="space"?"Bring back this much to earn the stars":C.mode==="hard"?"Win this much from the seam to earn the stars":"Wash this much gold to earn the stars"}</div>
        <div class="dgoals">${C.s.map((v,i)=>`<div class="dg ${i<st?"got":""}"><div class="dpile" data-l="${i+1}"></div>
-         <span class="dgs">${ICON.star.repeat(i+1)}</span><b>${v}<small> oz</small></b><em>${names[i]}</em></div>`).join("")}</div>
+         <span class="dgs">${ICON.star.repeat(i+1)}</span><b>${v}<small> ${unit(C)}</small></b><em>${names[i]}</em></div>`).join("")}</div>
        ${S.best[C.id]?`<div class="dmeta">Your best: <b>${fmt(S.best[C.id])} oz</b></div>`:""}
      </div>
      <div class="crewline"><div id="mnw"></div><div class="bubble">${C.tip}</div></div>`,
@@ -2063,10 +2325,10 @@ function screenGrub(ch,kind,oz,got,before,best){
        <div class="sub">${GATE_NAME[kind]}</div>
        <div class="grubrow">${ICON.nugget}<b>${fmt(oz)}</b><small>oz</small></div>
        <div class="sub">sells for</div>
-       <div class="grubrow big2"><b>$${got}</b><small>/ $${MAXGRUB}</small></div>
+       <div class="grubrow big2"><b>${money(got)}</b><small>/ ${money(MAXGRUB)}</small></div>
        <div class="meter gold"><i style="width:${got/MAXGRUB*100}%"></i></div>
-       <div class="gnote2">${improved?`Grubstake for Chapter ${ch} — ${chap.n}`:`Your best run still stands: <b>$${best}</b>`}</div>
-       <div class="sub">Yard budget there: <b>$${CH_BUDGET[ch]}</b> + <b>$${best}</b> = <b>$${CH_BUDGET[ch]+best}</b></div>
+       <div class="gnote2">${improved?`Grubstake for Chapter ${ch} — ${chap.n}`:`Your best run still stands: <b>${money(best)}</b>`}</div>
+       <div class="sub">Yard budget there: <b>${money(CH_BUDGET[ch])}</b> + <b>${money(best)}</b> = <b>${money(CH_BUDGET[ch]+best)}</b></div>
      </div>
      <div class="crewline"><div id="mnw"></div><div class="bubble">${got>=MAXGRUB*0.8?"That's a proper stake. We can buy some real kit.":
         got>=MAXGRUB*0.45?"Enough to get us started. Could do better.":"Thin. We'll be running on scrap unless you go again."}</div></div>`,
@@ -2086,21 +2348,38 @@ function screenGear(){
     const k=["plant","slu","pump"].sort((a,b)=>G0[b].cost-G0[a].cost)[0],L=gearList(k,C,U);
     const i=L.findIndex(x=>x.id===G0[k].id);B.gear[k]=L[Math.max(0,i-1)].id;}
   save();
-  const KINDS=[["plant","Wash plant","trm"],["slu","Sluice","sluice"],["pump",C.kit.wat==="pond"?"Pond pump":"Pump","wat"]];
-  function cost(){return gearOf(C,B,U).plant.cost+gearOf(C,B,U).slu.cost+gearOf(C,B,U).pump.cost;}
+  const KINDS=[["plant",GLABEL("plant",C),"trm"],["slu",GLABEL("slu",C),"sluice"],["pump",GLABEL("pump",C),"wat"]];
+  const FEE=foremanFee(C),PCT=foremanPct(C);
+  if(!B.fm)B.fm="none";
+  function cost(){return gearOf(C,B,U).plant.cost+gearOf(C,B,U).slu.cost+gearOf(C,B,U).pump.cost+(B.fm==="flat"?FEE:0);}
   function setup(){const G=gearOf(C,B,U);return (G.plant.sd||0)+(G.slu.sd||0)+(G.pump.sd||0);}
   h(`<div class="h1">THE YARD</div>
-     <div class="sub center">Kit it out for ${C.name} — what's left over pays for spares</div>
+     <div class="sub center">Kit it out for ${C.name} \u2014 what's left over pays for spares</div>
+     ${GATE[C.ch]?`<div class="sub center bfrom">${money(C.bud||CH_BUDGET[C.ch])} season budget + ${money(grubOf(C,U))} from your ${GATE_NAME[GATE[C.ch]].toLowerCase()} run</div>`:""}
      ${KINDS.map(([k,lbl])=>`<h3>${lbl}</h3><div class="shelf" data-k="${k}"></div>`).join("")}
+     <h3>Foreman</h3><div class="shelf fmshelf" data-k="fm"></div>
      <div class="crewline"><div id="mnw"></div><div class="bubble" id="bb"></div></div>`,
     {re:screenGear,cls:"yardg",
-     top:`<div class="hud"><span class="chip gold grow"><b id="left">$0</b><small>left of $${bud}</small></span>
+     top:`<div class="hud"><span class="chip gold grow"><b id="left">-</b><small>left of ${money(bud)}</small></span>
           <span class="chip">${ICON.sun}<b id="sd">0</b><small>rig-up days</small></span></div>`,
      foot:`<div class="row2"><button class="btn round" id="back2">${ICON.map}</button>
        <button class="btn go big" id="go">${ICON.play}<span>TO THE CLAIM</span></button></div>`});
   addMiner("#mnw",56,70,"grin");
   const say=(txt,mood)=>{const bb=$("#bb");bb.textContent=txt;bb.classList.toggle("bad",mood==="worry");};
   function draw(){
+    // foreman shelf
+    const FM=[["none","Run it yourself","Free","You watch the season and tap the breakdowns."],
+              ["flat","Foreman \u2014 flat fee",money(FEE),"Paid out of this budget. He fixes the breakdowns, and you can skip the season."],
+              ["pct","Foreman \u2014 a cut","+"+PCT+"%","Paid out of the gold you wash. Same deal, nothing up front."]];
+    const fs2=scr.querySelector('.shelf[data-k="fm"]');
+    fs2.innerHTML=FM.map(([id,n,c,d])=>{const on=B.fm===id,afford=id!=="flat"||cost()-(B.fm==="flat"?FEE:0)+FEE<=bud;
+      return `<button class="gcard ${on?"on":""} ${afford||on?"":"no"}" data-f="${id}">
+        <span class="gi2 fmi">${id==="none"?ICON.play:ICON.star}</span>
+        <span class="gtx"><b>${n}</b><small>${id==="pct"?"takes "+PCT+"% of the season's gold":id==="flat"?money(FEE)+" off your kit money":"no cost, no skipping"}</small><em>${d}</em></span>
+        <span class="gc">${c}</span></button>`;}).join("");
+    fs2.querySelectorAll(".gcard").forEach(bt=>bt.onclick=()=>{const id=bt.dataset.f;
+      if(id==="flat"&&cost()-(B.fm==="flat"?FEE:0)+FEE>bud){say("Can't afford his fee as well as that kit.","worry");return;}
+      B.fm=id;save();draw();});
     KINDS.forEach(([k,lbl,icon])=>{
       const shelf=scr.querySelector('.shelf[data-k="'+k+'"]'),list=gearList(k,C,U);
       shelf.innerHTML=list.map(it=>{const on=gearOf(C,B,U)[k].id===it.id;
@@ -2108,14 +2387,14 @@ function screenGear(){
         return `<button class="gcard ${on?"on":""} ${afford||on?"":"no"}" data-id="${it.id}">
           <span class="gi2"></span>
           <span class="gtx"><b>${it.n}</b><small>${gearStat(k,it)}</small><em>${it.d||""}</em></span>
-          <span class="gc">${it.cost?"$"+it.cost:"FREE"}${it.sd?`<i>+${it.sd}d</i>`:""}</span></button>`;}).join("");
+          <span class="gc">${it.cost?money(it.cost):"FREE"}${it.sd?`<i>+${it.sd}d</i>`:""}</span></button>`;}).join("");
       shelf.querySelectorAll(".gcard").forEach((bt,i)=>{
         bt.querySelector(".gi2").appendChild(iconCanvas(k==="plant"?(list[i].k==="shk"?"shk":"trm"):k==="slu"?"sluice":"wat",C,52,40,{boxes:list[i].boxes,item:k==="plant"?list[i]:null}));
         bt.onclick=()=>{const it=list[i],other=cost()-gearOf(C,B,U)[k].cost;
           if(other+it.cost>bud){say("Not enough budget — sell something back first.","worry");return;}
           B.gear[k]=it.id;B.ptype=plantTile(gearOf(C,B,U).plant.k);save();draw();};});
     });
-    const left=bud-cost();$("#left").textContent="$"+left;$("#sd").textContent=setup();
+    const left=bud-cost();$("#left").textContent=(left<0?"-":"")+money(Math.abs(left));$("#sd").textContent=setup();
     $("#left").style.color=left<0?"#e0452e":"";$("#go").disabled=left<0;
     const G=gearOf(C,B,U);
     say(left>=bud*0.55?"Plenty left in the kitty — could we run bigger?":
@@ -2151,7 +2430,9 @@ function screenBuild(){
   else h(`<div class="stage" id="stage"><canvas id="gd"></canvas></div>
      <div class="plantrow" id="pr"></div>${crew}`,{re:screenBuild,top:hud,foot:tray+btns});
   const trayEl=$("#tray"),cv=$("#gd"),W=wide?WS():W0(),G=geo(W),g=fit(cv,W,G.H),mn=addMiner("#mnw",60,76,"grin");
-  $$("#tray .tile").forEach(t=>t.appendChild(iconCanvas(t.dataset.k,C,wide?64:46,wide?48:36,{item:gearOf(C,B,U).plant})));
+  $$("#tray .tile").forEach(t=>{t.appendChild(iconCanvas(t.dataset.k,C,wide?64:46,wide?48:36,{item:gearOf(C,B,U).plant}));
+    const lb=t.querySelector(".tl"),n=lb.textContent.length;          // long machine names still have to fit the tile
+    lb.style.fontSize=(wide?12:n<=6?9.5:n<=8?8.2:n<=11?7:6.2)+"px";});
   $(".tgt .tp").appendChild(goldPileCanvas(1,30,22));
   const floatEl=document.createElement("div");floatEl.className="float";document.body.appendChild(floatEl);
   let drag=null,tmsg=null,R=evaluate(C,B,U),T=0;const t0=performance.now(),puffs=[];
@@ -2171,12 +2452,14 @@ function screenBuild(){
       if(k==="wat"&&kit.wat==="pond"){txt=B.wat.length+"/"+kit.ponds;full=B.wat.length>=kit.ponds;}
       else if(k==="truck"){txt=B.trucks+"/"+kit.trucks;full=B.trucks>=kit.trucks;}
       else if(k==="belt"){txt=done?(R.bs.ok?"✓":"!"):kit.belt+"m";full=done;}
+      else if(k==="dozer"){txt=done?"✓":"1";full=done;}
       else{txt=done?"✓":"1";full=done;}
       b.textContent=txt;b.classList.toggle("done",done&&!(k==="belt"&&!R.bs.ok));b.classList.toggle("warn",k==="belt"&&done&&!R.bs.ok);
       t.classList.toggle("used",full);});
     // what you bought in the yard
     const pr=$("#pr"),GG=gearOf(C,B,U);
     pr.innerHTML=["plant","slu","pump"].map(k=>`<span class="gz"><b>${GG[k].n}</b><small>${gearStat(k,GG[k])}</small></span>`).join("")
+      +`<span class="gz"><b>${B.fm==="none"?"No foreman":"Foreman"}</b><small>${B.fm==="flat"?money(foremanFee(C))+" paid":B.fm==="pct"?foremanPct(C)+"% of the gold":"you watch the season"}</small></span>`
       +`<button class="gchg" id="gchg">${ICON.reset}<span>Yard</span></button>`;
     $("#gchg").onclick=()=>screenGear();
     const run=$("#run");run.disabled=!R.ready||R.problems.length>0;run.classList.toggle("pulse",complete());
@@ -2243,7 +2526,8 @@ function screenBuild(){
     if(d.over==="tray"&&d.src==="scene"){say(removeKind(d.kind,d.idx),"grin",1.4);}
     else if(d.over==="scene"&&d.prop){if(d.prop.ok){d.prop.apply();
         if(d.kind==="belt"){const r2=evaluate(C,B,U);say(r2.bs.ok?"Belt's in! Nice!":r2.bs.bad,r2.bs.ok?"wow":"worry",2);}
-        else if(d.kind==="truck")say("Truck on the haul road!","wow",1.4);}
+        else if(d.kind==="truck")say("Truck on the haul road!","wow",1.4);
+        else if(d.kind==="dozer")say("Dozer's on. It strips the muck off the whole cut — and shoves the timber over in half the time.","wow",2.6);}
       else say(d.prop.why||"Can't go there!","worry");}
     save();updateUI();
   }
@@ -2279,7 +2563,7 @@ function screenBuild(){
   cv.addEventListener("pointerup",dragEnd);
   cv.addEventListener("pointercancel",()=>{drag=null;floatEl.style.display="none";});
 
-  $("#wipe").onclick=()=>{const nb=newBuild();Object.keys(nb).forEach(x=>B[x]=nb[x]);S.builds[C.id]=B;drag=null;save();say("Site cleared! Start again.","grin",1.8);updateUI();};
+  $("#wipe").onclick=()=>{const nb=newBuild(C);Object.keys(nb).forEach(x=>B[x]=nb[x]);S.builds[C.id]=B;drag=null;save();say("Site cleared! Start again.","grin",1.8);updateUI();};
   $("#run").onclick=()=>{if(tutOn()&&tutStep().s==="build")while(tutOn()&&tutStep().s==="build")tutNext();screenRun();};
   updateUI();
   tutShow("build");
@@ -2310,12 +2594,14 @@ function screenRun(){
   const MAX=C.s[2]*1.08,wide=WIDE();
   const hud=`<div class="hud">
        <span class="chip" id="dchip">${ICON.sun}<b id="dc">0</b><small>/ ${R.days}</small></span>
-       <span class="chip grow gold">${ICON.nugget}<b id="oz">0.0</b><small>oz</small></span>
+       <span class="chip grow gold">${ICON.nugget}<b id="oz">0.0</b><small>${unit(C)}</small></span>
      </div>`,
     prog=`<div class="prog"><i id="bf"></i>${C.s.map((v,i)=>`<span class="tk pk" data-l="${i+1}" style="left:${v/MAX*100}%"></span>`).join("")}</div>`,
     crew=`<div class="crewline"><div id="mnw"></div><div class="bubble" id="bb">Fire it up!</div></div>`,
     lost=`<div class="lost" id="lost"></div>`,
-    skip=`<button class="btn ghost" id="skip">${ICON.skip}<span>Skip</span></button>`;
+    hasFM=R.fm!=="none",
+    skip=hasFM?`<button class="btn ghost" id="skip">${ICON.skip}<span>Let the foreman run it</span></button>`
+              :`<div class="nofm">${ICON.sun}<span>No foreman \u2014 you're watching this one. Tap any breakdown fast.</span></div>`;
   if(wide)h(`<div class="wmain">${hud}<div class="stage"><canvas id="gd"></canvas></div>${prog}</div>
      <div class="wside">${crew}${lost}<div class="wbtns">${skip}</div></div>`,{full:1,cls:"wgrid"});
   else h(`<div class="stage"><canvas id="gd"></canvas></div>${prog}${crew}${lost}`,{top:hud,foot:skip});
@@ -2368,7 +2654,7 @@ function screenRun(){
   }
   cv.addEventListener("pointerdown",e=>{const r=cv.getBoundingClientRect();tapAt((e.clientX-r.left)/r.width*COLS);});
   bb.addEventListener("click",()=>tapAt(null));
-  $("#skip").onclick=()=>{if(finished)return;brk=null;paused=null;
+  if($("#skip"))$("#skip").onclick=()=>{if(finished)return;brk=null;paused=null;
     while(shown<days.length){produce(shown,false);shown++;if((ranDay&&shown>=ranDay)||(siltDay&&shown>=siltDay))break;}finish();};
   tutShow("run");
   if(fail)pause("end",{txt:fail+" Tap to see what went wrong."});
@@ -2390,7 +2676,8 @@ function screenRun(){
       const st=C.s.filter(v=>oz>=v-1e-6).length;
       if(st>passed){passed=st;post({txt:["","That's the target! One star!","Two stars! Keep going!","THREE STARS! Motherlode!"][st],mood:"wow",hold:1});}
       if(d.ev&&!brk){const frac=R.cs.P?Math.min(1,done/R.cs.P):0;
-        if(d.ev.k==="brk"&&fixes<3&&shown-lastFix>=Math.max(6,R.days*0.2)){breakDown(d.ev.who,frac);break;}
+        if(d.ev.k==="brk"&&hasFM){post({txt:"Breakdown \u2014 the foreman had it sorted.",bad:true,mood:"worry",hold:1});}
+        else if(d.ev.k==="brk"&&fixes<3&&shown-lastFix>=Math.max(6,R.days*0.2)){breakDown(d.ev.who,frac);break;}
         else if(d.ev.k==="brk")post({txt:"Another breakdown — the crew sorted it.",bad:true,mood:"worry",hold:1});
         else if(d.ev.k==="rain")post({txt:"Rain day. Pit's flooding!",bad:true,mood:"worry",hold:1});
         else post({txt:"Rich streak! Look at that!",mood:"wow"});}
@@ -2437,8 +2724,8 @@ function screenResult(oz,R,fail,ranDay,siltDay,lostDays){
   const newCrew=CREWS.filter(c=>c.unlock&&starsBefore<c.unlock&&totalStars()>=c.unlock);
   let tip="";
   if(fail)tip=fail;
-  else if(R.ranOut)tip="You ran out of pay on day "+ranDay+"! Paint a bigger cut.";
-  else if(R.silted)tip="Ponds silted up on day "+siltDay+"! "+(B.wat.length<kit.ponds?"Dig another pond.":"Wash less dirt, catch more gold.");
+  else if(R.ranOut&&ranDay)tip="You ran out of pay on day "+ranDay+"! Paint a bigger cut.";
+  else if(R.silted&&siltDay)tip="Ponds silted up on day "+siltDay+"! "+(B.wat.length<kit.ponds?"Dig another pond.":"Wash less dirt, catch more gold.");
   else if(lim==="water"&&C.maxFlow&&R.ws.flow>=C.maxFlow-0.01)tip="Your licence caps the water. Squeeze more from every yard!";
   else if(lim==="water"&&R.ws.head>R.ws.reach+1e-6)tip="Water can't climb that high! Plant lower, or water closer.";
   else if(lim==="water")tip="Water's the limit \u2014 a bigger pump, or thriftier kit.";
@@ -2455,7 +2742,7 @@ function screenResult(oz,R,fail,ranDay,siltDay,lostDays){
   const rows=[["dig",R.dig,lim==="dig"],[haulIcon,R.haulKind==="pipe"?null:R.haul,lim==="haul"],[R.gear.plant.k,R.cap,lim==="plant"],["wat",R.water,lim==="water"]];
   const verdict=fail?"Nothing reached the plant!":st===3?"MOTHERLODE!":st===2?"Great season!":st===1?"Target made!":fmt(C.s[0]-oz)+" oz short of a star";
   h(`<div class="h1">Season report</div>
-     <div class="haul">${ICON.nugget}<b>${fmt(oz)}</b><small>oz</small><span class="rst">${starRow(st,"sm")}</span></div>
+     <div class="haul">${ICON.nugget}<b>${fmt(oz)}</b><small>${unit(C)}</small><span class="rst">${starRow(st,"sm")}</span></div>
      <div class="sub center">★ ${C.s[0]} · ★★ ${C.s[1]} · ★★★ ${C.s[2]}</div>
      <div class="crewline"><div id="mnw"></div><div class="bubble ${won?"":"bad"}">${tip}</div></div>
      <div class="gauges card">
@@ -2463,8 +2750,10 @@ function screenResult(oz,R,fail,ranDay,siltDay,lostDays){
          <div class="gb"><i style="width:${Math.min(100,v/mx*100)}%"></i></div><b>${Math.round(v)}</b><small>yd/day</small></div>`).join("")}
        <div class="gr ${R.rec<0.7?"hot":""}"><div class="gi" data-k="sluice"><span>Sluice</span></div>
          <div class="gb"><i style="width:${R.rec*100}%"></i></div><b>${Math.round(R.rec*100)}%</b><small>caught</small></div>
-       ${R.ranOut?`<div class="gnote hot">Cut dug out on day ${ranDay}</div>`:""}
-       ${R.silted?`<div class="gnote hot">Ponds silted up on day ${siltDay}</div>`:""}
+       <div class="gnote2b">${Math.round(R.cs.O)} yd of muck stripped (no gold in it) \u00b7 ${Math.round(R.processed)} yd of pay washed</div>
+       ${R.cut>0?`<div class="gnote2b fmcut">Foreman's cut: \u2212${fmt(R.cut)} oz (${R.pct}%)</div>`:""}
+       ${R.ranOut&&ranDay?`<div class="gnote hot">Cut dug out on day ${ranDay}</div>`:""}
+       ${R.silted&&siltDay?`<div class="gnote hot">Ponds silted up on day ${siltDay}</div>`:""}
      </div>
      ${newU.map(u=>`<div class="card unlock"><span class="tag">UNLOCKED!</span><b>${u.n}</b><div>${u.d}</div></div>`).join("")}
      ${newCrew.map(c=>`<div class="card unlock crewun"><span class="tag">NEW CREW!</span><div class="cu" data-c="${c.id}"></div><b>${c.name}</b><div>${c.boss} \u2014 ${c.pd}</div>
@@ -2477,7 +2766,7 @@ function screenResult(oz,R,fail,ranDay,siltDay,lostDays){
        <div class="ovp" id="ovp">
          <div class="ovt ${won?"":"lose"}">${won?"SEASON COMPLETE!":"SEASON SHORT!"}</div>
          <div class="ovs">${[0,1,2].map(i=>`<div class="slot s${i}" id="os${i}">${ICON.star}</div>`).join("")}</div>
-         <div class="ovoz">${ICON.nugget}<b id="ovz">0.0</b><small>oz</small></div>
+         <div class="ovoz">${ICON.nugget}<b id="ovz">0.0</b><small>${unit(C)}</small></div>
          <div class="ovth">${C.s.map((v,i)=>`<span id="th${i}"><i class="op" data-l="${i+1}"></i>${v}</span>`).join("")}</div>
          <div class="ovm"><div id="ovmn"></div><div class="ovmsg" id="ovmsg">&nbsp;</div></div>
          ${newCrew.length?`<div class="ovnew" id="ovnew">${ICON.star}<span>New crew unlocked: <b>${newCrew[0].name}</b></span></div>`:""}
@@ -2528,7 +2817,7 @@ function screenResult(oz,R,fail,ranDay,siltDay,lostDays){
     if(done&&st===3&&t-doneAt<2.5&&Math.random()<0.25){const el=$("#os"+Math.floor(Math.random()*3));if(el){const r=el.getBoundingClientRect();
       parts.push({x:r.left+Math.random()*r.width,y:r.top+Math.random()*r.height,vx:(Math.random()-0.5)*2,vy:-2,life:0.8,s:3,c:"#fff",star:true});}}
   });
-  $("#re").onclick=()=>{S.builds[C.id]=newBuild();save();screenBuild();};
+  $("#re").onclick=()=>{S.builds[C.id]=newBuild(C);save();screenBuild();};
   if($("#re2"))$("#re2").onclick=()=>screenBuild();
   if($("#tweak"))$("#tweak").onclick=()=>screenBuild();
   if($("#nx"))$("#nx").onclick=()=>{if(next&&claimOpen(S.claim+1)){S.claim++;save();screenIntro();}else screenMap();};
