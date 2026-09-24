@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=1,user-scalable=no">
 <meta name="app-repo" content="get-the-gold">
-<meta name="app-version" content="1.0.27">
+<meta name="app-version" content="1.0.29">
 <meta name="theme-color" content="#2a1d10">
 <title>Get the Gold</title>
 <style>
@@ -306,7 +306,7 @@ h2{color:var(--txt)}
 .bubble.tap{animation:tapme 1s ease-in-out infinite;cursor:pointer}
 @keyframes tapme{50%{box-shadow:2px 3px 0 #000,0 0 0 4px rgba(217,161,43,.55)}}
 
-/* ===== v1.0.27 fixed chrome: header + footer stay put, only the middle scrolls ===== */
+/* ===== v1.0.29 fixed chrome: header + footer stay put, only the middle scrolls ===== */
 html,body{height:100%;overflow:hidden}
 #app{height:100vh;height:100dvh;min-height:0;overflow:hidden}
 #bar{position:relative;flex:0 0 auto}
@@ -361,13 +361,13 @@ html,body{height:100%;overflow:hidden}
 .crews{grid-template-columns:repeat(3,minmax(0,1fr))}.crew{min-width:0}
 .crew b{overflow-wrap:break-word;font-size:12px;padding:0 3px;line-height:1.15}
 @media (min-width:520px){.crews{grid-template-columns:repeat(4,minmax(0,1fr))}}.crew .pt canvas{max-width:100%;height:auto!important}
-/* v1.0.27 name labels */
+/* v1.0.29 name labels */
 .tile{flex-direction:column;gap:2px;padding:4px 2px 3px}
 .tile canvas{order:1}.tile .tl{order:2;font:800 10px/1 system-ui,-apple-system,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#1a140e;white-space:nowrap}
 .wside .tile .tl{font-size:12px}
 .plantrow .pi{display:flex;flex-direction:column;align-items:center;gap:1px}.plantrow .pl{order:2;font:800 9px/1 system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--txt2)}
 .gr .gi{flex-direction:column;align-items:center;flex-basis:52px}.gr .gi span{order:2;font:800 9px/1 system-ui,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:var(--txt2)}
-/* v1.0.27 yard + gear bar */
+/* v1.0.29 yard + gear bar */
 .shelf{display:flex;flex-direction:column;gap:8px}
 .gcard{display:flex;align-items:center;gap:10px;width:100%;text-align:left;font-family:inherit;color:var(--txt);
  background:linear-gradient(#35302a,#27231e);border:2px solid var(--ink);border-radius:6px;box-shadow:0 3px 0 #000;padding:7px 9px}
@@ -392,7 +392,7 @@ html,body{height:100%;overflow:hidden}
 .plantrow .gchg svg{width:14px;height:14px}
 #app.wide .wmain .plantrow{grid-template-columns:repeat(3,minmax(0,1fr)) 74px}
 #app.wide .wmain .plantrow .gchg{grid-column:4;grid-row:1}
-/* v1.0.27 crew tally + swap */
+/* v1.0.29 crew tally + swap */
 .crew .cs{display:flex;align-items:center;justify-content:center;gap:2px;font-weight:900;font-size:11px;color:var(--hz);margin-top:1px}
 .crew .cs svg{width:11px;height:11px}
 .crew .cs small{font-size:9px;color:var(--txt2);font-weight:800}
@@ -407,13 +407,13 @@ html,body{height:100%;overflow:hidden}
 .maphead .swap svg{width:17px;height:17px}
 .maphead .swap small{font-size:8px;font-weight:900;letter-spacing:.04em;text-transform:uppercase;line-height:1.1;text-align:center}
 .maphead:active{transform:translateY(2px)}
-/* v1.0.27 sound toggle feedback */
+/* v1.0.29 sound toggle feedback */
 #bar .snd.off{opacity:.5}
 #stoast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom) + 84px);transform:translate(-50%,14px);z-index:80;
  background:#15120f;border:2px solid var(--hz);border-radius:20px;color:var(--txt);padding:8px 16px;font:800 13px/1.2 system-ui,-apple-system,sans-serif;
  letter-spacing:.03em;box-shadow:0 4px 0 #000;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;max-width:86vw;text-align:center}
 #stoast.show{opacity:1;transform:translate(-50%,0)}
-/* v1.0.27 prospecting gates */
+/* v1.0.29 prospecting gates */
 .gate{display:flex;align-items:center;gap:10px;margin:14px 0 10px;padding:9px 11px;border-radius:6px;color:var(--txt);
  background:linear-gradient(#332d24,#26211b);border:2px dashed var(--hz);box-shadow:0 3px 0 #000}
 .gate.done{border-style:solid;background:linear-gradient(#3a3324,#282219)}
@@ -436,7 +436,7 @@ html,body{height:100%;overflow:hidden}
 .gnote2{font-size:13px;font-weight:800;margin-top:6px}
 .bfrom{margin-top:4px;color:var(--hz);opacity:.9}
 #app.wide #screen.mapg>.gate{grid-column:1/-1;max-width:760px;justify-self:center;width:100%}
-/* v1.0.27 tutorial coach marks + how to play */
+/* v1.0.29 tutorial coach marks + how to play */
 .coach{position:fixed;left:8px;right:8px;top:calc(env(safe-area-inset-top) + 58px);z-index:70;display:flex;align-items:flex-start;gap:6px;pointer-events:none;
  animation:coachin .35s cubic-bezier(.3,1.4,.5,1) both}
 @keyframes coachin{from{opacity:0;transform:translateY(-14px)}}
@@ -456,7 +456,7 @@ html,body{height:100%;overflow:hidden}
 .howrow b{display:block;font-size:15px;font-weight:900;margin-bottom:2px}
 .howrow div div{font-size:13px;line-height:1.35;color:var(--txt2)}
 #screen.howg .sub{margin-bottom:6px}
-/* v1.0.27 foreman + tray fit */
+/* v1.0.29 foreman + tray fit */
 .tray{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr)}
 .tile canvas{max-width:100%;height:auto!important;align-self:center;flex:0 0 auto;object-fit:contain}
 .tile .tl{max-width:100%;overflow:hidden;white-space:nowrap;text-overflow:clip;letter-spacing:0}
@@ -466,7 +466,7 @@ html,body{height:100%;overflow:hidden}
 .nofm svg{width:18px;height:18px;flex:0 0 auto;opacity:.8}
 .gnote2b{font-size:11.5px;font-weight:800;color:var(--txt2);text-align:center;padding:5px 2px 1px;letter-spacing:.02em}
 .gnote2b.fmcut{color:#e07a5a}
-/* v1.0.27 bonus chapters + options */
+/* v1.0.29 bonus chapters + options */
 .gate.bonus{border-style:solid;border-color:#8b7bd0;background:linear-gradient(#2c2740,#211d30)}
 .gate.bonus.locked{border-color:#4e4866}
 .gate.bonus .bi{flex:0 0 40px;display:flex;justify-content:center}
@@ -480,6 +480,29 @@ html,body{height:100%;overflow:hidden}
 .obt small{font-size:10px;font-weight:800;color:var(--txt2);text-align:center;line-height:1.2}
 .obt.wide2{flex:1 1 100%;align-items:flex-start}.obt.wide2 b{font-size:15px}.obt.wide2 small{text-align:left}
 #screen.optg .sub{margin:6px 0 2px}
+/* v1.0.29 title */
+#screen.titleg{display:flex;align-items:center;justify-content:center;padding-top:8px;padding-bottom:6px}
+.title{flex-direction:column;align-items:center;gap:4px}
+.logoc{display:block}
+.title{width:100%;display:flex;justify-content:center}
+.stage.hero{box-shadow:0 6px 0 #000,0 0 0 2px #0008}
+#app{background-blend-mode:normal}
+#app::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+ background:radial-gradient(ellipse at 50% 0%,rgba(0,0,0,.18),rgba(0,0,0,.55) 70%,rgba(0,0,0,.72))}
+#bar,#top,#screen,#foot{position:relative;z-index:1}
+/* v1.0.29 locked claims stay a mystery */
+.strip.hush canvas{filter:grayscale(1) brightness(.22) contrast(1.1)}
+.strip.hush{position:relative}
+.strip .qmark{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:900 54px/1 Impact,system-ui,sans-serif;
+ color:rgba(217,161,43,.35);text-shadow:0 3px 0 #000;pointer-events:none}
+.pin.lock{background:#0f0d0b;border-color:#2b2620;color:#6a5f52;flex-direction:row;gap:5px;padding:5px 8px}
+.pin.lock .qn{font-size:11px;letter-spacing:.18em;color:#6a5f52}
+.pin.lock svg{width:13px;height:13px;opacity:.8}
+.codecard{padding:10px 12px}
+.codebox{width:100%;margin:6px 0;background:#15120f;color:#e8ddc6;border:2px solid var(--ink);border-radius:5px;padding:8px;
+ font:700 11px/1.35 ui-monospace,Menlo,Consolas,monospace;resize:none;height:88px;-webkit-user-select:text;user-select:text}
+.codecard .row{gap:8px}.codecard .btn{margin-top:4px;font-size:14px;padding:10px}
+#screen.moveg .sub{margin:4px 0}
 </style>
 </head>
 <body>
@@ -494,10 +517,10 @@ html,body{height:100%;overflow:hidden}
   <main id="screen"></main>
   <footer id="foot"></footer>
 </div>
-<div id="ver">v1.0.27</div>
+<div id="ver">v1.0.29</div>
 <script>
 "use strict";
-const VERSION="1.0.27";
+const VERSION="1.0.29";
 /*__ENGINE_START__*/
 const COLS=10,YMAX=11,YMIN=-3,TREE_H=3;
 const GR={0:0,1:0.9,2:1.8,3:3.0};
@@ -970,7 +993,10 @@ const CREWS=[
     duo:{pose:"crossed",skin:"#eec09a",hair:"#3b2415",hat:"flat",hatC:"#4a5a3a",shirt:"#8e3b2e",plaid:1,beard:"full",beardC:"#3b2415",pants:"#2c3e50"}}},
  {id:"legend",name:"The Legend",boss:"Goldie Mae Rourke",line:"Struck it rich in '98. Never stopped digging.",unlock:20,
   perk:"Midas touch",pd:"Digs 15% more and sluices catch 6% more",P:{digMul:1.15,recAdd:0.06},
-  look:{pose:"crossed",fem:1,skin:"#e6b089",hair:"#e8e4dc",long:"braid",hat:"cowboy",hatC:"#c9962a",shirt:"#6b2d5c",beard:"none",pants:"#3a2a1a"}}
+  look:{pose:"crossed",fem:1,skin:"#e6b089",hair:"#e8e4dc",long:"braid",hat:"cowboy",hatC:"#c9962a",shirt:"#6b2d5c",beard:"none",pants:"#3a2a1a"}},
+ {id:"powder",name:"The Powder Monkeys",boss:"Dutch Van Loon",line:"Anything shifts, if you put enough under it.",unlock:45,
+  perk:"Deal maker",pd:"$90 more to spend in the yard, every season",P:{budAdd:90},
+  look:{pose:"hips",skin:"#c98d5e",hair:"#2e2620",hat:"hard",hatC:"#d94f2a",shirt:"#2f4f62",beard:"tash",pants:"#2b2b30",glove:"#d8c3a4"}}
 ];
 
 /* =============== THE MINER =============== */
@@ -1017,12 +1043,26 @@ function drawMiner(g,x,y,s,L,mood,t){
   const hand=(hx,hy2,r)=>{g.fillStyle=L.glove;g.beginPath();g.arc(x+hx*k,ty+hy2*k,(r||5.5)*k,0,7);g.fill();g.stroke();};
   const sh=shade(L.shirt,0.85),pose=L.pose||"crossed",tt=t||0;
   if(pose==="crossed"){
-    const ay=ty+3*k;
-    g.save();g.translate(x,ay+9*k);g.rotate(-0.14);
-    R(-27*k,-8*k,54*k,13*k,6.5*k,shade(L.shirt,0.8));R(15*k,-7*k,11*k,11*k,4*k,L.glove);g.restore();
-    g.save();g.translate(x,ay+9*k);g.rotate(0.14);
-    R(-27*k,-4*k,54*k,13*k,6.5*k,L.shirt);R(-26*k,-3*k,11*k,11*k,4*k,L.glove);
-    g.strokeStyle="#00000033";g.beginPath();g.moveTo(8*k,-2*k);g.quadraticCurveTo(12*k,3*k,8*k,8*k);g.stroke();g.restore();
+    // forearms folded across the chest, hands tucked under the opposite arm
+    g.fillStyle="#00000022";rrect(g,x-22*k,ty+8*k,44*k,18*k,8*k);g.fill();
+    const armCol=sh,cuff=shade(L.shirt,0.7);
+    const foreArm=(x1,y1,x2,y2,col)=>{g.lineCap="round";
+      g.strokeStyle=ol;g.lineWidth=15*k;g.beginPath();g.moveTo(x+x1*k,ty+y1*k);g.lineTo(x+x2*k,ty+y2*k);g.stroke();
+      g.strokeStyle=col;g.lineWidth=10.5*k;g.beginPath();g.moveTo(x+x1*k,ty+y1*k);g.lineTo(x+x2*k,ty+y2*k);g.stroke();
+      g.strokeStyle="rgba(255,255,255,.10)";g.lineWidth=3*k;g.beginPath();g.moveTo(x+x1*k,ty+(y1-3)*k);g.lineTo(x+x2*k,ty+(y2-3)*k);g.stroke();};
+    // upper arms hanging from the shoulders
+    [[-1],[1]].forEach(([sgn])=>{g.strokeStyle=ol;g.lineWidth=14*k;g.beginPath();
+      g.moveTo(x+sgn*21*k,ty+5*k);g.lineTo(x+sgn*25*k,ty+18*k);g.stroke();
+      g.strokeStyle=L.shirt;g.lineWidth=9.5*k;g.beginPath();g.moveTo(x+sgn*21*k,ty+5*k);g.lineTo(x+sgn*25*k,ty+18*k);g.stroke();});
+    // lower forearm first (the one behind), then the top one
+    foreArm(23,19,-9,13,armCol);
+    g.fillStyle=cuff;rrect(g,x-14*k,ty+7*k,9*k,11*k,3*k);g.fill();g.strokeStyle=ol;g.lineWidth=lw;g.stroke();
+    g.fillStyle=L.glove;g.beginPath();g.arc(x-18*k,ty+13*k,6.2*k,0,7);g.fill();g.stroke();
+    foreArm(-23,23,11,17,shade(L.shirt,0.95));
+    g.fillStyle=cuff;rrect(g,x+6*k,ty+11*k,9*k,11*k,3*k);g.fill();g.strokeStyle=ol;g.lineWidth=lw;g.stroke();
+    g.fillStyle=L.glove;g.beginPath();g.arc(x+18*k,ty+17*k,6.4*k,0,7);g.fill();g.stroke();
+    g.strokeStyle="rgba(0,0,0,.22)";g.lineWidth=2*k;g.beginPath();g.moveTo(x-2*k,ty+15*k);g.lineTo(x+4*k,ty+19*k);g.stroke();
+    g.strokeStyle=ol;g.lineWidth=lw;
   }else if(pose==="hips"){
     limb([[-20,7],[-33,21],[-21,33]],sh);hand(-21,33);
     limb([[20,7],[33,21],[21,33]],sh);hand(21,33);
@@ -1185,6 +1225,121 @@ const PAL={
  "Space":      {sky:["#05060c","#12141e"],hill:"#3a3d44",ob:"#5e6168",top:"#50535a",tree:"#33363c",kind:"spruce",bed:"#26282d",space:"moon"},
  "Asteroid":   {sky:["#03040a","#0a0b12"],hill:"#2f3238",ob:"#4a4d54",top:"#40434a",tree:"#33363c",kind:"spruce",bed:"#212328",space:"rock"}
 };
+
+/* =============== TITLE ART =============== */
+/* A tiled dirt texture with stones and gold in it, generated once. */
+let DIRT=null;
+function dirtTile(){
+  if(DIRT)return DIRT;
+  const n=240,cv=document.createElement("canvas");cv.width=n;cv.height=n;
+  const g=cv.getContext("2d"),r=rnd32(20260924);
+  g.fillStyle="#332619";g.fillRect(0,0,n,n);
+  const wrap=(fn)=>{const x=r()*n,y=r()*n,rot=r()*3;
+    for(let dx=-1;dx<=1;dx++)for(let dy=-1;dy<=1;dy++)fn(x+dx*n,y+dy*n,rot);};
+  for(let i=0;i<1100;i++){const s=0.6+r()*2.4,d=r();
+    const col=d<0.35?"rgba(24,17,10,.5)":d<0.7?"rgba(92,71,47,.42)":"rgba(140,112,74,.26)";
+    wrap((x,y,rot)=>{g.fillStyle=col;g.beginPath();g.ellipse(x,y,s*1.4,s,rot,0,7);g.fill();});}
+  for(let i=0;i<44;i++){const s=2.4+r()*5;   // stones
+    wrap((x,y,rot)=>{g.fillStyle="rgba(108,96,80,.45)";g.beginPath();g.ellipse(x,y,s,s*0.7,rot,0,7);g.fill();
+      g.fillStyle="rgba(190,178,150,.14)";g.beginPath();g.ellipse(x-s*0.2,y-s*0.25,s*0.5,s*0.3,rot,0,7);g.fill();});}
+  for(let i=0;i<24;i++){const s=0.9+r()*2.1;  // gold in the dirt
+    wrap((x,y,rot)=>{g.fillStyle="rgba(214,160,44,.8)";g.beginPath();g.ellipse(x,y,s*1.5,s,rot,0,7);g.fill();
+      g.fillStyle="rgba(255,240,190,.85)";g.beginPath();g.arc(x-s*0.4,y-s*0.35,s*0.45,0,7);g.fill();});}
+  DIRT=cv.toDataURL("image/png");return DIRT;
+}
+// gold bar, drawn end-on-ish
+function goldBar(g,x,y,w,h,shine){
+  const t=w*0.16;
+  g.beginPath();g.moveTo(x-w/2+t,y-h/2);g.lineTo(x+w/2-t,y-h/2);g.lineTo(x+w/2,y+h/2);g.lineTo(x-w/2,y+h/2);g.closePath();
+  const gr=g.createLinearGradient(x-w/2,y-h/2,x+w/2,y+h/2);
+  gr.addColorStop(0,"#ffe9a8");gr.addColorStop(0.35,"#f0b93a");gr.addColorStop(0.62,"#c88a12");gr.addColorStop(1,"#8a5c08");
+  g.fillStyle=gr;g.fill();g.strokeStyle="#5a3c06";g.lineWidth=Math.max(1,w*0.028);g.stroke();
+  g.fillStyle="rgba(255,255,255,"+(0.22+0.2*shine)+")";
+  g.beginPath();g.moveTo(x-w/2+t,y-h/2);g.lineTo(x+w/2-t,y-h/2);g.lineTo(x+w/2-t-h*0.2,y-h/2+h*0.32);g.lineTo(x-w/2+t+h*0.2,y-h/2+h*0.32);g.closePath();g.fill();
+}
+// the wordmark on its own: GET THE / GOLD in gold, with bars either side
+function drawWordmark(g,cx,cy,w,t){
+  g.save();g.textAlign="center";g.textBaseline="middle";
+  const fs=w*0.26;
+  g.font="700 "+(w*0.082)+"px Impact, 'Arial Narrow', system-ui, sans-serif";
+  if("letterSpacing" in g)g.letterSpacing=(w*0.035)+"px";
+  g.lineJoin="round";g.strokeStyle="#0d0904";g.lineWidth=w*0.016;g.strokeText("GET THE",cx,cy-fs*0.62);
+  g.fillStyle="#d8c9a4";g.fillText("GET THE",cx,cy-fs*0.62);
+  if("letterSpacing" in g)g.letterSpacing="0px";
+  g.font="700 "+fs+"px Impact, 'Haettenschweiler', 'Arial Black', system-ui, sans-serif";
+  const ty=cy+fs*0.2;
+  g.strokeStyle="#0d0904";g.lineWidth=w*0.035;g.strokeText("GOLD",cx,ty);
+  const wg=g.createLinearGradient(0,ty-fs*0.5,0,ty+fs*0.5);
+  wg.addColorStop(0,"#fff6d0");wg.addColorStop(0.32,"#f3c24a");wg.addColorStop(0.5,"#b8860b");wg.addColorStop(0.62,"#f7d878");wg.addColorStop(1,"#8a5c08");
+  g.fillStyle=wg;g.fillText("GOLD",cx,ty);
+  const sw=((t*0.35)%1.8)-0.4;
+  g.save();g.beginPath();g.rect(cx-w/2,ty-fs*0.6,w,fs*1.2);g.clip();
+  const sh=g.createLinearGradient(cx-w/2+w*sw-w*0.1,0,cx-w/2+w*sw+w*0.1,0);
+  sh.addColorStop(0,"rgba(255,255,255,0)");sh.addColorStop(0.5,"rgba(255,255,255,.55)");sh.addColorStop(1,"rgba(255,255,255,0)");
+  g.fillStyle=sh;g.fillText("GOLD",cx,ty);g.restore();
+  const bw=w*0.16,bh=w*0.05;
+  goldBar(g,cx-w*0.395,ty+fs*0.18,bw,bh,Math.sin(t*1.2)*0.5+0.5);
+  goldBar(g,cx+w*0.395,ty+fs*0.18,bw,bh,Math.sin(t*1.2+1.4)*0.5+0.5);
+  goldBar(g,cx-w*0.355,ty+fs*0.18-bh*0.95,bw*0.8,bh*0.9,Math.sin(t*1.2+2)*0.5+0.5);
+  goldBar(g,cx+w*0.355,ty+fs*0.18-bh*0.95,bw*0.8,bh*0.9,Math.sin(t*1.2+2.6)*0.5+0.5);
+  g.restore();g.textAlign="left";g.textBaseline="alphabetic";
+}
+// the wordmark: an engraved plaque, machinery embossed behind, bars beneath
+function drawLogo(g,cx,cy,w,t){
+  const h=w*0.52,x0=cx-w/2,y0=cy-h/2,rr=w*0.045,ink="#171009";
+  g.save();
+  // plaque
+  g.shadowColor="rgba(0,0,0,.55)";g.shadowBlur=w*0.05;g.shadowOffsetY=w*0.012;
+  const pg2=g.createLinearGradient(0,y0,0,y0+h);pg2.addColorStop(0,"#241a10");pg2.addColorStop(0.5,"#171009");pg2.addColorStop(1,"#241a10");
+  g.fillStyle=pg2;rrect(g,x0,y0,w,h,rr);g.fill();g.shadowColor="transparent";g.shadowOffsetY=0;
+  // gold trim, double rule
+  const tg=g.createLinearGradient(x0,y0,x0+w,y0+h);
+  tg.addColorStop(0,"#ffe9a8");tg.addColorStop(0.3,"#d6a02c");tg.addColorStop(0.55,"#8a5c08");tg.addColorStop(0.8,"#e8c25e");tg.addColorStop(1,"#a8761a");
+  g.strokeStyle=tg;g.lineWidth=w*0.017;rrect(g,x0,y0,w,h,rr);g.stroke();
+  g.lineWidth=w*0.005;rrect(g,x0+w*0.028,y0+h*0.05,w*0.944,h*0.9,rr*0.7);g.stroke();
+  g.save();rrect(g,x0+w*0.028,y0+h*0.05,w*0.944,h*0.9,rr*0.7);g.clip();
+  // embossed skyline: headframe, trommel, conveyor
+  g.strokeStyle="rgba(214,180,120,.17)";g.fillStyle="rgba(214,180,120,.14)";g.lineWidth=w*0.012;
+  const by=y0+h*0.78,s=w*0.1;
+  g.beginPath();g.moveTo(x0+w*0.1,by);g.lineTo(x0+w*0.17,by-s*1.5);g.lineTo(x0+w*0.24,by);g.stroke();     // headframe
+  g.beginPath();g.moveTo(x0+w*0.13,by-s*0.75);g.lineTo(x0+w*0.21,by-s*0.75);g.stroke();
+  g.beginPath();g.arc(x0+w*0.17,by-s*1.5,w*0.016,0,7);g.fill();
+  g.beginPath();rrect(g,x0+w*0.66,by-s*0.95,w*0.2,s*0.62,s*0.2);g.fill();                                  // trommel drum
+  g.beginPath();g.moveTo(x0+w*0.7,by);g.lineTo(x0+w*0.7,by-s*0.35);g.moveTo(x0+w*0.82,by);g.lineTo(x0+w*0.82,by-s*0.35);g.stroke();
+  g.beginPath();g.moveTo(x0+w*0.3,by);g.lineTo(x0+w*0.64,by-s*0.9);g.stroke();                             // conveyor
+  g.beginPath();g.moveTo(x0+w*0.06,by+w*0.005);g.lineTo(x0+w*0.94,by+w*0.005);g.stroke();
+  // wordmark
+  g.textAlign="center";g.textBaseline="middle";
+  g.font="700 "+(w*0.075)+"px Impact, 'Arial Narrow', system-ui, sans-serif";
+  g.fillStyle="#c9b48a";
+  g.letterSpacing&&(g.letterSpacing=(w*0.03)+"px");
+  g.fillText("GET THE",cx,y0+h*0.215);
+  g.letterSpacing&&(g.letterSpacing="0px");
+  const fs=w*0.205;
+  g.font="700 "+fs+"px Impact, 'Haettenschweiler', 'Arial Black', system-ui, sans-serif";
+  const ty=y0+h*0.455;
+  g.lineJoin="round";
+  g.strokeStyle="#0d0904";g.lineWidth=w*0.032;g.strokeText("GOLD",cx,ty);
+  const wg=g.createLinearGradient(0,ty-fs*0.45,0,ty+fs*0.45);
+  wg.addColorStop(0,"#fff6d0");wg.addColorStop(0.32,"#f3c24a");wg.addColorStop(0.5,"#b8860b");wg.addColorStop(0.62,"#f7d878");wg.addColorStop(1,"#8a5c08");
+  g.fillStyle=wg;g.fillText("GOLD",cx,ty);
+  // shine sweeping across the letters
+  const sw=((t*0.35)%1.6)-0.3;
+  g.save();g.beginPath();g.rect(x0,ty-fs*0.6,w,fs*1.2);g.clip();
+  const sh=g.createLinearGradient(x0+w*sw-w*0.12,0,x0+w*sw+w*0.12,0);
+  sh.addColorStop(0,"rgba(255,255,255,0)");sh.addColorStop(0.5,"rgba(255,255,255,.5)");sh.addColorStop(1,"rgba(255,255,255,0)");
+  g.fillStyle=sh;g.fillText("GOLD",cx,ty);g.restore();
+  // three bars stacked under the wordmark
+  const bw=w*0.155,bh=w*0.05,byy=y0+h*0.775;
+  goldBar(g,cx-bw*0.55,byy,bw,bh,Math.sin(t*1.2)*0.5+0.5);
+  goldBar(g,cx+bw*0.55,byy,bw,bh,Math.sin(t*1.2+1)*0.5+0.5);
+  goldBar(g,cx,byy-bh*0.92,bw,bh,Math.sin(t*1.2+2)*0.5+0.5);
+  g.restore();
+  // rivets
+  g.fillStyle="#6b6155";[[0.045,0.12],[0.955,0.12],[0.045,0.88],[0.955,0.88]].forEach(([fx,fy])=>{
+    g.beginPath();g.arc(x0+w*fx,y0+h*fy,w*0.011,0,7);g.fill();});
+  g.restore();g.textAlign="left";g.textBaseline="alphabetic";
+}
 function geo(W){const cw=W/COLS,u=cw*0.5;return{W,cw,u,H:(YMAX-YMIN)*u,X:x=>x*cw,Y:y=>(YMAX-y)*u};}
 
 const TERR={};
@@ -1391,8 +1546,16 @@ function drawScene(g,G,C,B,U,o){
       drawPickman(g,G,dx+0.5,(top+bot)/2-0.35,dir,t,o.mode==="run"&&o.running,o.broken==="dig",B.dozer&&!!R.kit.dozer);}
     else{ // the digger drops into the cut and works along the pay, not on top of the muck
       const f=o.dug?Math.min(1,(o.dug[bc]||0)/0.9*1.7):0,dep=((isW(C,bc)?0:C.ob[bc])+C.p[bc])*f;
-      const gx=Math.max(0,Math.min(COLS-1,dx)),dd=gx<1.3?1:gx>COLS-2.3?-1:dir; // swing the arm inboard at the edges
-      drawExc(g,G,gx,surf(C,bc)-dep,dd,t,o.mode==="run"&&o.running,o.broken==="dig");}}
+      let gx=Math.max(0,Math.min(COLS-1,dx)),slide=0;
+      if(o.mode==="run"){                       // stand still to dig a column, then track to the next
+        const want=Math.max(0,Math.min(COLS-1,Math.round(dx)));
+        if(EXC.col===null||Math.abs(want-EXC.col)>1.5){EXC.col=want;EXC.from=want;EXC.t0=t;}
+        else if(want!==EXC.col){EXC.from=EXC.col;EXC.col=want;EXC.t0=t;}
+        const f=Math.max(0,Math.min(1,(t-EXC.t0)/0.7));
+        gx=EXC.from+(EXC.col-EXC.from)*(f*f*(3-2*f));
+        slide=f<1?(EXC.col-EXC.from)*0.6:0;EXC.slide=slide;}
+      const dd=gx<1.3?1:gx>COLS-2.3?-1:dir;     // swing the arm inboard at the edges
+      drawExc(g,G,gx,surf(C,bc)-dep,dd,t,o.mode==="run"&&o.running,o.broken==="dig",{slide:slide*t*3});}}
   // pumps drawn last so the intake sits on top
   B.wat.forEach(c=>{if(C.kit.wat!=="pump")return;
     let bw=null;C.wc.forEach(w=>{if(bw===null||Math.abs(w-c)<Math.abs(bw-c))bw=w;});
@@ -1418,6 +1581,24 @@ function drawPlant(g,G,C,B,R,t,o){
     if(running){g.strokeStyle="#9fb4b8";g.lineWidth=2;g.beginPath();g.moveTo(X(xa),Y(ya)+1);g.lineTo(X(xb),Y(yb)+1);g.stroke();
       const gl=Math.min(3,Math.floor((o.prog||0)*4*R.rec)+1);g.fillStyle="#ffd84a";
       for(let i=0;i<gl;i++){const f=(i+0.5)/3;g.beginPath();g.arc(X(xa+(xb-xa)*f),Y(ya+(yb-ya)*f)+2,1.7,0,7);g.fill();}}}
+  { // tailings stacker: runs off the back of the plant and keeps moving while it's washing
+    const away=(B.cut&&(B.cut[0]+B.cut[1])/2>c)?-1:1;      // throw the waste away from the cut
+    const sx0=c+(away<0?-0.15:1.15),sy0=base+1.35,sx1=c+(away<0?-1.05:2.05),sy1=base+0.35;
+    const X0=X(sx0),Y0=Y(sy0),X1=X(sx1),Y1=Y(sy1),th=Math.max(5,G.u*0.26);
+    g.lineCap="round";g.strokeStyle="#2a1d10";g.lineWidth=th+4;g.beginPath();g.moveTo(X0,Y0);g.lineTo(X1,Y1);g.stroke();
+    g.strokeStyle="#4b4f55";g.lineWidth=th;g.stroke();
+    const L2=Math.hypot(X1-X0,Y1-Y0),gap=9;
+    for(let q=running?(t*34)%gap:0;q<L2;q+=gap){const f=q/L2,px=X0+(X1-X0)*f,py=Y0+(Y1-Y0)*f;
+      g.fillStyle=(Math.floor(q/gap)%4===0)?"#8a6a44":"#5e6268";g.beginPath();g.arc(px,py-th*0.45,1.7,0,7);g.fill();}
+    [[X0,Y0,th*0.6],[X1,Y1,th*0.5]].forEach(([rx,ry,rr2])=>{g.fillStyle="#6b6258";g.beginPath();g.arc(rx,ry,rr2,0,7);g.fill();
+      g.strokeStyle="#2a1d10";g.lineWidth=1.6;g.stroke();
+      if(running){g.strokeStyle="#241f1a";g.lineWidth=1.4;const a2=t*6;g.beginPath();
+        g.moveTo(rx+Math.cos(a2)*rr2*0.5,ry+Math.sin(a2)*rr2*0.5);g.lineTo(rx-Math.cos(a2)*rr2*0.5,ry-Math.sin(a2)*rr2*0.5);g.stroke();}});
+    const hp=0.35+(o.prog||0)*0.8;                                  // waste pile growing under it
+    g.fillStyle="#6e5c42";g.strokeStyle="#2a1d10";g.lineWidth=1.4;g.beginPath();
+    g.ellipse(X(sx1+away*0.1),Y(base),G.cw*0.34*hp,G.u*0.8*hp,0,Math.PI,0);g.fill();g.stroke();
+    if(running){g.fillStyle="#8a6a44";for(let i=0;i<3;i++){const ff=((t*1.3+i/3)%1);
+      g.beginPath();g.arc(X(sx1),Y(sy1)-2+ff*(Y(base)-Y(sy1)),2.2,0,7);g.fill();}}}
   if(running&&n){const xe=x0+n*0.42,ye=y0-drop*n*0.9,sz=0.3+(o.prog||0)*0.7;
     g.fillStyle="#9a8a70";g.strokeStyle="#2a1d10";g.lineWidth=1.3;g.beginPath();g.ellipse(X(xe+0.15),Y(base),G.cw*0.3*sz,G.u*0.8*sz,0,Math.PI,0);g.fill();g.stroke();}
   drawPlantUnit(g,G,c,base,gr.plant,t,running,o.broken==="trm");
@@ -1486,7 +1667,11 @@ function drawBeltSeg(g,G,a,b,bad,ghost){
   g.strokeStyle=bad?"#e0452e":ghost?"#7fd36b":"#4b4f55";g.lineWidth=Math.max(5,G.u*0.3);g.stroke();
   const L=Math.hypot(bx-ax,by-ay),n=Math.floor(L/9);g.fillStyle=bad?"#ffd0c4":"#f5b82e";
   for(let i=1;i<n;i++){const f=i/n;g.beginPath();g.arc(ax+(bx-ax)*f,ay+(by-ay)*f,1.3,0,7);g.fill();}
-  g.fillStyle="#2a1d10";g.beginPath();g.arc(bx,by,3.5,0,7);g.fill();g.globalAlpha=1;
+  const rr3=Math.max(3.5,G.u*0.2);
+  [[ax,ay],[bx,by]].forEach(([rx,ry])=>{g.fillStyle="#6b6258";g.beginPath();g.arc(rx,ry,rr3,0,7);g.fill();
+    g.strokeStyle="#2a1d10";g.lineWidth=1.5;g.stroke();
+    g.fillStyle="#2a1d10";g.beginPath();g.arc(rx,ry,rr3*0.35,0,7);g.fill();});
+  g.globalAlpha=1;
 }
 function drawDrop(g,x,y,r){g.fillStyle="#3ea0d8";g.strokeStyle="#2a1d10";g.lineWidth=1.3;
   g.beginPath();g.moveTo(x,y-r*1.4);g.quadraticCurveTo(x+r,y,x,y+r);g.quadraticCurveTo(x-r,y,x,y-r*1.4);g.fill();g.stroke();}
@@ -1626,10 +1811,11 @@ function drawPlantUnit(g,G,c,base,it,t,on,broken){
   else if(k==="shk")drawShaker(g,G,c,base,t,on,broken,it);
   else drawTrommel(g,G,c,base,1,t,on,broken,it);
 }
-function drawExc(g,G,c,base,dir,t,on,broken){
+const EXC={col:null,from:null,t0:0,slide:0};
+function drawExc(g,G,c,base,dir,t,on,broken,o){
   const X=G.X,Y=G.Y,cw=G.cw,u=G.u,sw=Math.max(1,cw/36);
   // --- dig cycle: scrape the face, lift, swing over the machine, tip out ---
-  const CYC=2.8,p=on?((t%CYC)/CYC):0.12;
+  const CYC=3.2,p=on?((t%CYC)/CYC):0.12;
   const seg=(p0,p1,a0,a1)=>{const f=Math.max(0,Math.min(1,(p-p0)/(p1-p0)));return a0+(a1-a0)*(f*f*(3-2*f));};
   let r,yy,curl;
   if(p<0.40){r=seg(0,0.40,1.60,1.00);yy=seg(0,0.40,0.45,0.10);curl=seg(0,0.40,0.05,1);}      // digging the face
@@ -1672,12 +1858,43 @@ function drawExc(g,G,c,base,dir,t,on,broken){
     g.strokeStyle=col;g.lineWidth=th*sw;g.beginPath();g.moveTo(A[0],A[1]);g.lineTo(B[0],B[1]);g.stroke();
     const hi=per(A,B,-th*0.28*sw),A2=[A[0]+hi[0],A[1]+hi[1]],B2=[B[0]+hi[0],B[1]+hi[1]];
     g.strokeStyle="#e8c165";g.lineWidth=th*0.22*sw;g.beginPath();g.moveTo(A2[0],A2[1]);g.lineTo(B2[0],B2[1]);g.stroke();}
-  // ---------- tracks ----------
-  g.fillStyle=ink;rrect(g,X(c+0.02),Y(base+0.46),cw*0.96,0.46*u,7);g.fill();
-  g.fillStyle="#4a4238";rrect(g,X(c+0.09),Y(base+0.38),cw*0.82,0.3*u,5);g.fill();
-  g.fillStyle="#8a7a60";for(let i=0;i<5;i++){g.beginPath();g.arc(X(c+0.16+i*0.17),Y(base+0.2),2.1*sw,0,7);g.fill();}
-  g.strokeStyle="#16110b";g.lineWidth=1.4*sw;
-  for(let i=0;i<9;i++){const x=X(c+0.06+i*0.105);g.beginPath();g.moveTo(x,Y(base+0.46));g.lineTo(x,Y(base+0.02));g.stroke();}
+  // ---------- undercarriage ----------
+  {const top=Y(base+0.95),bot=Y(base+0.04),hh2=bot-top,x0=X(c+0.01),x1=X(c+0.99);
+   const rad=hh2*0.46,cy=bot-rad-hh2*0.05,sx=x1-rad-hh2*0.1,ix=x0+rad+hh2*0.1;
+   // loop: frame inside, wheels, then the chain as a band round the outside
+   const loop=()=>{g.beginPath();g.moveTo(ix,cy-rad);g.lineTo(sx,cy-rad);g.arc(sx,cy,rad,-Math.PI/2,Math.PI/2);
+     g.lineTo(ix,cy+rad);g.arc(ix,cy,rad,Math.PI/2,-Math.PI/2);g.closePath();};
+   loop();g.fillStyle="#2f2a24";g.fill();
+   const flat=sx-ix,step=Math.max(10,cw*0.155),roll=on||(o&&o.slide)?t*(o&&o.slide?3.4:1.2):0;
+   const wheel=(wx,wr,teeth)=>{
+     g.fillStyle="#9a9086";g.beginPath();g.arc(wx,cy,wr,0,7);g.fill();g.strokeStyle=ink;g.lineWidth=2*sw;g.stroke();
+     g.fillStyle="#2b2621";g.beginPath();g.arc(wx,cy,wr*0.32,0,7);g.fill();
+     g.strokeStyle="#5c554d";g.lineWidth=2.6*sw;
+     for(let i=0;i<5;i++){const a2=roll*1.4+i*Math.PI/2.5;g.beginPath();
+       g.moveTo(wx+Math.cos(a2)*wr*0.36,cy+Math.sin(a2)*wr*0.36);g.lineTo(wx+Math.cos(a2)*wr*0.82,cy+Math.sin(a2)*wr*0.82);g.stroke();}
+     if(teeth){g.fillStyle="#cfc6b8";g.beginPath();g.arc(wx-wr*0.3,cy-wr*0.3,wr*0.13,0,7);g.fill();}};
+   wheel(sx,rad*0.76,1);wheel(ix,rad*0.64,0);
+   for(let i=0;i<3;i++){const rx=ix+rad*1.0+(flat-rad*2.0)*i/2;
+     g.fillStyle="#6b6258";g.beginPath();g.arc(rx,cy+rad*0.5,rad*0.2,0,7);g.fill();
+     g.strokeStyle=ink;g.lineWidth=1.3*sw;g.stroke();}
+   loop();g.strokeStyle="#241f1a";g.lineWidth=rad*0.3;g.stroke();      // the chain itself
+   loop();g.strokeStyle=ink;g.lineWidth=1.8*sw;g.stroke();
+   // grousers riding round the outside of the chain
+   const put=(px,py,ang)=>{g.save();g.translate(px,py);g.rotate(ang);
+     g.fillStyle="#8a8076";g.fillRect(-step*0.26,-rad*0.08,step*0.52,rad*0.16);
+     g.strokeStyle="#15120f";g.lineWidth=0.9*sw;g.strokeRect(-step*0.26,-rad*0.08,step*0.52,rad*0.16);g.restore();};
+   const off=((roll*step*3)%step+step)%step,rr2=rad-rad*0.12;
+   for(let d=off;d<flat;d+=step)put(ix+d,cy+rr2,Math.PI);
+   for(let k2=0;k2<5;k2++){const a2=-Math.PI/2+k2*0.55+roll*0.5;put(sx+Math.cos(a2)*rr2,cy+Math.sin(a2)*rr2,a2+Math.PI/2);}
+   for(let k2=0;k2<4;k2++){const a2=Math.PI/2+k2*0.6+roll*0.5;put(ix+Math.cos(a2)*rr2,cy+Math.sin(a2)*rr2,a2+Math.PI/2);}
+   // track guard over the top run
+   g.fillStyle="#c4912a";g.beginPath();g.moveTo(ix-rad*0.15,cy-rad*1.02);g.lineTo(sx+rad*0.15,cy-rad*1.02);
+   g.lineTo(sx-rad*0.1,cy-rad*0.3);g.lineTo(ix+rad*0.1,cy-rad*0.3);g.closePath();g.fill();
+   g.strokeStyle=ink;g.lineWidth=1.8*sw;g.stroke();
+   g.fillStyle="rgba(0,0,0,.22)";g.fillRect(ix+rad*0.1,cy-rad*0.55,sx-ix-rad*0.2,rad*0.22);
+   for(let i=0;i<3;i++){const rx=ix+rad*1.1+(flat-rad*2.2)*i/2;
+     g.fillStyle="#6b6258";g.beginPath();g.arc(rx,cy+rad*0.58,rad*0.22,0,7);g.fill();
+     g.strokeStyle=ink;g.lineWidth=1.4*sw;g.stroke();}}
   // ---------- house: counterweight, body, cab ----------
   g.fillStyle="#6b6155";rrect(g,X(hx-dir*0.46),Y(base+1.28),cw*0.24*dir,0.62*u,4);g.fill();g.strokeStyle=ink;g.lineWidth=1.8*sw;g.stroke();
   g.fillStyle=yel;rrect(g,X(c+0.12),Y(base+1.22),cw*0.76,0.62*u,5);g.fill();
@@ -1706,6 +1923,10 @@ function drawExc(g,G,c,base,dir,t,on,broken){
   g.fillStyle="#3e382f";for(let i=0;i<4;i++){const f=0.18+i*0.24,x=bw*(0.42+0.55*f),y=bh*(0.95-0.15*f*f);
     g.beginPath();g.moveTo(x-bw*0.06,y-bh*0.04);g.lineTo(x+bw*0.06,y-bh*0.02);g.lineTo(x+bw*0.01,y+bh*0.24);g.closePath();g.fill();
     g.strokeStyle=ink;g.lineWidth=1.2*sw;g.stroke();}
+  if(p>0.34&&p<0.82){ // a bucket full of pay on the way round
+    g.fillStyle="#8a6a44";g.beginPath();g.ellipse(bw*0.45,bh*0.3,bw*0.42,bh*0.34,0,Math.PI,0);g.fill();
+    g.strokeStyle=ink;g.lineWidth=1.4*sw;g.stroke();
+    g.fillStyle="#ffd84a";[[0.25,0.15],[0.5,0.05],[0.7,0.2]].forEach(([fx,fy])=>{g.beginPath();g.arc(bw*fx,bh*fy,1.5*sw,0,7);g.fill();});}
   g.restore();
   ram(bkCylA,bkCylB,5.5);
   if(on&&p>0.78&&p<0.95){g.fillStyle="#8a6a44";const rr=rnd32(Math.floor(t*30));
@@ -2090,6 +2311,69 @@ function tutShow(screen){
     if(st.d&&S.builds[C.id]&&st.d(S.builds[C.id]))tutNext();
   },250);
 }
+
+/* =============== MOVING PROGRESS BETWEEN DEVICES =============== */
+/* The save lives in this browser, so transfers go by code: what you've won,
+   your crew, your grubstakes and your settings, packed into text you can paste
+   on the other device. Layouts aren't included — they'd make the code huge. */
+function makeCode(){
+  const p={v:SAVE_V,b:S.best,s:S.stars,c:S.cstars,g:S.grub,m:Math.round((S.mini||0)*100)/100,
+    w:S.crew,u:S.cur,n:S.claim,t:S.tutOff?1:0};
+  let j=JSON.stringify(p),out="";
+  try{out=btoa(unescape(encodeURIComponent(j)));}catch(e){out="";}
+  const body=out.replace(/=+$/,"");
+  let sum=0;for(let i=0;i<body.length;i++)sum=(sum*31+body.charCodeAt(i))>>>0;
+  const tag=("0000"+(sum%65536).toString(36)).slice(-4);
+  return "GTG1-"+tag+"-"+body.replace(/(.{1,48})/g,"$1\n").trim();
+}
+function readCode(txt){
+  const raw=(txt||"").replace(/\s+/g,"");
+  const m=raw.match(/^GTG1-([0-9a-z]{4})-(.+)$/i);
+  if(!m)return{err:"That doesn't look like a Get the Gold code."};
+  let body=m[2];let sum=0;for(let i=0;i<body.length;i++)sum=(sum*31+body.charCodeAt(i))>>>0;
+  if(("0000"+(sum%65536).toString(36)).slice(-4)!==m[1].toLowerCase())return{err:"The code looks damaged — copy the whole thing and try again."};
+  try{const pad=body+"=".repeat((4-body.length%4)%4);
+    const p=JSON.parse(decodeURIComponent(escape(atob(pad))));
+    if(!p||typeof p!=="object"||!p.s)return{err:"Nothing in that code."};
+    return{p};}catch(e){return{err:"Couldn't read that code."}}
+}
+function applyCode(p){
+  S.best=p.b||{};S.stars=p.s||{};S.cstars=p.c||{};S.grub=p.g||{};
+  S.mini=+p.m||0;S.crew=p.w||S.crew;S.cur=p.u||S.cur;S.claim=+p.n||0;
+  if(p.t)S.tutOff=1;S.builds={};                       // layouts start fresh on this device
+  migrate();save();
+}
+function screenMove(back){
+  syncBar(false);
+  const code=makeCode(),tot=totalStars();
+  h(`<div class="h1">MOVE YOUR PROGRESS</div>
+     <div class="sub center">Your game is saved in this browser. To carry it to another device, copy this code and paste it there.</div>
+     <div class="card codecard"><div class="sub">This device · ${tot} stars · ${fmt(bankOz())} oz banked</div>
+       <textarea id="ctx" class="codebox" readonly>${code}</textarea>
+       <div class="row"><button class="btn" id="cp">Copy code</button><button class="btn alt" id="sel">Select all</button></div>
+       <div class="sub" id="cpmsg"></div></div>
+     <h3>Coming from another device?</h3>
+     <div class="card codecard"><div class="sub">Paste the code from the other device here</div>
+       <textarea id="ptx" class="codebox" placeholder="GTG1-..."></textarea>
+       <button class="btn go" id="use">Load that progress</button>
+       <div class="sub" id="usemsg"></div></div>`,
+    {cls:"moveg",foot:`<button class="btn go big" id="ok">${ICON.play}<span>DONE</span></button>`});
+  $("#cp").onclick=async()=>{const ta=$("#ctx");
+    try{await navigator.clipboard.writeText(ta.value);$("#cpmsg").textContent="Copied. Paste it into the game on your other device.";}
+    catch(e){ta.focus();ta.select();$("#cpmsg").textContent="Press and hold the code, then choose Copy.";}};
+  $("#sel").onclick=()=>{const ta=$("#ctx");ta.focus();ta.select();};
+  $("#use").onclick=()=>{const r=readCode($("#ptx").value);
+    if(r.err){$("#usemsg").textContent=r.err;$("#usemsg").style.color="#e0452e";return;}
+    const inc=Object.values(r.p.s||{}).reduce((a,b)=>a+b,0),here=totalStars();
+    if(inc<here&&!window.__confirmSwap){window.__confirmSwap=1;
+      $("#usemsg").style.color="#e0a02e";
+      $("#usemsg").textContent="That code has "+inc+" stars and this device has "+here+". Tap again to replace what's here.";return;}
+    window.__confirmSwap=0;applyCode(r.p);syncBar(false);
+    $("#usemsg").style.color="#8fd07a";$("#usemsg").textContent="Loaded — "+totalStars()+" stars restored.";
+    setTimeout(()=>screenMap(),900);};
+  $("#ok").onclick=()=>back?back():screenTitle();
+}
+
 /* =============== OPTIONS =============== */
 function screenOpts(back){
   syncBar(false);
@@ -2100,6 +2384,8 @@ function screenOpts(back){
      <div class="sub center" id="ex"></div>
      <h3>Sound</h3>
      <div class="opts"><button class="obt wide2" id="snd2"></button></div>
+     <h3>Other devices</h3>
+     <div class="opts"><button class="obt wide2" id="mv"><b>Move progress to another device</b><small>copy a code here, paste it there</small></button></div>
      <h3>Help</h3>
      <div class="opts"><button class="obt wide2" id="tut2"><b>Replay the tutorial</b><small>walks you through your first claim again</small></button>
        <button class="obt wide2" id="how3"><b>How to play</b><small>the short version</small></button></div>`,
@@ -2110,6 +2396,7 @@ function screenOpts(back){
   $("#snd2").onclick=()=>{S.snd=S.snd===false;save();syncSnd();ex();if(S.snd!==false){SND.unlock();SND.alarm();}};
   $("#tut2").onclick=()=>{S.tut=0;S.tutOff=0;S.claim=0;save();screenIntro();};
   $("#how3").onclick=()=>screenHow(()=>screenOpts(back));
+  $("#mv").onclick=()=>screenMove(()=>screenOpts(back));
   ex();
   $("#ok").onclick=()=>back?back():screenTitle();
 }
@@ -2139,16 +2426,21 @@ function screenHow(back){
 function screenTitle(){
   syncBar(false);
   const has=Object.keys(S.stars).length||S.crew;
-  h(`<div class="title">
-      <div class="logo"><span class="l1">GET THE</span><span class="l2">GOLD!</span></div>
-      <div class="stage"><canvas id="tc"></canvas></div>
-     </div>`,{re:screenTitle,foot:`<button class="btn go huge pulse" id="go">${ICON.play}<span>PLAY</span></button>
+  h(`<div class="title"><canvas id="lg" class="logoc"></canvas><div class="stage hero"><canvas id="tc"></canvas></div></div>`,
+    {re:screenTitle,cls:"titleg",foot:`<button class="btn go huge pulse" id="go">${ICON.play}<span>PLAY</span></button>
       <div class="row"><button class="btn ghost" id="how">${ICON.map}<span>How to play</span></button>
       <button class="btn ghost" id="opt">${ICON.reset}<span>Options</span></button></div>
       ${has?'<button class="btn ghost" id="wipe">New game</button>':""}`});
-  const cv=$("#tc"),W=Math.floor(Math.min(W0(),Math.max(260,(scr.clientHeight-(WIDE()?150:190))/0.78))),H=Math.round(W*0.78),g=fit(cv,W,H),L=crewOf().look,t0=performance.now();
+  // the logo and the scene share whatever room is left, and never overflow
+  const cs=getComputedStyle(scr),padY=parseFloat(cs.paddingTop)+parseFloat(cs.paddingBottom);
+  const availH=Math.max(220,scr.clientHeight-padY-10),availW=Math.floor(Math.min(CW()-4,WIDE()?700:540));
+  let W=availW,LH=Math.round(W*0.34),H=Math.round(W*0.76);
+  if(LH+H+10>availH){const k=(availH-10)/(LH+H);LH=Math.floor(LH*k);H=Math.floor(H*k);W=Math.floor(H/0.76);}
+  const lc=$("#lg"),lg=fit(lc,W,LH);
+  const cv=$("#tc"),g=fit(cv,W,H),L=crewOf().look,t0=performance.now();
   const nug=[];const r=rnd32(5);for(let i=0;i<14;i++)nug.push([W*0.5+(r()-0.5)*W*0.7,H-26-r()*14,4+r()*6]);
   loop(()=>{const t=(performance.now()-t0)/1000;
+    lg.clearRect(0,0,W,LH);drawWordmark(lg,W/2,LH*0.56,Math.min(W*0.92,LH*2.5),t);
     const sk=g.createLinearGradient(0,0,0,H);sk.addColorStop(0,"#5f727c");sk.addColorStop(1,"#c2b294");g.fillStyle=sk;g.fillRect(0,0,W,H);
     const sgr=g.createRadialGradient(W*0.8,H*0.22,0,W*0.8,H*0.22,70);sgr.addColorStop(0,"rgba(240,220,170,.8)");sgr.addColorStop(1,"rgba(240,220,170,0)");g.fillStyle=sgr;g.fillRect(0,0,W,H*0.6);
     g.fillStyle="#5c6866";g.beginPath();g.moveTo(0,H*0.62);[[0.15,0.32],[0.3,0.5],[0.48,0.26],[0.66,0.48],[0.84,0.3],[1,0.52]].forEach(([x,y])=>g.lineTo(W*x,H*y));g.lineTo(W,H);g.lineTo(0,H);g.fill();
@@ -2166,7 +2458,7 @@ function screenTitle(){
   if($("#wipe")){let armed=false;$("#wipe").onclick=()=>{if(!armed){armed=true;$("#wipe").textContent="Tap again to wipe everything";
     setTimeout(()=>{armed=false;const w=$("#wipe");if(w)w.textContent="New game";},3000);return;}
     try{[SAVE].concat(LEGACY).forEach(k=>localStorage.removeItem(k));}catch(e){}
-    S={v:SAVE_V,best:{},stars:{},mini:0,builds:{},claim:0,crew:null,snd:S.snd};save();screenTitle();};}
+    S={v:SAVE_V,best:{},stars:{},cstars:{},grub:{},mini:0,builds:{},claim:0,crew:null,snd:S.snd,cur:S.cur};save();screenTitle();};}
 }
 
 /* =============== CREW =============== */
@@ -2257,10 +2549,10 @@ function screenMap(){
         </div>`:"")
         +`<div class="region ${open?"":"locked"}"><div class="rname"><span>${ch.id} · ${ch.n}</span><span class="rs">${ICON.star}${got}/9</span></div>
         <div class="rdesc">${open?ch.d:GATE[ch.id]&&chapDone(ch.id-1)?"Make your prospecting run to open it.":"Finish the chapter before to unlock."}</div>
-        <div class="strip"><canvas data-r="${ch.region}" data-s="${ch.id}"></canvas>
+        <div class="strip ${open?"":"hush"}"><canvas data-r="${ch.region}" data-s="${ch.id}"></canvas>${open?"":`<span class="qmark">?</span>`}
         ${cs.map(([c,i])=>{const st=S.stars[c.id]||0,o2=claimOpen(i);
           return `<button class="pin ${st?"done":o2?"open":"lock"}" data-i="${i}" style="left:${c.mx}%;top:${c.my}%">
-            ${o2?`<b>${c.name}</b><span class="ps">${starRow(st,"xs")}</span>`:ICON.lock}</button>`;}).join("")}
+            ${o2?`<b>${c.name}</b><span class="ps">${starRow(st,"xs")}</span>`:`<b class="qn">? ? ?</b>${ICON.lock}`}</button>`;}).join("")}
         </div></div>`;}).join("")}
      `,{re:screenMap,cls:"mapg",foot:`<div class="row"><button class="btn ghost" id="how2">${ICON.map}<span>How to play</span></button>
        <button class="btn ghost" id="opt2">${ICON.reset}<span>Options</span></button></div>`});
@@ -2826,6 +3118,12 @@ function screenResult(oz,R,fail,ranDay,siltDay,lostDays){
   if($("#mini"))$("#mini").onclick=()=>playGate(nextGate);
 }
 
+/* =============== BOOT =============== */
+function boot(){
+  try{appEl.style.backgroundImage="url("+dirtTile()+")";appEl.style.backgroundSize="240px 240px";}catch(e){}
+  load();syncBar(false);syncSnd();screenTitle();
+}
+
 /* ================= MINI-GAMES ================= */
 const MINI={
  pan:{n:"Gold Panning",w:"A shovel of creek gravel",
@@ -3138,7 +3436,7 @@ function miniDive(finish){
 }
 
 
-load();syncBar(false);syncSnd();screenTitle();
+boot();
 </script>
 </body>
 </html>
