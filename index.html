@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=1,user-scalable=no">
 <meta name="app-repo" content="get-the-gold">
-<meta name="app-version" content="1.0.23">
+<meta name="app-version" content="1.0.25">
 <meta name="theme-color" content="#2a1d10">
 <title>Get the Gold</title>
 <style>
@@ -306,7 +306,7 @@ h2{color:var(--txt)}
 .bubble.tap{animation:tapme 1s ease-in-out infinite;cursor:pointer}
 @keyframes tapme{50%{box-shadow:2px 3px 0 #000,0 0 0 4px rgba(217,161,43,.55)}}
 
-/* ===== v1.0.23 fixed chrome: header + footer stay put, only the middle scrolls ===== */
+/* ===== v1.0.25 fixed chrome: header + footer stay put, only the middle scrolls ===== */
 html,body{height:100%;overflow:hidden}
 #app{height:100vh;height:100dvh;min-height:0;overflow:hidden}
 #bar{position:relative;flex:0 0 auto}
@@ -361,13 +361,13 @@ html,body{height:100%;overflow:hidden}
 .crews{grid-template-columns:repeat(3,minmax(0,1fr))}.crew{min-width:0}
 .crew b{overflow-wrap:break-word;font-size:12px;padding:0 3px;line-height:1.15}
 @media (min-width:520px){.crews{grid-template-columns:repeat(4,minmax(0,1fr))}}.crew .pt canvas{max-width:100%;height:auto!important}
-/* v1.0.23 name labels */
+/* v1.0.25 name labels */
 .tile{flex-direction:column;gap:2px;padding:4px 2px 3px}
 .tile canvas{order:1}.tile .tl{order:2;font:800 10px/1 system-ui,-apple-system,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#1a140e;white-space:nowrap}
 .wside .tile .tl{font-size:12px}
 .plantrow .pi{display:flex;flex-direction:column;align-items:center;gap:1px}.plantrow .pl{order:2;font:800 9px/1 system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--txt2)}
 .gr .gi{flex-direction:column;align-items:center;flex-basis:52px}.gr .gi span{order:2;font:800 9px/1 system-ui,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:var(--txt2)}
-/* v1.0.23 yard + gear bar */
+/* v1.0.25 yard + gear bar */
 .shelf{display:flex;flex-direction:column;gap:8px}
 .gcard{display:flex;align-items:center;gap:10px;width:100%;text-align:left;font-family:inherit;color:var(--txt);
  background:linear-gradient(#35302a,#27231e);border:2px solid var(--ink);border-radius:6px;box-shadow:0 3px 0 #000;padding:7px 9px}
@@ -392,7 +392,7 @@ html,body{height:100%;overflow:hidden}
 .plantrow .gchg svg{width:14px;height:14px}
 #app.wide .wmain .plantrow{grid-template-columns:repeat(3,minmax(0,1fr)) 74px}
 #app.wide .wmain .plantrow .gchg{grid-column:4;grid-row:1}
-/* v1.0.23 crew tally + swap */
+/* v1.0.25 crew tally + swap */
 .crew .cs{display:flex;align-items:center;justify-content:center;gap:2px;font-weight:900;font-size:11px;color:var(--hz);margin-top:1px}
 .crew .cs svg{width:11px;height:11px}
 .crew .cs small{font-size:9px;color:var(--txt2);font-weight:800}
@@ -407,12 +407,55 @@ html,body{height:100%;overflow:hidden}
 .maphead .swap svg{width:17px;height:17px}
 .maphead .swap small{font-size:8px;font-weight:900;letter-spacing:.04em;text-transform:uppercase;line-height:1.1;text-align:center}
 .maphead:active{transform:translateY(2px)}
-/* v1.0.23 sound toggle feedback */
+/* v1.0.25 sound toggle feedback */
 #bar .snd.off{opacity:.5}
 #stoast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom) + 84px);transform:translate(-50%,14px);z-index:80;
  background:#15120f;border:2px solid var(--hz);border-radius:20px;color:var(--txt);padding:8px 16px;font:800 13px/1.2 system-ui,-apple-system,sans-serif;
  letter-spacing:.03em;box-shadow:0 4px 0 #000;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;max-width:86vw;text-align:center}
 #stoast.show{opacity:1;transform:translate(-50%,0)}
+/* v1.0.25 prospecting gates */
+.gate{display:flex;align-items:center;gap:10px;margin:14px 0 10px;padding:9px 11px;border-radius:6px;color:var(--txt);
+ background:linear-gradient(#332d24,#26211b);border:2px dashed var(--hz);box-shadow:0 3px 0 #000}
+.gate.done{border-style:solid;background:linear-gradient(#3a3324,#282219)}
+.gate.locked{opacity:.5;filter:grayscale(.7);border-color:#5b5145}
+.gate .gi3{flex:0 0 46px;display:flex;justify-content:center}
+.gate .gtx2{flex:1;min-width:0}
+.gate .gtx2 b{display:block;font-size:16px;font-weight:900}
+.gate .gtx2 small{font-size:11px;font-weight:800;color:var(--txt2)}
+.gate .gbar{display:flex;align-items:center;gap:7px;margin-top:3px}
+.gate .gbar .meter{max-width:110px}
+.gate .gbar span{font-weight:900;font-size:14px;color:var(--hz)}.gate .gbar small{font-size:9px;color:var(--txt2)}
+.gate .btn.sm2{width:auto;margin:0;padding:8px 11px;font-size:13px;flex:0 0 auto}
+.gate .glock svg{width:20px;height:20px;opacity:.7}
+.grubcard{text-align:center}
+.grubrow{display:flex;align-items:center;justify-content:center;gap:6px}
+.grubrow b{font-size:40px;font-weight:900}.grubrow small{font-size:14px;font-weight:900;color:var(--txt2)}
+.grubrow svg{width:32px;height:32px}
+.grubrow.big2 b{font-size:52px;color:var(--hz)}
+.grubcard .meter{margin:8px auto;max-width:260px}
+.gnote2{font-size:13px;font-weight:800;margin-top:6px}
+.bfrom{margin-top:4px;color:var(--hz);opacity:.9}
+#app.wide #screen.mapg>.gate{grid-column:1/-1;max-width:760px;justify-self:center;width:100%}
+/* v1.0.25 tutorial coach marks + how to play */
+.coach{position:fixed;left:8px;right:8px;top:calc(env(safe-area-inset-top) + 58px);z-index:70;display:flex;align-items:flex-start;gap:6px;pointer-events:none;
+ animation:coachin .35s cubic-bezier(.3,1.4,.5,1) both}
+@keyframes coachin{from{opacity:0;transform:translateY(-14px)}}
+.coach .cmn{flex:0 0 auto}
+.coach .cbub{flex:1;position:relative;background:var(--paper,#d4c6a4);color:#1d1710;border:3px solid #000;border-radius:6px;padding:10px 12px;
+ font:700 14px/1.35 "Courier New",Courier,monospace;box-shadow:3px 4px 0 #000;cursor:pointer;pointer-events:auto}
+.coach .cbub:after{content:"";position:absolute;left:-10px;top:14px;border-style:solid;border-width:6px 11px 6px 0;border-color:transparent var(--paper,#d4c6a4) transparent transparent}
+.coach .ctap{display:block;margin-top:5px;font-size:11px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#6a5838;animation:pulse 1.2s infinite}
+.coach .cskip{flex:0 0 auto;align-self:flex-start;pointer-events:auto;background:#15120f;color:#a3947a;border:2px solid #000;border-radius:5px;
+ font:900 9px/1.15 system-ui,sans-serif;letter-spacing:.04em;text-transform:uppercase;padding:6px 5px;box-shadow:0 2px 0 #000}
+.chl{position:fixed;z-index:69;border:3px solid #ffd75e;border-radius:10px;pointer-events:none;box-shadow:0 0 0 3px rgba(0,0,0,.45),0 0 18px rgba(255,215,94,.7);
+ animation:hlp 1.1s ease-in-out infinite}
+@keyframes hlp{50%{box-shadow:0 0 0 6px rgba(0,0,0,.35),0 0 26px rgba(255,215,94,.95)}}
+#app.wide .coach{left:auto;right:22px;width:430px;top:calc(env(safe-area-inset-top) + 74px)}
+.howrow{display:flex;align-items:center;gap:11px;padding:10px 12px;margin:9px 0}
+.howrow .hi{flex:0 0 54px;display:flex;justify-content:center}
+.howrow b{display:block;font-size:15px;font-weight:900;margin-bottom:2px}
+.howrow div div{font-size:13px;line-height:1.35;color:var(--txt2)}
+#screen.howg .sub{margin-bottom:6px}
 </style>
 </head>
 <body>
@@ -427,10 +470,10 @@ html,body{height:100%;overflow:hidden}
   <main id="screen"></main>
   <footer id="foot"></footer>
 </div>
-<div id="ver">v1.0.23</div>
+<div id="ver">v1.0.25</div>
 <script>
 "use strict";
-const VERSION="1.0.23";
+const VERSION="1.0.25";
 /*__ENGINE_START__*/
 const COLS=10,YMAX=11,YMIN=-3,TREE_H=3;
 const GR={0:0,1:0.9,2:1.8,3:3.0};
@@ -465,10 +508,18 @@ const GEAR={
   {id:"p6",n:"6-inch + booster", cost:270, flow:300, lift:6.5, suck:6.5, sd:2, ch:3, d:"Fills the biggest plant, climbs a bench."}
  ]
 };
-const CH_BUDGET={1:320,2:430,3:600,4:800,5:950,6:1150};
+/* Chapters 2-6 are reached through a prospecting run; what you dig there is the
+   grubstake that tops up the yard budget for that chapter. */
+const CH_BUDGET={1:320,2:300,3:470,4:670,5:820,6:1020};
+const MAXGRUB=130;
+const GATE={2:"det",3:"pan",4:"dive",5:"opal",6:"det"};
+const GATE_PAR={det:3.2,pan:4.0,dive:4.0,opal:5.0};
+const GATE_NAME={det:"Metal detecting",pan:"Gold panning",dive:"Creek diving",opal:"Opal cutting"};
+function grubFor(kind,oz){return Math.round(Math.max(0,Math.min(1,oz/(GATE_PAR[kind]||4)))*MAXGRUB);}
 function gearList(kind,C,U){return GEAR[kind].filter(it=>!it.ch||C.ch>=it.ch);}
 function gearItem(kind,id){return GEAR[kind].find(i=>i.id===id)||GEAR[kind][0];}
-function budgetOf(C,U){U=U||{};return (C.bud||CH_BUDGET[C.ch]||300)+(U.bud1?80:0)+(U.bud2?120:0)+(U.budAdd||0);}
+function grubOf(C,U){U=U||{};return C.ch>1?Math.max(0,Math.min(MAXGRUB,(U.grubs&&U.grubs[C.ch])||0)):0;}
+function budgetOf(C,U){U=U||{};return (C.bud||CH_BUDGET[C.ch]||300)+grubOf(C,U)+(U.bud1?80:0)+(U.bud2?120:0)+(U.budAdd||0);}
 function gearOf(C,B,U){const g=B.gear||{};
   const pick=(kind)=>{const it=gearItem(kind,g[kind]);return (!it.ch||C.ch>=it.ch)?it:GEAR[kind][0];};
   return{plant:pick("plant"),slu:pick("slu"),pump:pick("pump")};}
@@ -1516,6 +1567,32 @@ function drawPop(g,G,p,t){
 }
 
 /* tile icons */
+// little emblem for each prospecting run
+function miniIcon(kind,w,hh){
+  const cv=document.createElement("canvas"),d=Math.min(devicePixelRatio||1,2.5);
+  cv.width=w*d;cv.height=hh*d;cv.style.width=w+"px";cv.style.height=hh+"px";
+  const g=cv.getContext("2d");g.setTransform(d,0,0,d,0,0);
+  const cx=w/2,cy=hh/2;g.lineJoin="round";g.lineCap="round";g.strokeStyle="#2a1d10";
+  if(kind==="det"){g.lineWidth=3;g.strokeStyle="#2a1d10";g.beginPath();g.moveTo(cx+w*0.18,cy-hh*0.34);g.lineTo(cx-w*0.1,cy+hh*0.12);g.stroke();
+    g.strokeStyle="#c9c2b2";g.lineWidth=2;g.beginPath();g.moveTo(cx+w*0.18,cy-hh*0.34);g.lineTo(cx-w*0.1,cy+hh*0.12);g.stroke();
+    g.fillStyle="#d8a01e";g.beginPath();g.ellipse(cx-w*0.14,cy+hh*0.2,w*0.22,hh*0.1,0,0,7);g.fill();g.strokeStyle="#2a1d10";g.lineWidth=1.6;g.stroke();
+    g.fillStyle="#8c3a25";rrect(g,cx+w*0.12,cy-hh*0.46,w*0.16,hh*0.16,2);g.fill();g.stroke();
+    g.strokeStyle="#ffd84a";g.lineWidth=1.6;[0.3,0.45].forEach(r=>{g.beginPath();g.arc(cx-w*0.14,cy+hh*0.2,w*r,3.6,5.8);g.stroke();});}
+  else if(kind==="pan"){g.fillStyle="#6b5a48";g.beginPath();g.ellipse(cx,cy,w*0.34,hh*0.26,0,0,7);g.fill();g.lineWidth=2;g.stroke();
+    g.fillStyle="#4d707c";g.beginPath();g.ellipse(cx,cy+hh*0.02,w*0.26,hh*0.18,0,0,7);g.fill();
+    g.fillStyle="#ffd84a";for(let i=0;i<5;i++){g.beginPath();g.arc(cx-w*0.1+i*w*0.05,cy+hh*0.07,1.8,0,7);g.fill();}}
+  else if(kind==="dive"){g.fillStyle="#3a6f8f";g.fillRect(0,cy-hh*0.34,w,hh*0.72);
+    g.fillStyle="#e8e2d0";g.beginPath();g.arc(cx,cy-hh*0.02,w*0.16,0,7);g.fill();g.lineWidth=2;g.stroke();
+    g.fillStyle="#9fb4b8";g.beginPath();g.arc(cx+w*0.05,cy-hh*0.05,w*0.07,0,7);g.fill();
+    g.strokeStyle="#cfe6f2";g.lineWidth=1.6;[0.16,0.26].forEach((r,i)=>{g.beginPath();g.arc(cx-w*0.22,cy-hh*0.22-i*6,2.6,0,7);g.stroke();});
+    g.fillStyle="#6b5a48";g.beginPath();g.ellipse(cx-w*0.2,cy+hh*0.26,w*0.14,hh*0.1,0,0,7);g.fill();}
+  else{g.fillStyle="#6b5a48";g.beginPath();g.moveTo(cx-w*0.26,cy+hh*0.2);g.lineTo(cx-w*0.1,cy-hh*0.24);g.lineTo(cx+w*0.22,cy-hh*0.12);
+    g.lineTo(cx+w*0.26,cy+hh*0.22);g.closePath();g.fill();g.lineWidth=2;g.stroke();
+    const gr=g.createLinearGradient(cx-w*0.14,cy,cx+w*0.2,cy);gr.addColorStop(0,"#2fa8a0");gr.addColorStop(0.5,"#7fd6c0");gr.addColorStop(1,"#c56ad6");
+    g.fillStyle=gr;g.beginPath();g.moveTo(cx-w*0.14,cy+hh*0.06);g.lineTo(cx-w*0.04,cy-hh*0.14);g.lineTo(cx+w*0.16,cy-hh*0.04);
+    g.lineTo(cx+w*0.14,cy+hh*0.12);g.closePath();g.fill();g.lineWidth=1.4;g.stroke();}
+  return cv;
+}
 function iconCanvas(kind,C,w,hh,opt){
   opt=opt||{};
   const cv=document.createElement("canvas"),d=Math.min(devicePixelRatio||1,2.5);
@@ -1578,7 +1655,7 @@ function minerCanvas(L,w,hh,mood,shadow){
    older is imported once, and migrate() brings old saves up to the current shape,
    so shipping a new build never costs anyone their stars. */
 const SAVE="gtg-save",LEGACY=["gtg-save-4","gtg-save-3","gtg-save-2","gtg-save-1","gtg-gold-save"],SAVE_V=5;
-let S={v:SAVE_V,best:{},stars:{},cstars:{},mini:0,builds:{},claim:0,crew:null,snd:true};
+let S={v:SAVE_V,best:{},stars:{},cstars:{},grub:{},mini:0,builds:{},claim:0,crew:null,snd:true};
 function bankOz(){let t=S.mini||0;for(const k in S.best)t+=S.best[k];return t;}
 function readKey(k){try{const r=JSON.parse(localStorage.getItem(k));return r&&typeof r==="object"?r:null;}catch(e){return null;}}
 function load(){
@@ -1594,6 +1671,13 @@ function migrate(){
   S.stars=S.stars&&typeof S.stars==="object"?S.stars:{};
   S.builds=S.builds&&typeof S.builds==="object"?S.builds:{};
   S.cstars=S.cstars&&typeof S.cstars==="object"?S.cstars:{};
+  S.grub=S.grub&&typeof S.grub==="object"?S.grub:{};
+  if(S.tut===undefined&&Object.keys(S.stars).length)S.tutOff=1;   // old hands skip the coaching
+  for(const k in S.grub){const v=S.grub[k];if(!GATE[k]||typeof v!=="number"||!isFinite(v))delete S.grub[k];else S.grub[k]=Math.max(0,Math.min(MAXGRUB,Math.round(v)));}
+  // anyone who already opened a chapter before the prospecting runs existed keeps their way in
+  CHAPTERS.forEach(ch=>{if(!GATE[ch.id])return;
+    const cs=CLAIMS.filter(c=>c.ch===ch.id);
+    if(S.grub[ch.id]===undefined&&cs.some(c=>(S.stars[c.id]||0)>0))S.grub[ch.id]=Math.round(MAXGRUB*0.5);});
   // stars earned before the per-crew tally existed belong to whoever was running the show
   if(!S.seeded){S.seeded=1;const who=S.crew;if(who&&Object.keys(S.stars).length){S.cstars[who]=Object.assign({},S.stars,S.cstars[who]||{});}}
   for(const id in S.cstars){if(!CREWS.some(c=>c.id===id)){delete S.cstars[id];continue;}
@@ -1628,10 +1712,15 @@ function save(){const j=JSON.stringify(S);
 }
 addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")save();});
 addEventListener("pagehide",save);
-function claimOpen(i){return i===0||(S.stars[CLAIMS[i-1].id]||0)>0;}
+function chapDone(ch){const cs=CLAIMS.filter(c=>c.ch===ch);return cs.length>0&&cs.every(c=>(S.stars[c.id]||0)>0);}
+function gateOpen(ch){return !!GATE[ch]&&chapDone(ch-1);}          // finished the three claims before it
+function gateDone(ch){return S.grub[ch]!==undefined;}
+function claimOpen(i){const C=CLAIMS[i];
+  if(GATE[C.ch]&&!gateDone(C.ch))return false;                     // must prospect your way in
+  return i===0||CLAIMS[i-1].ch!==C.ch||(S.stars[CLAIMS[i-1].id]||0)>0;}
 function starsFor(C,oz){const e=1e-6;return oz>=C.s[2]-e?3:oz>=C.s[1]-e?2:oz>=C.s[0]-e?1:0;}
 function crewOf(){return CREWS.find(c=>c.id===S.crew)||CREWS[1];}
-function curU(){return Object.assign(upg(bankOz()),crewOf().P);}
+function curU(){return Object.assign(upg(bankOz()),{grubs:S.grub||{}},crewOf().P);}
 function buildFor(C){if(!S.builds[C.id])S.builds[C.id]=newBuild();const B=S.builds[C.id];
   if(!B.gear)B.gear=newGear();if(B.slu)delete B.slu;
   B.ptype=plantTile(gearOf(C,B,curU()).plant.k);return B;}
@@ -1657,6 +1746,7 @@ function h(html,o){o=o||{};
   if(window.__raf){cancelAnimationFrame(window.__raf);window.__raf=null;}
   if(window.__int){clearInterval(window.__int);window.__int=null;}
   document.querySelectorAll(".float").forEach(e=>e.remove());
+  if(typeof tutClear==="function")tutClear();
   CUR={re:o.re||null,w:innerWidth,h:innerHeight,wide:WIDE()};
   appEl.classList.toggle("wide",CUR.wide);appEl.classList.toggle("full",!!o.full);
   topEl.innerHTML=o.top||"";topEl.style.display=o.top?"":"none";
@@ -1731,6 +1821,78 @@ sndEl.onclick=()=>{S.snd=S.snd===false;save();syncSnd();
     setTimeout(()=>sndToast(SND.ready()?"Breakdown alarm ON \u2014 that's the sound":"Breakdown alarm ON \u2014 check your ringer switch"),60);}
   else sndToast("Breakdown alarm OFF \u2014 watch for the red ring");};
 
+
+/* =============== TUTORIAL =============== */
+/* A coach mark walks a new player through their first claim: yard, cut, plant,
+   water, haulage, run. It advances by watching the build, so it never blocks. */
+const TUT=[
+ {s:"intro",t:"Porcupine Creek. Wash the gold in those piles to earn stars — the first one needs the smallest pile. Tap PLAY.",g:"#b"},
+ {s:"gear", t:"The yard. You have a budget for the season: a wash plant, a sluice box and a pump.",g:'.shelf[data-k="plant"]',tap:1},
+ {s:"gear", t:"Bigger plants wash more dirt but drink more water — your pump has to keep up. Whatever you don't spend buys spares.",g:'.shelf[data-k="pump"]',tap:1},
+ {s:"gear", t:"Pick your kit, then head to the claim.",g:"#go"},
+ {s:"build",t:"Drag the DIGGER onto the speckled gold. That paints your cut — the dirt you'll dig this season.",g:'#tray .tile[data-k="dig"]',d:B=>!!B.cut},
+ {s:"build",t:"Nice. Drag the white handles sideways to take in more gold — but a wider cut takes longer to dig.",g:"#gd",tap:1},
+ {s:"build",t:"Now drop the PLANT on bare ground next to the cut. It can't stand on the gold.",g:'#tray .tile[data-k="trm"], #tray .tile[data-k="shk"]',d:B=>B.plant!==null},
+ {s:"build",t:"Set the PUMP where it can reach the creek. The dotted line shows how high it can push water — the plant must sit under it.",g:'#tray .tile[data-k="wat"]',d:B=>B.wat.length>0},
+ {s:"build",t:"Last job: haul the dirt to the plant. Drag the BELT on (or the trucks, on claims that have them).",g:'#tray .tile[data-k="belt"], #tray .tile[data-k="truck"]',d:B=>B.belt||B.trucks>0},
+ {s:"build",t:"That's a plant. Fix anything the foreman moans about, then RUN SEASON.",g:"#run"},
+ {s:"run",  t:"Now watch the season. If a machine breaks down, tap it fast — every day it sits broken is gold you don't wash.",tap:1},
+ {s:"result",t:"Stars come from the oz you wash. Change your kit in the yard or move the plant, and run it again.",tap:1}
+];
+function tutOn(){return !S.tutOff&&(S.tut||0)<TUT.length&&S.claim===0;}
+function tutStep(){return TUT[S.tut||0];}
+function tutClear(){const e=document.getElementById("coach");if(e)e.remove();
+  const r=document.getElementById("chl");if(r)r.remove();
+  if(window.__ctut){clearInterval(window.__ctut);window.__ctut=null;}}
+function tutNext(){S.tut=(S.tut||0)+1;if(S.tut>=TUT.length)S.tutOff=1;save();tutClear();tutShow();}
+function tutSkip(){S.tutOff=1;save();tutClear();}
+function tutShow(screen){
+  tutClear();
+  if(screen)window.__tscr=screen;
+  if(!tutOn())return;
+  const st=tutStep();if(!st||st.s!==window.__tscr)return;
+  const el=document.createElement("div");el.className="coach";el.id="coach";
+  el.innerHTML=`<div class="cmn"></div><div class="cbub">${st.t}${st.tap?'<span class="ctap">tap to carry on</span>':""}</div>
+    <button class="cskip" id="cskip">Skip<br>tips</button>`;
+  document.body.appendChild(el);
+  el.querySelector(".cmn").appendChild(minerCanvas(crewOf().look,52,64,"grin"));
+  el.querySelector("#cskip").onclick=e=>{e.stopPropagation();tutSkip();};
+  if(st.tap)el.querySelector(".cbub").onclick=()=>tutNext();
+  const ring=document.createElement("div");ring.className="chl";ring.id="chl";document.body.appendChild(ring);
+  function place(){const t=st.g?document.querySelector(st.g):null;
+    if(!t){ring.style.display="none";return;}
+    const r=t.getBoundingClientRect();if(!r.width){ring.style.display="none";return;}
+    ring.style.display="block";ring.style.left=(r.left-6)+"px";ring.style.top=(r.top-6)+"px";
+    ring.style.width=(r.width+12)+"px";ring.style.height=(r.height+12)+"px";}
+  place();
+  window.__ctut=setInterval(()=>{
+    if(!document.getElementById("coach")){clearInterval(window.__ctut);window.__ctut=null;return;}
+    place();
+    const C=CLAIMS[S.claim];
+    if(st.d&&S.builds[C.id]&&st.d(S.builds[C.id]))tutNext();
+  },250);
+}
+/* =============== HOW TO PLAY =============== */
+const HOWTO=[
+ ["dig","Paint your cut","Drag the digger over the speckled gold. Only that band pays — the muck on top just slows you down."],
+ ["trm","Stand the plant","Drop it on bare ground beside the cut. Dirt goes in the hopper, gold comes out the sluice."],
+ ["wat","Get water to it","The pump can sit back from the creek on a pipe, but it can only push water so high. Keep the plant under the dotted line."],
+ ["belt","Haul the dirt","A belt if it reaches, trucks if it doesn't. Long hauls are slow hauls."],
+ ["sluice","Buy the right kit","Each claim gives you a budget in the yard. One combination of plant, sluice and pump is best — the rest will only get you a star or two."],
+ ["truck","Mind the season","Breakdowns stop the plant. Tap the machine fast: the days keep ticking while it's down."]
+];
+function screenHow(back){
+  syncBar(false);
+  h(`<div class="h1">HOW TO PLAY</div>
+     <div class="sub center">Build a plant on the claim, then run the season and see how much gold you wash</div>
+     ${HOWTO.map(([k,h1,h2],i)=>`<div class="howrow card"><div class="hi" data-k="${k}"></div>
+        <div><b>${i+1}. ${h1}</b><div>${h2}</div></div></div>`).join("")}`,
+    {cls:"howg",foot:`<button class="btn go big" id="ok">${ICON.play}<span>GOT IT</span></button>`});
+  const C=CLAIMS[0];
+  $$(".howrow .hi").forEach(el=>el.appendChild(iconCanvas(el.dataset.k,C,54,42,{item:GEAR.plant[2]})));
+  $("#ok").onclick=()=>back?back():screenTitle();
+}
+
 /* =============== TITLE =============== */
 function screenTitle(){
   syncBar(false);
@@ -1739,7 +1901,8 @@ function screenTitle(){
       <div class="logo"><span class="l1">GET THE</span><span class="l2">GOLD!</span></div>
       <div class="stage"><canvas id="tc"></canvas></div>
      </div>`,{re:screenTitle,foot:`<button class="btn go huge pulse" id="go">${ICON.play}<span>PLAY</span></button>
-      ${has?'<button class="btn ghost" id="wipe">New game</button>':""}`});
+      <div class="row"><button class="btn ghost" id="how">${ICON.map}<span>How to play</span></button>
+      ${has?'<button class="btn ghost" id="wipe">New game</button>':""}</div>`});
   const cv=$("#tc"),W=Math.floor(Math.min(W0(),Math.max(260,(scr.clientHeight-(WIDE()?150:190))/0.78))),H=Math.round(W*0.78),g=fit(cv,W,H),L=crewOf().look,t0=performance.now();
   const nug=[];const r=rnd32(5);for(let i=0;i<14;i++)nug.push([W*0.5+(r()-0.5)*W*0.7,H-26-r()*14,4+r()*6]);
   loop(()=>{const t=(performance.now()-t0)/1000;
@@ -1755,6 +1918,7 @@ function screenTitle(){
     drawCrew(g,W*0.5,H-18,H*(L.duo?0.52:0.62),L,"grin",t);
   });
   $("#go").onclick=()=>S.crew?screenMap():screenCrew();
+  $("#how").onclick=()=>screenHow(screenTitle);
   if($("#wipe")){let armed=false;$("#wipe").onclick=()=>{if(!armed){armed=true;$("#wipe").textContent="Tap again to wipe everything";
     setTimeout(()=>{armed=false;const w=$("#wipe");if(w)w.textContent="New game";},3000);return;}
     try{[SAVE].concat(LEGACY).forEach(k=>localStorage.removeItem(k));}catch(e){}
@@ -1823,20 +1987,31 @@ function screenMap(){
        <span class="swap">${ICON.reset}<small>Swap<br>crew</small></span></button>
      ${CHAPTERS.map(ch=>{const cs=CLAIMS.map((c,i)=>[c,i]).filter(([c])=>c.ch===ch.id),open=chOpen(ch.id),
         got=cs.reduce((a,[c])=>a+(S.stars[c.id]||0),0);
-       return `<div class="region ${open?"":"locked"}"><div class="rname"><span>${ch.id} · ${ch.n}</span><span class="rs">${ICON.star}${got}/9</span></div>
-        <div class="rdesc">${open?ch.d:"Finish the chapter before to unlock."}</div>
+       const gk=GATE[ch.id],gOpen=gk&&gateOpen(ch.id),gDone=gk&&gateDone(ch.id),gv=S.grub[ch.id]||0;
+       return (gk?`<div class="gate ${gOpen||gDone?"":"locked"} ${gDone?"done":""}">
+          <div class="gi3" data-k="${gk}"></div>
+          <div class="gtx2"><div class="sub">Prospecting run — way into Chapter ${ch.id}</div>
+            <b>${GATE_NAME[gk]}</b>
+            ${gDone?`<div class="gbar"><div class="meter gold"><i style="width:${gv/MAXGRUB*100}%"></i></div><span>$${gv}<small>/${MAXGRUB}</small></span></div>`
+                   :`<small>${gOpen?"Dig up your grubstake — it buys the kit":"Three stars’ worth of seasons first"}</small>`}</div>
+          ${gOpen||gDone?`<button class="btn go sm2" data-g="${ch.id}">${gDone?ICON.reset:ICON.play}<span>${gDone?"AGAIN":"GO"}</span></button>`:`<span class="glock">${ICON.lock}</span>`}
+        </div>`:"")
+        +`<div class="region ${open?"":"locked"}"><div class="rname"><span>${ch.id} · ${ch.n}</span><span class="rs">${ICON.star}${got}/9</span></div>
+        <div class="rdesc">${open?ch.d:GATE[ch.id]&&chapDone(ch.id-1)?"Make your prospecting run to open it.":"Finish the chapter before to unlock."}</div>
         <div class="strip"><canvas data-r="${ch.region}" data-s="${ch.id}"></canvas>
         ${cs.map(([c,i])=>{const st=S.stars[c.id]||0,o2=claimOpen(i);
           return `<button class="pin ${st?"done":o2?"open":"lock"}" data-i="${i}" style="left:${c.mx}%;top:${c.my}%">
             ${o2?`<b>${c.name}</b><span class="ps">${starRow(st,"xs")}</span>`:ICON.lock}</button>`;}).join("")}
         </div></div>`;}).join("")}
-     `,{re:screenMap,cls:"mapg",foot:Object.keys(S.stars).length?`<button class="btn ghost" id="pros">${ICON.pan}<span>Go prospecting</span></button>`:""});
+     `,{re:screenMap,cls:"mapg",foot:`<button class="btn ghost" id="how2">${ICON.map}<span>How to play</span></button>`});
   addMiner("#mnw",64,74,"grin");
+  $$(".gate .gi3").forEach(el=>el.appendChild(miniIcon(el.dataset.k,46,40)));
+  $$(".gate button[data-g]").forEach(b=>b.onclick=()=>playGate(+b.dataset.g));
   $$(".strip canvas").forEach(cv=>{const W=Math.floor(cv.parentElement.clientWidth),g=fit(cv,W,120);drawRegion(g,W,120,cv.dataset.r,+cv.dataset.s);});
   $$(".pin").forEach(b=>b.onclick=()=>{const i=+b.dataset.i;if(!claimOpen(i))return;S.claim=i;save();screenIntro();});
   $("#crew").onclick=()=>screenCrew();
-  if($("#pros"))$("#pros").onclick=()=>{const kinds=["pan","det","opal","dive"];
-    startMini(kinds[Math.floor(Math.random()*4)],oz=>{S.mini+=oz*(crewOf().P.miniMul||1);save();screenMap();});};
+  $("#how2").onclick=()=>screenHow(screenMap);
+
   const firstOpen=CLAIMS.findIndex((c,i)=>claimOpen(i)&&!S.stars[c.id]);
   if(firstOpen>2){const el=scr.querySelector(`.pin[data-i="${firstOpen}"]`);if(el)el.closest(".region").scrollIntoView({block:"center"});}
 }
@@ -1865,10 +2040,42 @@ function screenIntro(){
   const cv=$("#pv"),W=Math.round(WIDE()?Math.min(430,(scr.clientHeight-90)/0.7*0.9):W0()*0.7),G=geo(W),g=fit(cv,W,G.H);
   g.drawImage(terrain(C,G),0,0,W,G.H);
   C.trees.forEach(c=>drawTrees(g,G,C,c,PAL[C.region],null,0));
-  $("#b").onclick=()=>screenGear();
-  $("#ph").onclick=()=>screenGear();
+  $("#b").onclick=()=>{if(tutOn()&&tutStep().s==="intro")tutNext();screenGear();};
+  $("#ph").onclick=()=>{if(tutOn()&&tutStep().s==="intro")tutNext();screenGear();};
+  tutShow("intro");
 }
 
+
+/* =============== PROSPECTING RUN (the way into a chapter) =============== */
+function playGate(ch){
+  const kind=GATE[ch];if(!kind)return;
+  startMini(kind,oz=>{
+    const got=grubFor(kind,oz),before=S.grub[ch]||0,best=Math.max(before,got);
+    S.mini+=oz*(crewOf().P.miniMul||1);S.grub[ch]=best;save();
+    screenGrub(ch,kind,oz,got,before,best);
+  });
+}
+function screenGrub(ch,kind,oz,got,before,best){
+  const chap=CHAPTERS.find(c=>c.id===ch),first=before===0&&!gateDone(ch),improved=got>before;
+  syncBar(false);
+  h(`<div class="h1">${got>=MAXGRUB*0.8?"GOOD RUN!":got>=MAXGRUB*0.45?"THAT'LL DO":"SLIM PICKINGS"}</div>
+     <div class="card grubcard">
+       <div class="sub">${GATE_NAME[kind]}</div>
+       <div class="grubrow">${ICON.nugget}<b>${fmt(oz)}</b><small>oz</small></div>
+       <div class="sub">sells for</div>
+       <div class="grubrow big2"><b>$${got}</b><small>/ $${MAXGRUB}</small></div>
+       <div class="meter gold"><i style="width:${got/MAXGRUB*100}%"></i></div>
+       <div class="gnote2">${improved?`Grubstake for Chapter ${ch} — ${chap.n}`:`Your best run still stands: <b>$${best}</b>`}</div>
+       <div class="sub">Yard budget there: <b>$${CH_BUDGET[ch]}</b> + <b>$${best}</b> = <b>$${CH_BUDGET[ch]+best}</b></div>
+     </div>
+     <div class="crewline"><div id="mnw"></div><div class="bubble">${got>=MAXGRUB*0.8?"That's a proper stake. We can buy some real kit.":
+        got>=MAXGRUB*0.45?"Enough to get us started. Could do better.":"Thin. We'll be running on scrap unless you go again."}</div></div>`,
+    {cls:"grubg",foot:`<div class="row2"><button class="btn round" id="again">${ICON.reset}</button>
+       <button class="btn go big" id="on">${ICON.play}<span>${first?"OPEN CHAPTER "+ch:"TO THE MAP"}</span></button></div>`});
+  addMiner("#mnw",56,70,got>=MAXGRUB*0.45?"grin":"worry");
+  $("#again").onclick=()=>playGate(ch);
+  $("#on").onclick=()=>screenMap();
+}
 
 /* =============== THE YARD (loadout) =============== */
 function screenGear(){
@@ -1918,8 +2125,9 @@ function screenGear(){
         "Right, let's get it on the claim.");
   }
   draw();
-  $("#go").onclick=()=>screenBuild();
+  $("#go").onclick=()=>{if(tutOn()&&tutStep().s==="gear")while(tutOn()&&tutStep().s==="gear")tutNext();screenBuild();};
   $("#back2").onclick=()=>screenIntro();
+  tutShow("gear");
 }
 
 /* =============== BUILD =============== */
@@ -1971,7 +2179,7 @@ function screenBuild(){
     pr.innerHTML=["plant","slu","pump"].map(k=>`<span class="gz"><b>${GG[k].n}</b><small>${gearStat(k,GG[k])}</small></span>`).join("")
       +`<button class="gchg" id="gchg">${ICON.reset}<span>Yard</span></button>`;
     $("#gchg").onclick=()=>screenGear();
-    const run=$("#run");run.disabled=!R.ready;run.classList.toggle("pulse",complete());
+    const run=$("#run");run.disabled=!R.ready||R.problems.length>0;run.classList.toggle("pulse",complete());
   }
   function puff(c,y){puffs.push({x:c+0.5,y,t0:T});}
   function world(e){const r=cv.getBoundingClientRect();
@@ -2072,8 +2280,9 @@ function screenBuild(){
   cv.addEventListener("pointercancel",()=>{drag=null;floatEl.style.display="none";});
 
   $("#wipe").onclick=()=>{const nb=newBuild();Object.keys(nb).forEach(x=>B[x]=nb[x]);S.builds[C.id]=B;drag=null;save();say("Site cleared! Start again.","grin",1.8);updateUI();};
-  $("#run").onclick=()=>screenRun();
+  $("#run").onclick=()=>{if(tutOn()&&tutStep().s==="build")while(tutOn()&&tutStep().s==="build")tutNext();screenRun();};
   updateUI();
+  tutShow("build");
   loop(()=>{
     T=(performance.now()-t0)/1000;
     if(tmsg&&T>tmsg.until){tmsg=null;updateUI();}
@@ -2161,6 +2370,7 @@ function screenRun(){
   bb.addEventListener("click",()=>tapAt(null));
   $("#skip").onclick=()=>{if(finished)return;brk=null;paused=null;
     while(shown<days.length){produce(shown,false);shown++;if((ranDay&&shown>=ranDay)||(siltDay&&shown>=siltDay))break;}finish();};
+  tutShow("run");
   if(fail)pause("end",{txt:fail+" Tap to see what went wrong."});
   else post({txt:"Fire it up!",mood:"grin",hold:1},true);
   loop(()=>{
@@ -2239,6 +2449,7 @@ function screenResult(oz,R,fail,ranDay,siltDay,lostDays){
     if(st===3)tip="Now THAT'S a plant!";
     if(lostDays)tip+=" Breakdowns cost you "+lostDays+" day"+(lostDays>1?"s":"")+" — fix them faster!";}
   const next=CLAIMS[S.claim+1];
+  const nextGate=[2,3,4,5,6].find(ch=>gateOpen(ch))||0;
   const mx=Math.max(R.dig,R.haul===Infinity?0:Math.min(R.haul,250),R.cap,R.water,1);
   const haulIcon=R.haulKind==="trucks"?"truck":R.haulKind==="belt"?"belt":null;
   const rows=[["dig",R.dig,lim==="dig"],[haulIcon,R.haulKind==="pipe"?null:R.haul,lim==="haul"],[R.gear.plant.k,R.cap,lim==="plant"],["wat",R.water,lim==="water"]];
@@ -2258,7 +2469,8 @@ function screenResult(oz,R,fail,ranDay,siltDay,lostDays){
      ${newU.map(u=>`<div class="card unlock"><span class="tag">UNLOCKED!</span><b>${u.n}</b><div>${u.d}</div></div>`).join("")}
      ${newCrew.map(c=>`<div class="card unlock crewun"><span class="tag">NEW CREW!</span><div class="cu" data-c="${c.id}"></div><b>${c.name}</b><div>${c.boss} \u2014 ${c.pd}</div>
        <div class="sub" style="margin-top:6px">Swap to them any time from the map</div></div>`).join("")}
-     ${won?`<button class="btn ghost" id="tweak">${ICON.play}<span>Tweak this build</span></button><button class="btn ghost" id="mini">${ICON.pan}<span>Go prospecting</span></button>`:""}
+     ${won?`<button class="btn ghost" id="tweak">${ICON.play}<span>Tweak this build</span></button>`:""}
+     ${won&&nextGate?`<button class="btn ghost" id="mini">${ICON.pan}<span>${gateDone(nextGate)?"Prospect again for Chapter "+nextGate:"Prospecting run \u2014 Chapter "+nextGate}</span></button>`:""}
      ${newCrew.length?`<button class="btn ghost" id="meet">${ICON.star}<span>Meet ${newCrew[0].boss}</span></button>`:""}
      <button class="btn ghost" id="map">${ICON.map}<span>Map</span></button>
      <div class="ov" id="ov"><canvas id="fx"></canvas>
@@ -2276,11 +2488,12 @@ function screenResult(oz,R,fail,ranDay,siltDay,lostDays){
          </div>
        </div></div>`,{cls:"resg",foot:`<div class="row2">
        <button class="btn round" id="re">${ICON.reset}</button>
-       ${won?`<button class="btn go big" id="nx">${ICON.play}<span>${next?"NEXT":"MAP"}</span></button>`:`<button class="btn go big" id="re2">${ICON.reset}<span>TRY AGAIN</span></button>`}
+       ${won?`<button class="btn go big" id="nx">${ICON.play}<span>${next&&claimOpen(S.claim+1)?"NEXT":"MAP"}</span></button>`:`<button class="btn go big" id="re2">${ICON.reset}<span>TRY AGAIN</span></button>`}
      </div>`});
   $$(".gi[data-k]").forEach(el=>el.appendChild(iconCanvas(el.dataset.k,C,40,30)));
   $$(".cu").forEach(el=>{const c=CREWS.find(x=>x.id===el.dataset.c);el.appendChild(minerCanvas(c.look,80,96,"wow"));});
   const mn=addMiner("#mnw",60,76,won?"grin":"worry"),t0=performance.now();
+  setTimeout(()=>tutShow("result"),1200);
   const om=minerCanvas(crewOf().look,70,86,"grin");$("#ovmn").appendChild(om);
   $$(".op").forEach(el=>el.appendChild(goldPileCanvas(+el.dataset.l,30,20)));
   // ---- star reveal ----
@@ -2296,7 +2509,7 @@ function screenResult(oz,R,fail,ranDay,siltDay,lostDays){
   function closeOv(){ovOpen=false;ov.classList.add("hide");setTimeout(()=>{ov.style.display="none";},250);}
   $("#oretry").onclick=()=>screenBuild();
   $("#orep").onclick=closeOv;
-  if($("#onext"))$("#onext").onclick=()=>{if(next){S.claim++;save();screenIntro();}else screenMap();};
+  if($("#onext"))$("#onext").onclick=()=>{if(next&&claimOpen(S.claim+1)){S.claim++;save();screenIntro();}else screenMap();};
   if($("#onext2"))$("#onext2").onclick=()=>screenBuild();
   function star(sp,x,y,r,rot){sp.beginPath();for(let i=0;i<10;i++){const a=rot+i*Math.PI/5,rr=i%2?r*0.45:r;sp.lineTo(x+Math.cos(a)*rr,y+Math.sin(a)*rr);}sp.closePath();sp.fill();}
   loop(()=>{const t=(performance.now()-t0)/1000;
@@ -2318,10 +2531,10 @@ function screenResult(oz,R,fail,ranDay,siltDay,lostDays){
   $("#re").onclick=()=>{S.builds[C.id]=newBuild();save();screenBuild();};
   if($("#re2"))$("#re2").onclick=()=>screenBuild();
   if($("#tweak"))$("#tweak").onclick=()=>screenBuild();
-  if($("#nx"))$("#nx").onclick=()=>{if(next){S.claim++;save();screenIntro();}else screenMap();};
+  if($("#nx"))$("#nx").onclick=()=>{if(next&&claimOpen(S.claim+1)){S.claim++;save();screenIntro();}else screenMap();};
   $("#map").onclick=()=>screenMap();
   if($("#meet"))$("#meet").onclick=()=>screenCrew();
-  if($("#mini"))$("#mini").onclick=()=>startMini(MINI_FOR[C.ch]||"pan",gz=>{S.mini+=gz*(crewOf().P.miniMul||1);save();screenMap();});
+  if($("#mini"))$("#mini").onclick=()=>playGate(nextGate);
 }
 
 /* ================= MINI-GAMES ================= */
